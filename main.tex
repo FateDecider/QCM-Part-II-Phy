@@ -1,0 +1,1683 @@
+\documentclass[a4paper]{article}
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{float}
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{amsmath}
+\usepackage{amstext}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{eqnarray}
+\usepackage{float}
+\usepackage{esint}
+\usepackage{wrapfig}
+\usepackage{gensymb}
+\usepackage{lipsum}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{tikz}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage[caption=false]{subfig}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Auto}{Aut}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\R}{Im}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Mod}{mod}
+\DeclareMathOperator{\cl}{cl}
+\newcommand{\dbar}{d\hspace*{-0.08em}\bar{}\hspace*{0.1em}}
+\newcommand{\iso}{\xrightarrow{
+   \,\smash{\raisebox{-0.65ex}{\ensuremath{\scriptstyle\sim}}}\,}}
+\newtheorem{post}{Postulate}[section]
+\newtheorem{eg}{Example}[section]
+\newtheorem{remarks}{Remarks}[section]
+\newtheorem{notation}{Notation}[section]
+\newtheorem{Note}{Note}[section]
+\definecolor{darkblue}{RGB}{	0, 0, 139}
+\newtheoremstyle{new}% <name>
+{2pt}% <Space above>
+{2pt}% <Space below>
+{\color{darkblue}}% Body font
+{}% <Indent amount>
+{\bfseries\color{black}}% Theorem head font
+{:}% <Punctuation after theorem head>
+{.5em}% <Space after theorem headi>
+{}% <Theorem head spec (can be left empty, meaning `normal')>
+\theoremstyle{new}
+\newtheorem{law}{Law}[section]
+\newtheorem{defi}{Definition}[section]
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{prop}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{cor}{Corollary}[section]
+
+\title{\textbf{Part II QCM Summary Notes}}
+\author{Tai Yingzhe, Tommy (ytt26)}
+\date{}
+\setlength{\parindent}{0cm}
+\begin{document}
+\maketitle
+{\small\tableofcontents}
+\subsection*{Acknowledgements:}
+Many thanks to my supervisor Andrey Karailiev, and the lecturer David Ritchie for their guidance. Some parts of this notes are heavily influenced by the Part II DAMTP course Applications of Quantum Mechanics.
+\newpage
+\section{Toy models for electrons in solids}
+\subsection{Lorentz oscillator model}
+We consider a classical toy model - model the atoms (of an insulator) as consisting of a positively charged nucleus and a negatively charged electron cloud. We only consider the long wavelength limit where the wavelength of the incoming electromagnetic waves are much larger than the distances between atoms, i.e. assume the electric field across a single atom is uniform.
+\begin{prop}
+In the presence of an oscillating electric field, the polarizability is
+\begin{equation}
+    \chi(\omega)=\frac{nq^2}{m\varepsilon_0(\omega_T^2-\omega^2-i\omega\gamma)}\label{polarizability}
+\end{equation}
+where $\omega_T$ is the natural frequency, $\gamma$ is the phenomenological damping rate and $q$ is the charge of the electron.
+\end{prop}
+\begin{proof}
+An applied electric field causes displacement of the electron cloud by a distance $u$. For small displacements, we can linearize the restoring force, i.e. proportional to the displacement. The equation of motion is then
+$$m\ddot{u}+m\gamma\dot{u}+m\omega_T^2u=qE$$
+where the equation of motion is that of a damped harmonic oscillator. Under the influence of an oscillating electric field $E(t)=E_\omega e^{-i\omega t}$, the electron cloud will oscillate around a stationary ion with a displacement $u(t)=u_\omega e^{-i\omega t}$. The resulting dipole moment per atom at angular frequency $\omega$ is $p_\omega =qu_\omega$, which gives rise to a polarization (dipole moment density) $P_\omega=\varepsilon_0\chi_\omega E_\omega$. Then, we obtain our desired result.
+\end{proof}
+\begin{remarks}\leavevmode
+\begin{enumerate}
+\item $\gamma$ is due to radiative losses or interference with the electron clouds on neighbouring atoms. Difficult to use theory to calculate $\gamma$.
+\item The relative permittivity is $\varepsilon(\omega)=1+\chi(\omega)$. Like a damped harmonic oscillator, the power absorbed by the electron cloud is $\frac{1}{2}\omega\varepsilon_0|E_\omega|^2\text{Im}[\varepsilon_\omega]$.
+\item In the low frequency limit, the permittivity is
+$$\varepsilon(\omega\rightarrow 0)=1+\frac{nq^2}{m\varepsilon_0\omega_T^2}$$
+\item A mismatch in dielectric permittivity between the two media gives rise to reflection. Suppose the permeability $\mu$ is the same in both media, then the reflectivity at the interface between two media
+$$r=\frac{\sqrt{\varepsilon_1}-\sqrt{\varepsilon_2}}{\sqrt{\varepsilon_1}+\sqrt{\varepsilon_2}}$$
+and the power reflection coefficient is $R=|r|^2$.
+\item Our computation, especially for solids, is not fully self-consistent. The electric field experienced by the electron cloud on one atom is not only the applied field, but also modified by the polarisation and the associated electric field due to other atoms in the vicinity. This does not change the functional form of $\varepsilon(\omega)$, but they shift $\omega_T$.
+\item The sharp absorption peaks found in atomic spectra will broaden out into resonances with a finite width - Lorentzian form.
+\item At high frequency, at least in the optical range, the resulting frequency-dependent permittivity of an insulator can be obtained by adding the responses associated with each transition. $\varepsilon(\omega)=1+\sum_i\chi_i(\omega)$, i.e. superimposing dipole oscillator responses with different natural frequencies, each scaled by a suitable oscillator strength (phenomenological). The low frequency, static permittivity then includes contributions from the low frequency tails of all the individual oscillator responses.
+\end{enumerate}
+\end{remarks}
+\begin{eg}[Fused Silica]
+Consider the spectra for fused Silica (SiO$_2$). There is strong absorption in the infrared and ultraviolet, and a broad region of low absorption in between. We have the refractive index $n$ (related to $\text{Re}[\varepsilon]$) to be much larger than the extinction coefficient $\kappa$ (related to $\text{Im}[\varepsilon]$) except near the peaks of the absorption. The Lorentz model gives $d^2n/d\lambda^2<0$ above one absorption line and $d^2n/d\lambda^2>0$ below the next. By choosing $d^2n/d\lambda^2=0$, we can minimize dispersion.\\[5pt]
+The transmission range of colourless materials is determined by the electronic absorption in the ultraviolet and the vibrational absorption in the infrared. Silica is a glass and does not have a regular crystal lattice. The infrared absorption is due to excitation of vibrational quanta in the SiO$_2$ molecules themselves, with two distinct peaks. The ultraviolet absorption is caused by interband electronic transitions, with a fundamental bandgap of about 10 eV. These peaks are due to the transitions of the inner core electrons of the Silicon and the Oxygen atom.
+\end{eg}
+\begin{eg}[Crystalline insulators and semiconductors]
+Sapphire has a high transmission in the wavelength range 0.2 to 6 microns (transparency range) which includes the entire visible spectrum, hence it appears colorless and transparent. The transmission coefficient in the transparency range is determined by the reflectivity and the refractive indices of the surfaces, i.e. $R=\frac{(n-1)^2+\kappa^2}{(n+1)^2+\kappa^2}$, where $n=\sqrt{\text{Re}[\varepsilon]}$ and $\kappa=\frac{\text{Im}[\varepsilon]}{2n}$ for a weakly absorbing medium, $n>>\kappa$. Sapphire has a dip in the infrared transmission due to vibrational absorption. Transmission drops sharply in the ultraviolet due to absorption by bound electrons.
+\end{eg}
+\begin{eg}[Metals]
+Metals are shiny due to high reflectivity (interaction of light with the free electrons). Reflectivity drops sharply in the ultraviolet (determined by the plasma frequency). Presence of free carriers lead to interband electronic transitions, hence giving them colour.
+\end{eg}
+\subsection{Drude model}
+For metals, we have a sea of conduction of electrons that are free to roam around, between immobile positively charged ionic cores. Drude applied kinetic theory to this `gas' of conduction elections. Despite being over-simplistic, Drude model's predictions are still accurate for $\tau$(relaxation time)-independent quantities, e.g. electrical conductivity when a spatially uniform static $\mathbf{B}$ is present (Hall effect), and when $\mathbf{E}$ is spatially uniform but time-dependent ($\sigma(\omega)$). Consider the latter first:
+\begin{prop}[Optical properties of metals]
+\begin{equation}
+    \varepsilon(\omega)=\varepsilon_\infty-\frac{\omega_p^2}{\omega^2+i\omega\gamma},\quad\omega_p^2=\frac{ne^2}{m\varepsilon_0}\label{metalpermittivity}
+\end{equation}
+where $\omega_p$ is called the plasma frequency and $\varepsilon_\infty$ is due to the background.
+\end{prop}
+\begin{proof}
+For the free electrons, we set $\omega_T\rightarrow 0$ in Eqn.~\ref{polarizability}, i.e. spring constant in the linearized force law going to zero. Insert a background permittivity $\varepsilon_\infty$ to take account of the polarizability of the bound core electrons.
+\end{proof}
+\begin{remarks}\leavevmode
+\begin{enumerate}
+    \item $|\varepsilon(\omega)|\rightarrow\infty$ for $\omega\rightarrow 0$, i.e. metals are highly reflecting at low frequency.
+    \item $\text{Im}[\varepsilon(\omega)]$ peaks at $\omega=0$, i.e. enhanced absorption at low frequency (the Drude peak).
+    \item $\varepsilon(\omega)$ crosses zero and $\lim_{\omega\rightarrow\omega_P^*}\varepsilon(\omega)=1$ for some high frequency $\omega_P^*$, i.e. metal becomes transparent in the ultraviolet.
+    \item The reflection coefficient at an air/metal interface's frequency dependence: $\lim_{\omega\rightarrow 0}R=1$, with a weakly frequency dependent value less than 1 over a wide frequency range, and drops off as $R\propto\omega^{-4}$ at high frequency. A finite background polarisability (caused by the core electrons), which gives rise to $\varepsilon_\infty>1$, causes $R$ to dip to zero at finite frequency.
+    \item Eqn.~\ref{metalpermittivity} useful when considering electromagnetic irradiation on a metal. Typically, the $\mathbf{B}$ field is much smaller than the $\mathbf{E}$ field. Here, we assume the field does not vary appreciably over distances comparable to the electronic mean free path.
+\end{enumerate}
+\end{remarks}
+\begin{eg}[Aluminium]
+The reflectivity is above 80\% for visible region of spectrum. The plasma frequency $\omega_P$ in ultra-violet, hence sharp dip in reflectivity. By accounting for interband absorption, we can explain why the experimental reflectivity is smaller than predicted, as well as, a small dip in reflectivity around 1.5eV.
+\end{eg}
+\begin{defi}[Plasma oscillations]
+The free resonance of the conduction electrons on top of the positively charged ionic charge background is called the plasma oscillation. Any polarisation in the metal causes surface charges to build up, which generate a restoring force that can drive oscillations. The entire electron gas in the metal oscillates back and forth in synchrony. The peak width of this resonance is $\tau^{-1}$.
+\end{defi}
+\begin{eg}
+Plasma oscillations can be detected by measuring the optical absorption ($\text{Im}[\varepsilon_\omega]$), or they can be probed by inelastic scattering of charged particles such as electrons. For the latter, when high energy electrons pass through the metal, they can excite plasma oscillations and thereby lose some of their energy, which we can deduce from comparing the initial and final energies.
+\end{eg}
+\begin{prop}[Plasma oscillations]
+\begin{equation}
+    \varepsilon(\omega)^{-1}=\frac{\omega^2+i\omega\gamma}{\omega^2-\omega_P^2+i\omega\gamma}\label{plasmaoscillations}
+\end{equation}
+\end{prop}
+\begin{proof}
+Consider probing a slab of material by applying an oscillating field. The free charges brought into the vicinity of our sample to probe its properties produce a displacement $\mathbf{D}$. Since $D_\perp$ is continuous across the interface, this can be translated to $\mathbf{E}$ field inside the sample, and the polarization $\mathbf{P}$ is
+$$\varepsilon_0E=\varepsilon^{-1}D=D-P\implies P=D(1-\varepsilon^{-1})$$
+In metals, $\omega_P>>\gamma=\tau^{-1}$ and usually $\varepsilon_\infty\approx1$. Finally, result follows from Eqn.~\ref{metalpermittivity}.
+\end{proof}
+\begin{remarks}\leavevmode
+\begin{enumerate}
+    \item $1/\varepsilon(\omega)$ peaks at the plasma frequency, i.e. $\varepsilon(\omega_P)\rightarrow 0$. Or more generally, $\varepsilon\rightarrow 0$ at $\omega_P^*=\omega_P/\sqrt{\varepsilon_\infty}$. This implies a finite amplitude of oscillation for $E$ and $P$ at $\omega_P$, despite $D=\varepsilon_0\varepsilon(\omega)E=0$. 
+    \item One can understand this by: displacing the entire electron gas by a distance $d$ with respect to the fixed positive ionic background, the resulting surface charge gives rise to an electric field $\sigma/\varepsilon_0$ at either end of the slab. Hence, the electron gas obeys the equation of motion $Nm\ddot{d}=-ne^2Nd/\varepsilon_0$, i.e. simple harmonic motion.
+\end{enumerate}
+\end{remarks}
+However, setting $\omega_T=0$ is conceptually unsatisfactory since
+\begin{enumerate}
+    \item If the electrons are cut loose from the ionic cores, their average position, around which they are meant to oscillate, is no longer defined.
+    \item Our picture of scattering processes (where we postulate that electrons occasionally run into an obstacle, like defects and phonons, and thereby randomize their momentum) prevents us from ascribing the same velocity to all the electrons -  we need a statistical description.
+\end{enumerate}
+As such, we introduce two modifications:
+\begin{enumerate}
+    \item Rather than starting with an equation of motion for the electronic displacement $\mathbf{u}$, we consider the rate of change of $\mathbf{v}=\mathbf{\dot{u}}$.
+    \item Instead of considering the velocity of an individual electron, we average over a large number of electrons. This drift velocity will follow a simple equation of motion, and it is crucial to the optical and transport properties of the solids.
+\end{enumerate}
+Our assumptions for the Drude model are thus:
+\begin{enumerate}
+    \item a collision indicates the scattering of an electron by an ionic core and nothing else
+    \item between collisions, electrons do not interact with each other (independent electron approximation) or with ions (free electron approximation)
+    \item collisions (with the impenetrable ion cores) are instantaneous and result in a change in electron velocity
+    \item an electron suffers a collision with probability per unit time $\tau^{-1}$(relaxation time approximation)
+    \item electrons achieve thermal equilibrium with their surroundings only through collisions
+\end{enumerate}
+\begin{prop}[Frequency dependent conductivity]
+\begin{equation}
+    \varepsilon_\omega=\varepsilon_\infty+i\frac{\sigma(\omega)}{\varepsilon_0\omega}\label{freqdependent}
+\end{equation}
+\end{prop}
+\begin{proof}
+Write the charge density $\rho=qN/V$ and the current density (via Ohm's Law): $\mathbf{j}=\rho\mathbf{v}=\sigma\mathbf{E}$. The polarization is due to the core electrons (background polarizability $\chi_\infty$) and the conduction electrons ($\mathbf{\dot{P}_c}$):
+$$\mathbf{\dot{P}}=\mathbf{j}+\varepsilon_0\chi_\infty\mathbf{\dot{E}}$$
+Consider again oscillatory responses, then the Fourier components are
+$$\mathbf{j}(\omega)=\sigma(\omega)\mathbf{E}(\omega)=-i\omega\varepsilon_0(\chi(\omega)-\chi_\infty)$$
+This gives $\sigma_\omega=-i\omega\varepsilon_0(\varepsilon(\omega)-\varepsilon_\infty)$.
+\end{proof}
+\begin{prop}[Equation of motion]
+The total momentum of $N$ freely moving electrons satisfies the equation of motion
+\begin{equation}
+\bigg(\frac{d}{dt}+\frac{1}{\tau}\bigg)\mathbf{p}=N\mathbf{f}(t)\label{EoM}
+\end{equation}
+where $\mathbf{f}(t)$ is the Lorentz force acting on per electron.
+\end{prop}
+\begin{proof}
+For the electron scattering events, we assume
+\begin{enumerate}
+    \item electron collisions randomise the electron momenta, so that - on average - the contribution of an electron to the total momentum is zero after a collision.
+    \item the probability for a collision to occur, $P$, is characterised by a single relaxation time, i.e. the probability of a collision in the time $[t,t+dt]$ is $dt/\tau$.
+\end{enumerate}
+The probability that a particular electron has not scattered in the time interval $[t,t+dt]$ is $1-dt/\tau$. Only the electrons that have not scattered will continue to be accelerated by the applied force, we have
+$$\mathbf{p}(t+dt)=(1-dt/\tau)(\mathbf{p}(t)+N\mathbf{f}(t)dt)+\dots$$
+where $N$ is the number of electrons. The result follows.
+\end{proof}
+\begin{cor}[Low frequency limit]
+\begin{equation}
+    \sigma_0=\frac{ne^2\tau}{m}\label{DCconductivity}
+\end{equation}
+\end{cor}
+\begin{proof}
+We first neglect $\mathbf{B}$ and consider the Lorentz force to just be $\mathbf{f}=q\mathbf{E}$, then the equations of motion will give
+$$\bigg(\frac{d}{dt}+\frac{1}{\tau}\bigg)\mathbf{j}=\frac{nq^2}{m}\mathbf{E}(t)$$
+Try an oscillatory ansatz again,
+$$\sigma(\omega)=\frac{\mathbf{j}(\omega)}{\mathbf{E}(\omega)}=\frac{ne^2}{m}\frac{1}{1/\tau-i\omega}$$
+In the low frequency limit, $\sigma(\omega)\rightarrow\sigma_0$.
+\end{proof}
+\newpage
+\begin{remarks}\leavevmode
+\begin{enumerate}
+    \item At frequencies larger than $1/\tau$, the conductivity falls off rapidly: $\text{Re}[\sigma(\omega)]=\frac{\sigma(0)}{1+\omega^2\tau^2}$.
+    \item We could have also written the DC conductivity in terms of the mobility $\mu=e\tau/m$: $\sigma=ne\mu=ne^2\tau/m$. 
+    \item Our result $\sigma(\omega)=\frac{ne^2}{m}\frac{1}{1/\tau-i\omega}$, upon plugging into Eqn.~\ref{metalpermittivity}, we can identify $1/\tau$ with $\gamma$, and indeed $\omega_T\rightarrow 0$. (Turns out this was right.)
+\end{enumerate}
+\end{remarks}
+\begin{defi}[Hall effect]
+Apply $B\mathbf{\hat{z}}$ and $E_x$ to a wire extending in the $x$-direction and a current density $j_x$ flows in the wire. The Lorentz force acts to deflect electrons in the negative $y$-direction (an electron's drift velocity is opposite to current flow). However, the electrons accumulate at the edges, building up $E_y$ that oppose their motion and their further accumulation. In equilibrium, the transverse field $E_y$ will balance the Lorentz force, and current will flow only in the $x$-direction.
+\end{defi}
+\begin{cor}[Hall coefficient]
+We define the Hall coefficient to be $R_H:=\frac{E_y}{j_xB}$, which is
+\begin{equation}
+    R_H=\frac{1}{nq}\label{Hall}
+\end{equation}
+\end{cor}
+\begin{proof}
+Consider a static magnetic field $\mathbf{B}$ applied along the $\mathbf{\hat{z}}$ direction, and static currents and electrical fields are constrained on the $x$-$y$ plane. The equations of motion are
+$$(\partial_t+\tau^{-1})j_x=\frac{q^2n}{m}(E_x+v_yB),\quad(\partial_t+\tau^{-1})j_y=\frac{q^2n}{m}(E_y-v_xB),\quad(\partial_t+\tau^{-1})j_z=\frac{q^2n}{m}E_z$$
+In steady state, set time derivative as zero. Since current flow is only along $x$ direction, we have
+$$\mathbf{v_x}=\frac{q\tau}{m}\mathbf{E_x},\quad\mathbf{E_y}=-\frac{qB}{m}\tau\mathbf{E_x}$$
+Taking the ratio gives the result.
+\end{proof}
+\begin{eg}[Scanning Hall Probe Microscopy]
+Hall sensor mounted on scanning system to measure local magnetic field. Senstivity $10^{-5}$ T and spatial resolution 0.35$\mu$ m.
+\end{eg}
+\begin{remarks}
+The Hall effect is an important diagnostic for the density and type of carriers transporting the electrical current in a semiconductor. The theory is right for alkali metals. But Be, Al, and In all have positive Hall coefficients - accounted for by a band-structure with hole pockets that dominates the Hall effect. In still more complicated cases, contributions from both positive and negative carriers, attributed to different electronic bands, combine in a non-trivial way to determine the Hall effect.
+\end{remarks}
+\subsection{Failure of classical models}
+\begin{enumerate}
+\item By equipartition theorem, the average electronic speed at room temperature is $v_0=\sqrt{3k_BT/m}\sim 10^5$ m/s, corresponding to a mean free path of a few Angstroms, comparable to interatomic spacing. But, $v_0$ is actually about a thousand times larger. This is strong evidence that the electrons do not simply bump off the ions.
+    \item Applying equipartition theorem to the dipole oscillator model or the Drude model suggests the heat capacity is independent of temperature, which is incorrect.
+    \item Assuming the conduction of heat in metals is almost entirely due to electrons, then $$\kappa=\frac{\mathbf{j^q}}{\boldsymbol{\nabla}T}=\frac{1}{3}v^2\tau n\frac{dE}{dT}\frac{1}{V}=\frac{1}{3}\langle v^2\rangle\tau C_{\text{el}}=\frac{1}{3}\frac{3}{2}\frac{k_BT}{0.5m_e}\tau \frac{3}{2}nk_B=\frac{3}{2}\frac{nk_B^2\tau}{m_e}T$$
+    where $\langle v_x^2\rangle=\frac{1}{3}v^2$ in 3D and $c_v=\frac{1}{V}\frac{dE}{dT}$. The DC electrical conductivity was $\sigma_0=\frac{ne^2\tau}{m_e}$. Take the ratio (Wiedemann-Franz ratio) divided by temperature gives
+    \begin{equation}
+    \frac{\kappa}{\sigma T}=\frac{3k_B^2}{2e^2}\label{Wiedemann-franz}
+    \end{equation}
+    which is still lower than the experimental value.
+    \item The experimental Hall coefficient is dependent on the magnetic field.
+\end{enumerate}
+Need to account for the quantum statistics of a free electron gas.
+\newpage
+\subsection{Sommerfeld model}
+Consider a free electron gas in a three-dimensional box of side $L$. It satisfies the Schr\"{o}dinger's equation and the wavefunction has energies $E_k=\frac{\hbar^2|\mathbf{k}|^2}{2m}$. Due to the restriction of the box, the allowed values of $\mathbf{k}$ are discrete, $\mathbf{k}=\frac{\pi}{L}(n_x,n_y,n_z)$, $n_x,n_y,n_z\in\mathbb{Z}^+$. Equivalently, we may set periodic boundary conditions, which restricts the momentum to be $\mathbf{k}=\frac{2\pi}{L}(n_x,n_y,n_z)$, $n_x,n_y,n_z\in\mathbb{Z}$.
+\begin{defi}[Fermi gas]
+In the ground state at zero temperature, the Fermi gas can be represented by filling up all the low energy states up to a maximum energy $E_F$, corresponding to a sphere of radius $k_F$ in $k$-space. The occupancy of states in thermal equilibrium at an arbitrary temperature $T$ is
+$$f(E)=\frac{1}{e^{(E-\mu)/k_BT}+1}$$
+where $\mu$ is identified at zero temperature.
+\end{defi}
+\begin{prop}
+In 3D, the Fermi momentum in 3D is $k_F=(3\pi^2n)^{1/3}$ and the density of states is
+$$g(E)=\frac{V}{\pi^2}\frac{m}{\hbar^2}\sqrt{\frac{2mE}{\hbar^2}}$$
+Hence, the heat capacity is
+\begin{equation}
+    c_V=\frac{\pi^2}{2}\frac{k_BT}{E_F}nk_B\label{heatcap}
+\end{equation}
+\end{prop}
+\begin{proof}
+Each triplet of quantum numbers $k_x$, $k_y$, $k_z$ accounts for two states (spin degeneracy) and occupies a volume $(2\pi/L)^3$. The total number of occupied states inside the Fermi sphere is
+$$N=2\frac{4\pi k_F^3/3}{(2\pi/L)^3}\implies k_F=(3\pi^2n)^{1/3}$$
+where $n=N/V$ and a spin degeneracy of 2. Consider a shell of energy width $dE$, then the total number of states in this shell is
+$$g(E)dE=2\frac{4\pi k^2dk}{(2\pi)^3/V}\implies g(E)=2\frac{V}{(2\pi)^3}4\pi k^2\frac{dk}{dE}$$
+The specific heat capacity is
+$$c_v=\frac{du}{dT}=\int Eg(E)\frac{\partial f(E)}{\partial T}dE=\int Eg(E)\frac{e^x}{(e^x+1)^2}\bigg[\frac{x}{T}+\frac{1}{k_BT}\frac{d\mu}{dT}\bigg]dE$$
+where $x=(E-\mu)/k_BT$, $f(E)$ is the Fermi distribution, which is very nearly a step-function, i.e. the temperature derivative is sharply-peaked for energies near the chemical potential. But the number of particles is conserved,
+$$0=\frac{dn}{dT}=g(E_F)\int\frac{\partial f(E)}{\partial T}dE=g(E_F)k_BT\int_{-\infty}^\infty \frac{e^x}{(e^x+1)^2}\bigg[\frac{x}{T}+\frac{1}{k_BT}\frac{d\mu}{dT}\bigg]dx$$
+where the limits are extended to infinity. The term with $e^x/(e^x+1)^2$ is even, and the integral contribution vanish if the limits is symmetric. At this level of approximation, $\frac{d\mu}{dT}=0$. Hence, to the same level of accuracy,
+$$c_V=g(E_F)k_BT\int_{-\infty}^\infty (\mu+k_BTx)\frac{e^x}{(e^x+1)^2}\frac{x}{T}dx=g(E_F)k_B^2T\int_{-\infty}^\infty\frac{x^2e^x}{(e^x+1)^2}dx=\frac{\pi^2}{3}k_B^2Tg(E_F)$$
+where it may be rewritten to the desired result via $g(E_F)=\frac{3n}{2E_F}$.
+\end{proof}
+\begin{remarks}
+A simpler estimate would be: only states within $k_BT$ of the chemical potential will contribute to the specific heat. This is much less than the $3k_B/2$ per particle from classical distinguishable particles. The specific heat is $\frac{nk_BT}{E_F}k_B$.
+\end{remarks}
+\begin{prop}[Thermal conductivity]
+\begin{equation}
+    \kappa_{\text{el}}=\frac{\pi^2}{3}\frac{nk_B^2T\tau}{m}\label{conductivity}
+\end{equation}
+\end{prop}
+\begin{proof}
+Using kinetic theory, particles with velocity $v$, mean free path $\ell$ and specific heat $c$ gives a thermal conductivity $\kappa=\frac{1}{3}\langle v^2\rangle\tau_\kappa c_{\text{el}}$, where $\tau_\kappa$ is the scattering for thermal transport and $C_{\text{el}}$ is the electronic specific heat $c_{\text{el}}=\frac{n\pi^2k_B^2T}{E_F}$. Assume $\langle v^2\rangle=v_F^2$ and take $E_F=\frac{1}{2}m^*v_F^2$,
+$$\kappa_{\text{el}}=\frac{1}{3}n\pi^2k_B^2\tau_\kappa\frac{T}{m^*}$$
+where $m^*$ is the effective mass of the electrons.
+\end{proof}
+\begin{remarks}\leavevmode
+\begin{enumerate}
+\item The electrical conductivity is $\sigma=ne^2\tau_\sigma/m^*$, so the ratio is $L=\kappa/\sigma T=\frac{\pi^2k_B^2}{3e^2}\frac{\tau_\kappa}{\tau_\sigma}$. If they are equal, the Lorenz number is $L_0=2.45\times10^{-8}$ W$\Omega$K$^{-2}$. 
+\item \textbf{Electrical transport in metals:} When an electric field is applied to the right, electrons at the Fermi surface acquire a small amount of extra velocity in a particular direction. Electrons on the right of the Fermi surface move into slightly higher energy states with the other electrons filling the vacated states. The net result is the left hand side states being vacated. The Fermi surface moves by a small amount $\delta k=\frac{1}{\hbar}m^*v_d$, with $v_d\approx 10^{-3}$ m/s $<<v_F\approx 3\times10^6$ m/s. $\tau_\sigma$ is time to randomize an electron's forward velocity, a scattering process sends an electron heading to the right into empty state heading left.
+\item \textbf{Thermal transport in metals:} In the presence of a thermal gradient, electrons travelling left (for instance) are cooler with a less smeared out Fermi-Dirac distribution than those travelling to the right (in the direction of the heat flow). $\tau_\kappa$ is the time to randomise an electron's thermal energy, a scattering process can cause an electron to lose or gain $\sim k_BT$ of energy and move into an empty state close by or move from the hot side of the Fermi surface to the cold side by scattering off a high momentum photon (later).
+
+\end{enumerate}
+\end{remarks}
+\begin{eg}[Bulk modulus of a metal]
+Consider electrons in a box, as the box is compressed, the wavelengths of the wavefunctions shorten which increases the kinetic energy of the states increase, in turn increasing the total energy (since number of states do not change). There must be an outwards pressure. Given the ground-state energy $E$, one can calculate the pressure exerted by the electron gas from the relation $P=-(\frac{\partial E}{\partial V})_N$. The energy density of the electron gas is
+$$\frac{E}{V}=\frac{1}{4\pi^3}\int_{k<k_F}\frac{\hbar^2k^2}{2m}d^3\mathbf{k}=\frac{1}{\pi^2}\frac{\hbar^2k_F^5}{10m}\implies\frac{E}{N}=\frac{3}{10}\frac{\hbar^2k_F^2}{m}=\frac{3}{5}E_F$$
+where $k_F^3=3\pi^2n$. But, $E_F$ is proportional to $k_F^2$ which depends on $V$ via $n^{2/3}=(N/V)^{2/3}$. So 
+$$P=-\frac{3}{5}N\frac{-2E_F}{3V}=\frac{2}{5}nE_F$$
+The bulk modulus is then
+$$B=-V\frac{\partial P}{\partial V}=-V\frac{\partial}{\partial V}\bigg(\frac{2NE_F}{5V}\bigg)=-\frac{2}{3}\frac{N}{V^2}E_F=\frac{2}{3}nE_F$$
+since $E_F$ is proportional to $(N/V)^{2/3}$. 
+\end{eg}
+The Sommerfeld model is a great improvement on the Drude model, and can successfully explain
+\begin{enumerate}
+    \item the temperature dependence and magnitude of  $C_{\text{el}}$
+    \item the approximate temperature dependence and magnitudes of the thermal and electrical conductivites of metals, and the Wiedemann-Franz ratio $\kappa/\sigma T=\pi^2(k_B/e)^2/3$ at high and low temperatures (but not intermediate temperatures)
+\end{enumerate}
+In particular, the correct estimate of $v^2$ is not the classical $k_BT/m$, but $2E_F/m$, which is larger. Although this theory is an improvement, it still cannot account for 
+\begin{enumerate}
+\item the Hall coefficients - which in general depend on both $\mathbf{B}$ and $T$,
+\item the magnetoresistance of some metals - which does depends on $\mathbf{B}$,
+\item temperature and directional dependence of the DC electrical conductivity $\sigma_0$,
+\item the shapes of the Fermi surfaces in many real materials,
+\item insulators and semiconductors,
+\item specific temperature dependence of the specific heat $c_v\sim c_1T+c_2T^3$.
+\end{enumerate}
+To make progress, we have to abandon the assumptions:
+\begin{itemize}
+    \item free electron approximation - later, we will consider the effect of a periodic potential;
+    \item independent electron approximation - at the end, we will consider briefly interacting electrons;
+    \item relaxation time approximation - we will not consider in this course.
+\end{itemize}
+\subsection{Thomas-Fermi screening}
+Consider screening in a free electron gas. 
+\begin{prop}
+Suppose a positively charged particle is placed at a given position in the electron gas. In a dielectric, the potential solely due to the positively charged particle itself, is related to the total potential (the external charge and the cloud of screening electrons it induces). The proportionality constant is
+$$\varepsilon(\mathbf{q})=1-\frac{\chi(\mathbf{q})}{q^2\varepsilon_0}$$
+where $\mathbf{q}$ is the wavevector and $\chi(\mathbf{q})=\frac{\rho^{\text{ind}}(\mathbf{q})}{\phi(\mathbf{q})}$.
+\end{prop}
+\begin{proof}
+At the position of the external charge (with charge density $\rho^{\text{ext}}$), a surplus of negative charge in its neighbourhood will be induced, which reduces (or screens) its field. By Poisson's equation, we have
+$$-\nabla^2\phi^{\text{ext}}(\mathbf{r})=\epsilon_0^{-1}\rho^{\text{ext}}(\mathbf{r}),\quad
+-\nabla^2\phi(\mathbf{r})=\epsilon_0^{-1}\rho(\mathbf{r}),\quad \rho(\mathbf{r})=\rho^{\text{ext}}(\mathbf{r})+\rho^{\text{ind}}(\mathbf{r})$$
+where $\phi^{\text{ext}}$ arises solely due to the positively charged particle itself, and $\phi$ due to both it and the cloud of screening electrons (it induces). Here, we assume the externally applied charge is weak enough to produce only a linear response in the electron gas. In a dielectric, $\phi$ and $\phi^{\text{ext}}$ are linearly related via
+$$\phi^{\text{ext}}(\mathbf{r})=\int\varepsilon(\mathbf{r},\mathbf{r'})\phi(\mathbf{r'})d\mathbf{r'}=\int\varepsilon(\mathbf{r}-\mathbf{r'})\phi(\mathbf{r'})d\mathbf{r'}\implies\phi^{\text{ext}}(\mathbf{q})=\varepsilon(\mathbf{q})\phi(\mathbf{q})$$
+where in a spatially uniform electron gas, $\varepsilon$ depends on the relative separation. Here, we performed a Fourier transform. When $\rho^{\text{ind}}$ and $\phi$ are linearly related, $\implies\rho^{\text{ind}}(\mathbf{q})=\chi(\mathbf{q})\phi(\mathbf{q})$.
+$$\chi(\mathbf{q})\phi(\mathbf{q})=q^2\varepsilon_0(\phi(\mathbf{q})-\phi^{\text{ext}}(\mathbf{q}))\implies\phi(\mathbf{q})=\frac{\phi^{\text{ext}}(\mathbf{q})}{1-\frac{1}{q^2\varepsilon_0}\chi(\mathbf{q})}$$
+where we perform a Fourier transform.
+\end{proof}
+
+
+In principle, to find the charge density in the presence of the total potential $\phi=\phi^{\text{ext}}+\phi^{\text{ind}}$, we must solve the one-electron Schr\"{o}dinger's equation, and then construct the electronic density from the one-electron wavefunctions. The Thomas-Fermi approach simplifies this and it is valid when the total potential $\phi(\mathbf{r})$ is slowly varying with $\mathbf{r}$ (of the order $1/k_F$). Assume the electron is described by a wavepacket and the dispersion relation will now take a simple form dependent on position:
+$$E(\mathbf{k})=\frac{\hbar^2k^2}{2m}-e\phi(\mathbf{r})$$
+i.e. energy modified from free electron value by the total local potential. 
+\begin{cor}[Thomas-Fermi dielectric constant]
+\begin{equation}
+    \varepsilon(\mathbf{q})=1+\frac{q^2_{\text{TF}}}{q^2},\quad q^2_{\text{TF}}=\frac{4k_F}{\pi a_0}\label{TF}
+\end{equation}
+where $a_0$ is the Bohr radius.
+\end{cor}
+\begin{proof}
+The induced charge density is $-en(\mathbf{r})+en_0$, where the second term is due to the uniform positive background.
+$$n(\mathbf{r})=\int\frac{1}{e^{\beta(\frac{\hbar^2k^2}{2m}-e\phi(\mathbf{r})-\mu)}+1}\frac{2d^3\mathbf{k}}{(2\pi)^3},\quad n_0(\mu)=\int\frac{1}{e^{\beta(\frac{\hbar^2k^2}{2m}-\mu)}+1}\frac{2d^3\mathbf{k}}{(2\pi)^3}$$
+i.e. $\rho^{\text{ind}}(\mathbf{r})=-e[n_0(\mu+e\phi(\mathbf{r}))-n_0(\mu)]$. But assuming $\phi$ is small enough, we may write to leading order
+$$\rho^{\text{ind}}(\mathbf{r})=-e^2\frac{\partial n_0}{\partial\mu}\phi(\mathbf{r})$$
+we define the function $\chi(\mathbf{q}):=-e^2\frac{\partial n_0}{\partial\mu}$, which is actually independent of $\mathbf{q}$. This gives the Thomas-Fermi dielectric constant to be $\varepsilon(\mathbf{q})=1+\frac{q^2_{\text{TF}}}{q^2}$, where $q_{\text{TF}}^2=\frac{e^2}{\varepsilon_0}\frac{\partial n_0}{\partial\mu}$. But when $T<<T_F$ for a Fermi gas, $\frac{\partial n_0}{\partial\mu}$ is the density of levels at the Fermi energy $g(E_F)=\frac{mk_F}{\hbar^2\pi^2}$, giving
+$$q^2_{\text{TF}}=\frac{1}{\pi^2\varepsilon_0}\frac{me^2}{\hbar^2}k_F=\frac{4k_F}{\pi a_0},\quad a_0=\frac{4\pi\hbar^2\varepsilon_0}{me^2}$$
+By defining a Wigner-Seitz radius $\frac{4}{3}\pi r_S^3=n^{-1}$, we obtain $q_{\text{TF}}=\frac{2.95}{\sqrt{r_s}}$ per Angstorm.
+\end{proof}
+\begin{remarks}\leavevmode
+\begin{enumerate}
+\item For long-wavelength perturbations, the perturbing potential effectively just shifts the free electron energy levels, equivalent to assuming a spatially varying Fermi energy.
+\item By keeping the electron states filled up to a constant energy $\mu$, we have to adjust the local Fermi energy $E_F(\mathbf{r})$ by $\mu=E_F(\mathbf{r})-e\phi(\mathbf{r})$. We assume $E_F$ depends only on the local electron number density via the density of states per unit volume $g(E)$, we have $\int^{E_F}g(E)dE=n$. A small shift in the Fermi energy $\delta E_F$ results in $\delta n=g(E_F)\delta E_F$. But this shift is $\delta E_F=e(\phi+\phi^{\text{ext}})$, hence $\delta n=eg(E_F)(\delta\phi+\phi^{\text{ext}})\implies\frac{\partial n}{\partial\mu}=g(E_F)$.
+
+\end{enumerate}
+\end{remarks}
+\begin{eg}[Yukawa potential]
+Consider the case where the external potential is that of a point charge, $\phi^{\text{ext}}(\mathbf{r})=Q/r$, then via a Fourier transform, we get
+$$\phi(\mathbf{q})=\frac{4\pi Q}{q^2+k_0^2}\implies\phi(\mathbf{r})=\frac{Q}{r}e^{-k_0\mathbf{r}}$$
+giving us a screened Coulomb potential, or Yukawa potential.
+\end{eg}
+\begin{eg}
+Mobile electron gas highly effective at screening external charges. In alloys, the substitutional foreign atom scatters conduction electrons with interaction given by the screened Coulomb potential – scattering contributes to increase in in resistivity, theory and experiment in agreement.
+\end{eg}
+\newpage
+\section{From atoms to solids}
+\subsection{Types of bonding}
+\begin{eg}[van der Waals interaction]
+Treat an atom as an oscillator, with the electron cloud fluctuating around the nucleus as if on a spring. The centre of the motion lies on top of the atom, but if the cloud is displaced, there will be a small dipole induced, $p_1$. Such displacements occur as a result of zero-point motion of the electron cloud in the potential of the nucleus. A distance $R$ away from the atom there is now an induced electric field $\propto p_1/R^3$. A second atom placed at this point will then have a dipole induced by the electric field of the first: $p_2\propto\alpha p_1/R^3$, where $\alpha$ is the atomic polarizability. The second dipole induces an electric field at the first, $E_1\propto p_2/R^3\propto\alpha p_1/R^6$. The energy of the system is changed by $\Delta U=\langle -p_1\cdot E_1\rangle\propto-\alpha\langle p_1^2\rangle/R^6$. This is the attractive potential of the van der Waals interaction. The repulsive portion is modelled as $\propto1/R^{12}$, which gives an overall Lennard-Jones potential.
+\end{eg}
+\begin{eg}[Ionic attraction]
+The electrostatic interaction energy for a diatomic crystal is
+$$U=\frac{1}{2}\sum_i\sum_jU_{ij}=\frac{1}{2}\sum_i\sum_j\frac{\pm q^2}{R_{ij}}=-\frac{\alpha_Mq^2}{2R}$$
+where $\alpha_M$ is a dimensionless constant, called the Madelung constant.
+\end{eg}
+\begin{eg}[Simple covalent molecules]
+Suppose we have a basis of two atomic states $\phi(r-R_i)$ where $i=a,b$, then the two hybridized states of even and odd parity are
+$$\psi_\pm(r)=\phi(r-R_a)\pm\phi(r-R_b)$$
+where $\psi_+$ (bonding state) has a substantial probability density between the atoms, and $\psi_-$ (anti-bonding state) has a node between. With $p$, $d$ orbitals, one can form directed bonds. To calculate single-electron energy levels, consider $|a\rangle=\phi(\mathbf{r}-\mathbf{R_a})$ and $|b\rangle=\phi(\mathbf{r}-\mathbf{R_b})$, look for energy eigenfunction within subspace spanned by orthonormal basis functions $|\psi\rangle=\alpha|a\rangle+\beta|b\rangle$. Project $H|\psi\rangle=E|\psi\rangle$ to $|a\rangle$ and $|b\rangle$ respectively, we have
+$$\alpha H_{aa}+\beta H_{ab}=\alpha E,\quad\alpha H_{ba}+\beta H_{bb}=\beta E$$
+which gives
+$$E=\frac{H_{aa}+H_{bb}}{2}\pm\frac{\Delta E}{2},\quad \frac{\Delta E}{2}=\sqrt{\bigg(\frac{H_{aa}-H_{bb}}{2}\bigg)^2+|H_{ab}|^2}$$
+\begin{itemize}
+    \item $H_{aa}\approx H_{bb}\implies\Delta E/2=|H_{ab}|$, i.e. covalent bonding
+    \item If $H_{aa}<<H_{bb}$ or $H_{aa}>>H_{bb}$, then $E=H_{aa}$ or $E=H_{bb}$, i.e. ionic bonding.
+\end{itemize}
+\end{eg}
+\begin{eg}[Semiconductor]
+GaAs and cubic ZnS have zincblende structure, tetrahedral structure with alternating atoms, and is partly covalent and partly ionic. In more ionic systems, the hexagonal crystal structure based on local tetrahedral network - wurtzite, is favoured.
+\end{eg}
+\begin{eg}[Metals]
+Electrons in band states are delocalized. The bonding is isotropic. Electrons are closely packed with high coordination number. The screening length of conduction electrons is of order atomic spacing. 
+\end{eg}
+\newpage
+\subsection{Crystallography}
+\begin{defi}[Bravais Lattice]
+A Bravais lattice is an infinite periodic array of discrete points with an arrangement and orientation that appears exactly the same, from whichever of the points the array is viewed. In three dimensions, points of a lattice are indexed by three integers
+$$\mathbf{R}_{[n_1,n_2,n_3]}=n_1\mathbf{a_1}+n_2\mathbf{a_2}+n_3\mathbf{a_3},\quad n_1,n_2,n_3\in\mathbb{Z}$$ 
+where $\mathbf{a_1},\mathbf{a_2},\mathbf{a_3}$ are primitive lattice vectors and its choice are not unique. It turns out that any periodic structure can be expressed as a lattice of repeating motifs. A Bravais lattice has the property that any point looks like the same in any point. Two Bravais lattices are equivalent if they share the same symmetry. 
+\end{defi}
+\begin{eg}[Bravais Lattice Types]
+In 3D, there are 14 different types of Bravais lattice, corresponding to 7 crystal systems. For each crystal system, subtypes relate to placement of additional atoms: P (primitive), I (body-centred), F (face-centred on all faces).
+\end{eg}
+\begin{defi}[Unit Cell]
+A unit cell is a region of space such that when many identical units are stacked together if it completely fills all of space and reconstructs the full structure.
+\end{defi}
+\begin{defi}[Primitive Unit Cell]
+A primitive unit cell is a region of space that, when translated by $\mathbf{a_i}$, tessellates the space. In a unit cell, it contains exactly one lattice point.
+\end{defi}
+\begin{defi}[Wigner-Seitz Cell]
+The Wigner-Seitz cell $\Gamma$ (also known as Voroni cell) is a canonical primitive unit cell. Given a lattice point, the set of all points in space which are closer to that given lattice point than to any other lattice point constitute the Wigner-Seitz cell of the given lattice point. To be specific, pick an origin lattice site in $\Lambda$.
+$$\Gamma=\{\mathbf{x}:|\mathbf{x}|<|\mathbf{x}-\mathbf{r}|~\forall\mathbf{r}\in\Lambda\text{ such that }\mathbf{r}\neq\boldsymbol{0}\}$$
+i.e. it is the region of space closer to a lattice site than to any other site. Wigner-Seitz cell will display the full symmetry of the Bravais lattice, but not necessarily all primitive cells will.
+\end{defi}
+\begin{remarks}[Construct Wigner-Seitz Cell]
+Choose a lattice point and draw lines to all of its possible near neighbours (not just its nearest neighbours). Then draw perpendicular bisectors of all of these lines. The perpendicular bisectors bound the Wigner-Seitz cell.
+\end{remarks}
+\begin{cor}
+Due to translational symmetry of the Bravais lattice, the Wigner-Seitz cell about any one lattice point must be taken into the Wigner-Seitz cell about any other, when translated through the lattice vector that joins the two points.
+\end{cor}
+\begin{defi}[Basis]
+The description of objects in the unit cell with respect to the reference lattice point in the unit cell is known as a basis. Using a particular set of basis vectors, with suitable coefficients, we can define any direction $\mathbf{r}=u\mathbf{a}+v\mathbf{b}+w\mathbf{c}$ where the direction is written in the abbreviated form $[u,v,w]$. Negative coefficients are indicated with a bar. If $u,v,w\in\mathbb{Z}$, $\mathbf{r}$ is a lattice vector that links two equivalent lattice points.
+\end{defi}
+\begin{defi}[Lattice Plane]
+A lattice plane is a plane containing at least three non-collinear, and therefore an infinite number of points of a lattice.
+\end{defi}
+\begin{defi}[Miller Indices]
+Miller indices form a notation system in crystallography for planes in crystal (Bravais) lattices.
+\end{defi}
+\begin{eg}[Finding Miller Indices]
+Assume one of the planes passes through the origin. Look for where the next plane cuts the three axes that are defined by the lattice vectors $\mathbf{a}$, $\mathbf{b}$ and $\mathbf{c}$. The plane cuts the axes at $\frac{\mathbf{a}}{h}$, $\frac{\mathbf{b}}{k}$ and $\frac{\mathbf{c}}{l}$, hence the indices are ($hkl$). If the plane is parallel to an axis, the index is zero. Note the set of symmetrically related planes is written as $\{hkl\}$.
+\end{eg}
+\begin{defi}[Family of Lattice Planes]
+A family of lattice planes is an infinite set of equally separated parallel lattice planes which taken together contain all points of the lattice.
+\end{defi}
+\begin{defi}[Coordination Number]
+The coordination number of a lattice is the number of nearest neighbours any point of the lattice has.
+\end{defi}
+\begin{eg}[Body-Centric Cubic (bcc) Lattice]
+The bcc lattice is a simple cubic lattice where there is an additional lattice point in the very centre of the cube. There are 8 lattice points on the corners of the cell and one point in the centre of the cell, hence conventional unit cell contains exactly two lattice points. One can write the primitive lattice vectors to be $\mathbf{a_1}=[1,0,0]$, $\mathbf{a_2}=[0,1,0]$ and $\mathbf{a_3}=[0.5,0.5,0.5]$ in units of the lattice constant. A symmetric choice would be
+\begin{equation}
+\mathbf{a_1} = \frac{a}{2} \begin{pmatrix} -1\\ 1 \\ 1\end{pmatrix}\quad\mathbf{a_2} = \frac{a}{2} \begin{pmatrix} 1\\ -1 \\ 1\end{pmatrix},\quad\mathbf{a_3} = \frac{a}{2} \begin{pmatrix} 1\\ 1 \\ -1\end{pmatrix}\label{bcc}
+\end{equation}
+The bcc lattice has coordination number of 8. The Wigner-Seitz cell of BCC is a truncated octahedron with volume $V=a^3/2$ where $a$ is the lattice constant. The hexagonal faces bisect lines joining the central point to points on vertices. The square faces bisect lines joining the central point to other central points in each of the six neighbouring cubic cells.
+\end{eg}
+\begin{eg}[Face-Centred Cubic (fcc) Lattice]
+The fcc lattice is a simple cubic lattice where there is an additional lattice point in the centre of every face of every cube. There are 8 lattice points in a unit cell on the corners, and one point in the centre of each of the 6 faces. The conventional unit cell contains exactly four lattice points. The primitive lattice vectors are $\mathbf{a_1}=[0.5,0.5,0]$, $\mathbf{a_2}=[0.5,0,0.5]$ and $\mathbf{a_3}=[0,0.5,0.5]$ in units of the lattice constant. A symmetric choice would be
+\begin{equation}
+\mathbf{a_1} = \frac{a}{2} \begin{pmatrix} 0\\ 1 \\ 1\end{pmatrix},\quad\mathbf{a_2} = \frac{a}{2} \begin{pmatrix} 1\\ 0 \\ 1\end{pmatrix},\quad\mathbf{a_3} = \frac{a}{2} \begin{pmatrix} 1\\ 1 \\ 0\end{pmatrix}\label{fcc}
+\end{equation}
+The fcc lattice has coordination number 12.
+The Wigner-Seitz cell of fcc is rhombic dodecahedron with volume $V=a^3/4$. Each of the 12 congruents faces is perpendicular to line joining central point to a point on the centre of the edge.
+\end{eg}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{WignerSeitz.PNG}
+    \caption{(Left) Wigner-Seitz construction for 2D Lattice; (Centre) Wigner-Seitz for BCC 3D lattice; (Right) Wigner-Seitz for FCC 3D lattice.}
+\end{figure}
+\subsection{Reciprocal lattice}
+\begin{defi}[Reciprocal Lattice]
+Given a Bravais lattice $\Lambda$, the reciprocal lattice $\Lambda^*$ (also known as dual lattice) is defined by
+$$\Lambda^*=\bigg\{\mathbf{k}=\sum_lm_l\mathbf{b_l},~m_l\in\mathbb{Z}\bigg\}$$
+where $\mathbf{a_i}\cdot\mathbf{b_j}=2\pi\delta_{ij}$ which is equivalent to $e^{i\mathbf{k}\cdot\mathbf{r}}=1$ $\forall\mathbf{r}\in\Lambda$ and $\mathbf{k}\in\Lambda^*$, i.e. $e^{i\mathbf{k}\cdot(\mathbf{r}+\mathbf{R})}=e^{i\mathbf{k}\cdot\mathbf{R}}$ $\forall\mathbf{r}\in\Lambda$ for any $\mathbf{R}$.
+\end{defi}
+In 3D, we can construct $\mathbf{b_i}$ by $\mathbf{b_i}=\frac{2\pi}{V}\frac{1}{2}\epsilon_{ijk}\mathbf{a_j}\times\mathbf{a_k}$ and conversely $\mathbf{a_i}=\frac{2\pi}{V^*}\frac{1}{2}\epsilon_{ijk}\mathbf{b_j}\times\mathbf{b_k}$ with $V^*=|\mathbf{b_1}\cdot(\mathbf{b_2}\times\mathbf{b_3})|=\frac{(2\pi)^3}{V}$.
+\begin{thm}
+The reciprocal lattice is a Bravais lattice in reciprocal space. The primitive lattice vectors of the reciprocal lattice are defined to be $\mathbf{a_i}\cdot\mathbf{b_j}=2\pi\delta_{ij}$.
+\end{thm}
+\begin{proof}
+To satisfy such primitive lattice vectors of the reciprocal lattice, we have $\mathbf{b_1}= 2\pi\frac{\mathbf{a_2}\times\mathbf{a_3}}{\mathbf{a_1}\cdot(\mathbf{a_2}\times\mathbf{a_3})}$ and its related permutations. Suppose we write an arbitrary point in reciprocal space to be $\mathbf{G}=m_1\mathbf{b_1}+m_2\mathbf{b_2}+m_3\mathbf{b_3}$, such that we do not restrict $m_i$ to be integers. We thus write
+$$e^{i\mathbf{G}\cdot\mathbf{R}}=e^{2\pi i(n_1m_1+n_2m_2+n_3m_3)}$$
+In order for $\mathbf{G}$ to be a point of the reciprocal lattice, this must be unity $\forall\mathbf{R}$ of the real space lattice, i.e. $\forall n_1,n_2,n_3\in\mathbb{Z}$. Clearly, this can only be true if $m_1,m_2,m_3\in\mathbb{Z}$.
+\end{proof}
+\begin{remarks}
+For general $\mathbf{k}$, a plane wave $e^{i\mathbf{k}\cdot\mathbf{r}}$ will not have the periodicity of the Bravais lattice, but for certain special choices of $\mathbf{k}$ it will. This set $\{\mathbf{G}\}$ forms the reciprocal lattice
+\end{remarks}
+\begin{cor}
+The reciprocal of the reciprocal lattice is the corresponding real space lattice.
+\end{cor}
+\begin{proof}
+The reciprocal of the reciprocal lattice is the set of all vectors $\mathbf{G}$ satisfying $e^{i\mathbf{G}\cdot\mathbf{K}}=1$ $\forall\mathbf{K}$ in the reciprocal lattice. 
+\end{proof}
+\begin{cor}
+If $V$ is the volume of a primitive cell in the direct lattice, then the primitive cell of the reciprocal lattice has a volume $(2\pi)^3/V$. 
+\end{cor}
+\begin{proof}
+The volume of the real space lattice is $\Omega_{\text{cell}}=|\mathbf{a_1}\cdot(\mathbf{a_2}\times\mathbf{a_3})|$. The volume of the primitive unit cell of a reciprocal lattice is
+\begin{align}
+\tilde{\Omega}_{\text{cell}}&=|\mathbf{b_1}\cdot(\mathbf{b_2}\times\mathbf{b_3})|\nonumber\\&=\bigg|\mathbf{b_1}\cdot\frac{4\pi^2(\mathbf{a_3}\times\mathbf{a_1})\times(\mathbf{a_1}\times\mathbf{a_2})}{(\mathbf{a_1}\cdot(\mathbf{a_2}\times\mathbf{a_3}))^2}\bigg|\nonumber\\&=\frac{4\pi^2}{\Omega_{\text{cell}}^2}\bigg|\mathbf{b_1}\cdot[((\mathbf{a_3}\times\mathbf{a_1})\cdot\mathbf{a_2})\mathbf{a_1}-((\mathbf{a_3}\times\mathbf{a_1})\cdot\mathbf{a_1})\mathbf{a_2}]\bigg|\nonumber\\&=\frac{4\pi^2}{\Omega_{\text{cell}}^2}\bigg|\mathbf{b_1}\cdot\mathbf{a_1}\Omega_{\text{cell}}\bigg|\nonumber\\&=\frac{(2\pi)^3}{\Omega_{\text{cell}}}\nonumber
+\end{align}
+where $\mathbf{b_1}\cdot\mathbf{a_1}=2\pi$.
+\end{proof}
+\begin{eg}
+For FCC, use the basis choice Eqn.~\ref{fcc} to obtain
+$$\implies\mathbf{b_1}=\frac{4\pi}{a}\frac{1}{2}(\mathbf{\hat{y}}+\mathbf{\hat{z}}-\mathbf{\hat{x}}),\quad\mathbf{b_2}=\frac{4\pi}{a}\frac{1}{2}(\mathbf{\hat{z}}+\mathbf{\hat{x}}-\mathbf{\hat{y}}),\quad \mathbf{b_3}=\frac{4\pi}{a}\frac{1}{2}(\mathbf{\hat{x}}+\mathbf{\hat{y}}-\mathbf{\hat{z}})$$
+Compare this with the choice for the bcc primitive basis, Eqn.~\ref{bcc}.
+\end{eg}
+\begin{thm}
+For any family of lattice planes separated by a distance $d$, there are reciprocal lattice vectors perpendicular to the planes, the shortest of which have a length of $\frac{2\pi}{d}$.\\[5pt]
+Conversely, for any reciprocal lattice vector $\mathbf{K}$, there is a family of lattice planes normal to $\mathbf{K}$ and separated by a distance $d$, where $\frac{2\pi}{d}$ is the length of the shortest reciprocal lattice vector parallel to $\mathbf{K}$.
+\end{thm}
+\begin{proof}
+Given a family of lattice planes, let $\mathbf{\hat{n}}$ be a unit vector normal to the planes. That $\mathbf{K}=\frac{2\pi}{d}\mathbf{\hat{n}}$ is a reciprocal lattice vector following from the fact that the plane wave $e^{i\mathbf{K}\cdot\mathbf{r}}$ is constant in planes perpendicular to $\mathbf{K}$ and has the same value in planes separated by $\lambda=\frac{2\pi}{K}=d$. Since one of the lattice planes contain the Bravais lattice point $\mathbf{r}=0$, $e^{i\mathbf{K}\cdot\mathbf{r}}=1$ must be true for any point $\mathbf{r}$ in any of the planes. Since the planes contain all Bravais lattice points, $e^{i\mathbf{K}\cdot\mathbf{r}}=1$ $\forall\mathbf{R}$, so that $\mathbf{K}$ is indeed a reciprocal lattice vector. Furthermore, $\mathbf{K}$ is the shortest reciprocal lattice vector normal to the planes. For any wavevector shorter than $\mathbf{K}$ will give a plane wave with wavelength greater than $\frac{2\pi}{K}=d$. Such a plane wave cannot have the same value on all planes in the family, and therefore cannot give a plane wave that is unity at all Bravais lattice points.\\[5pt]
+For the converse, given a reciprocal lattice vector, let $\mathbf{K}$ be the shortest parallel reciprocal lattice vector. Consider the set of real space planes on which the plane wave $e^{i\mathbf{K}\cdot\mathbf{r}}=1$. These planes are perpendicular to $\mathbf{K}$ and separated by a distance $d=\frac{2\pi}{K}$. Since the Bravais lattice vectors $\mathbf{R}$ all satisfy $e^{i\mathbf{K}\cdot\mathbf{R}}=1$ for any reciprocal lattice vector $\mathbf{K}$, they must all lie within these planes. Furthermore, the spacing between the lattice planes is also $d$, for if only every $n$th plane in the family contained Bravais lattice points, then according to the first part of the theorem, the vector normal to the planes of length $\frac{2\pi}{nd}$, would be a reciprocal lattice vector, hence contradict our original assumption that no reciprocal lattice vectors parallel to $\mathbf{K}$ is shorter than $\mathbf{K}$.
+\end{proof}
+\begin{cor}
+The Miller indices of a lattice plane are the coordinates of the shortest reciprocal lattice vector normal to that plane, with respect to a specified set of primitive reciprocal lattice vectors, i.e. a plane with Miller indices $h,k,l$ is normal to the reciprocal lattice vector $h\mathbf{b_1}+k\mathbf{b_2}+l\mathbf{b_3}$.
+\end{cor}
+\begin{proof}
+Consider a plane with corners at the position vectors $\mathbf{b_2}/k$, $\mathbf{b_1}/h$ and $\mathbf{b_3}/l$. Let us call a vector perpendicular to the plane $\mathbf{v}$, given by the cross product of two vectors on the plane.
+\begin{align}
+\mathbf{v} &= \left(\frac{\mathbf{b_2}}{k} - \frac{\mathbf{b_1}}{h} \right) \times \left(\frac{\mathbf{b_3}}{l} - \frac{\mathbf{b_1}}{h} \right)\nonumber\\& = \frac{\mathbf{b_2}\times\mathbf{b_3}}{kl} - \frac{\mathbf{b_2}\times\mathbf{b_1}}{hk} - \frac{\mathbf{b_1}\times\mathbf{b_3}}{hl} \nonumber\\&  = \frac{1}{hkl} \left[h~(\mathbf{b_2}\times\mathbf{b_3}) + k ~(\mathbf{b_3}\times\mathbf{b_1}) + l~ (\mathbf{b_1}\times\mathbf{b_2}) \right] = \frac{\mathbf{b_1}\cdot(\mathbf{b_2}\times\mathbf{b_3})}{2\pi ~ hkl} \mathbf{G}_{hkl}\nonumber
+\end{align}
+Hence, $\mathbf{G}_{hkl}$ is perpendicular to the plane. We can extend this to deduce the exact relation between the lattice spacing $d_{hkl}$ and $\mathbf{G}_{hkl}$. The lattice spacing can be simply deduced from taking the dot product of the unit vector perpendicular to the plane and a point on the plane. 
+$$d_{hkl} = \frac{\mathbf{G}_{hkl}}{|\mathbf{G}_{hkl}|} \cdot \frac{\mathbf{b_1}}{h} = \frac{h}{|\mathbf{G}_{hkl}|} \left[2\pi \frac{ \mathbf{b_2}\times\mathbf{b_3}}{\mathbf{b_1}\cdot(\mathbf{b_2}\times\mathbf{b_3})}\right] \cdot \frac{\mathbf{b_1}}{h} = \frac{2\pi}{|\mathbf{G}_{hkl}|}$$
+Hence, $\mathbf{G_{\text{hkl}}}\perp$ (hkl) plane, with $d_{hkl} = \frac{2\pi}{|\mathbf{G}_{hkl}|}$.
+\end{proof}
+\begin{defi}[Brillouin Zone]
+A Brillouin zone is any primitive unit cell of the reciprocal lattice. The Wigner-Seitz cell of the reciprocal lattice is the Brillouin Zone.
+\end{defi}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{BZsquare.png}
+    \caption{(Left) Construction of first two Brillouin zones; (Right) First Four Brillouin Zone of Square Lattice}
+\end{figure}
+\begin{remarks}
+When reference is made to the first Brillouin zone of a particular real space Bravais lattice, what is always meant is the Wigner-Seitz cell of the associated reciprocal lattice. 
+\end{remarks}
+\begin{cor}
+If a system is periodic in space with periodicity $\Delta x=a$, then in reciprocal space, the system is periodic with periodicity $\Delta k=\frac{2\pi}{a}$. Values of $k$ which differ by multiples of $\frac{2\pi}{a}$ are physically equivalent.
+\end{cor}
+\subsection{Diffraction}
+Bragg regarded a crystal as made out of parallel planes of ions, spaced a distance $d$ apart. 
+\begin{defi}[Bragg formulation of X-ray diffraction by a crystal]
+The conditions for a sharp peak in the intensity of the scattered radiation were:
+\begin{itemize}
+    \item X-rays should be specularly reflected by the ions in any one plane
+    \item reflected rays from successive planes should interfere constructively.
+\end{itemize}
+The path difference between the two rays is just $2d\sin\theta$, where $\theta$ is the angle of incidence. For the rays to interfere constructively, this path difference must be an integral number of wavelengths.
+\begin{equation}
+2d\sin\theta=n\lambda,\quad n\in\mathbb{Z}\label{Bragg}
+\end{equation}
+\end{defi}
+In the von Laue formalism, no particular sectioning of the crystal into lattice planes is singled out, and no ad hoc assumption of specular reflection is imposed. 
+\begin{defi}[von Laue formulation of X-ray diffraction by a crystal]
+One regards the crystal as composed of identical microscopic objects placed at the sites $\mathbf{R}$ of a Bravais lattice, each of which can reradiate the incident radiation in all directions. Sharp peaks will be observed only in directions and at wavelengths for which the rays scattered from all lattice points interfere constructively.\\[5pt]
+Let an X-ray be incident from very far away, along a direction $\mathbf{\hat{n}}$, with wavelength $\lambda$ and wavevector $\mathbf{k}=\frac{\mathbf{\hat{n}}2\pi}{\lambda}$. A scattered ray will be observed in a direction $\mathbf{\hat{n}'}$ with wavelength $\lambda$ and wavevector $\mathbf{k'}=\frac{2\pi\mathbf{\hat{n}'}}{\lambda}$, provided that the path difference between the rays scattered by each of the two ions is an integral number of wavelengths. The condition for constructive interference is
+$$m\lambda=d\cos\theta+d\cos\theta'=\mathbf{d}\cdot(\mathbf{\hat{n}}-\mathbf{\hat{n}'})\implies 2\pi m=\mathbf{d}\cdot(\mathbf{k}-\mathbf{k'})$$
+If we further extend to an array of scatterers, at the site of a Bravais lattice, where the lattice sites are displaced from one another by the Bravais lattice vectors $\mathbf{R}$, then the condition that all scattered rays interfere constructively is $\mathbf{R}\cdot(\mathbf{k}-\mathbf{k'})=2\pi m$, where $m\in\mathbb{Z}$ and all Bravais lattice vectors $\mathbf{R}$. This implies that constructive interference will occur provided that the change in wavevector, $\mathbf{K}=\mathbf{k'}-\mathbf{k}$ is a vector of the reciprocal lattice (follow from definition of reciprocal lattice, i.e. $e^{i(\mathbf{k'}-\mathbf{k})\cdot\mathbf{R}}=1$.\\[5pt]
+An alternative formulation will be: for an incident wavevector $\mathbf{k}$ to satisfy the Laue condition, the tip of the vector lies in a plane that is the perpendicular bisector of a line joining the origin of k-space to a reciprocal lattice point $\mathbf{K}$. Such k-space planes are called Bragg planes, i.e. $\mathbf{k}\cdot\mathbf{\hat{K}}=\frac{1}{2}K$.
+\end{defi}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{crystaldiffraction.PNG}
+    \caption{(Left) Illustrate Bragg formulation; (Centre) Illustrate von Laue formulation; (Right) Illustrate Laue condition.}
+\end{figure}
+\begin{thm}
+The von Laue formulation and Bragg formulation are equivalent, i.e. a Laue diffraction peak corresponding to a change in wavevector given by the reciprocal lattice vector $\mathbf{K}$ corresponds to a Bragg reflection from the family of direct lattice planes perpendicular to $\mathbf{K}$.
+\end{thm}
+\begin{proof}
+Suppose the incident and scattered wavevectors $\mathbf{k}$ and $\mathbf{k'}$, satisfy the Laue condition that $\mathbf{K}=\mathbf{k'}-\mathbf{k}$ be a reciprocal lattice vector. Since both waves have the same wavelength, $|\mathbf{k'}|=|\mathbf{k}|$ must be true. It follows that $\mathbf{k'}$ and $\mathbf{k}$ make the same angle $\theta$ with the plane perpendicular to $\mathbf{K}$. Hence, the scattering can be viewed as a Bragg reflection, with Bragg angle $\theta$, from the family of direct lattice planes perpendicular to the reciprocal lattice vector $\mathbf{K}$.\\[5pt]
+To demonstrate that this reflection satisfies the Bragg condition, note that the vector $\mathbf{K}$ is an integral multiple of the shortest reciprocal lattice vector $\mathbf{K_0}$ parallel to $\mathbf{K}$. The magnitude of $\mathbf{K_0}$ is just $\frac{2\pi}{d}$, where $d$ is the distance between successive planes in the family perpendicular to $\mathbf{K_0}$. So, $K=\frac{2\pi n}{d}$. Since $K=2k\sin\theta$ (by geometry), then $k\sin\theta=\pi n/d$ (the Bragg condition).
+\end{proof}
+\begin{remarks}[Ewald construction]: We draw in $k$-space a sphere centred on the tip of the incident wavevector $\mathbf{k}$ of radius $k$. Evidently, there will be some wavevector $\mathbf{k'}$ satisfying the Laue condition iff some reciprocal lattice point lies on the surface of the sphere, in which case there will be a Bragg reflection from the family of direct lattice planes perpendicular to that reciprocal lattice vector. 
+\end{remarks}
+\begin{eg}[Scherrer equation]
+In the analysis of Bragg’s Law, we have assumed the crystal to be infinitely periodic, but in reality crystals are finite and this leads to a ‘relaxation’ of Bragg’s Law and a broadening of each Bragg reflection. This means that the width of the peaks can give us information about the thickness of thin films for example. Consider a finite crystal of thickness $t$ with $m$ planes separated by interplanar spacing $d$, such that $t = md$. We multiply Bragg's Law by $m$ (noting that $t=md$) and take its differential.
+$$2d \sin{\theta} = \lambda \quad \implies \quad 2t \sin{\theta} = m \lambda \quad \implies 2 \delta t \sin{\theta} + 2t \cos{\theta}\delta\theta= 0$$
+We note that the smallest change in thickness is simply the interplanar spacing, so $\delta t = d$. If we ignore signs and only consider magnitudes, we can rearrange for $t$.
+\begin{equation}
+    t = \frac{2d\sin{\theta}}{2\cos{\theta} \delta \theta} = \frac{\lambda}{2\cos{\theta} \delta \theta} \quad \implies \quad t = \frac{\lambda}{2\cos{\theta} \Delta \theta}\label{Scherrer}
+\end{equation}
+\end{eg}
+\begin{defi}[Form factor]
+Consider scattering of a plane wave off a single atom or more generally the basis forming the unit cell. The incoming wave of wavevector $\mathbf{k_0}$ is incident on a potential centred at $\mathbf{R_i}$. At large distances, the scattered wave is circular. The total field is taken to be
+$$\psi\propto e^{i\mathbf{k_0}\cdot(\mathbf{r}-\mathbf{R_i})}+f\frac{e^{ik_0|\mathbf{r}-\mathbf{R_i}|}}{|\mathbf{r}-\mathbf{R_i}|}$$
+where the details of scattering is buried in the form factor $f$, a function of scattering angle, type and arrangement of atoms, etc. The total scattered intensity is assumed to be small.
+\end{defi}
+\begin{prop}[Differential scattering cross-section]
+\begin{equation}
+    \frac{d\sigma}{d\Omega}=|f\sum_{\mathbf{R_i}}e^{-i\mathbf{q}\cdot\mathbf{R_i}}|^2\label{crossection}
+\end{equation}
+\end{prop}
+\begin{proof}
+At large distance from the scattering centre, 
+$$|\mathbf{r}-\mathbf{R}_i| = \sqrt{r^2 - 2\mathbf{r} \cdot \mathbf{R}_i + R_i^2} = r \sqrt{1 - 2 \frac{\mathbf{r} \cdot \mathbf{R}_i}{r^2} + \frac{R_i^2}{r^2}} \approx r\left(1 - \frac{\mathbf{r} \cdot \mathbf{R}_i}{r^2}\right) = r - \frac{\mathbf{r} \cdot \mathbf{R}_i}{r} = r - \hat{\mathbf{r}} \cdot \mathbf{R}_i$$
+We define the scattered wavevector $\mathbf{k}=k_0\mathbf{r}/r$ and the momentum transfer to be $\mathbf{q}=\mathbf{k}-\mathbf{k_0}$. The waveform reflected from a lattice site $i$ is
+$$\psi\propto e^{-i\mathbf{k_0}\cdot\mathbf{R_i}}\bigg[e^{i\mathbf{k_0}\cdot\mathbf{r}}+ce^{ik_0r}f\frac{e^{-i\mathbf{q}\cdot\mathbf{R_i}}}{r}\bigg]$$
+with effective scattering amplitude $f(\theta)=fe^{-i\mathbf{q}\cdot\mathbf{R_i}}$. Summing over identical lattice sites, the scattered intensity is proportional to the differential scattering cross-section $\frac{d\sigma}{d\Omega}=|f(\theta)|^2$. 
+\end{proof}
+\begin{remarks}
+In Eqn.~\ref{crossection}, we will get the maximum intensity if $\mathbf{k}\cdot\mathbf{R}_i$ is an integral multiple of $2\pi$. Hence, $\mathbf{q}$ needs to be a reciprocal lattice vector, i.e. $\mathbf{q} = \mathbf{G}_{hkl}$.
+\end{remarks}
+\begin{thm}[Diffraction by a monatomic lattice with a basis]
+If the crystal structure is that of a monatomic lattice with an $n$-atom basis, then the rays scattered by the entire primitive cell is the sum of the individual rays, and will have an amplitude containing the factor
+$$S_k=\sum_{j=1}^ne^{i\mathbf{K}\cdot\mathbf{d_j}}$$
+known as the geometrical structure factor.
+\end{thm}
+\begin{proof}
+If the Bragg peak is associated with a change in wavevector $\mathbf{k'}-\mathbf{k}=\mathbf{K}$, then the phase difference between the rays scattered at $\mathbf{d_i}$ and $\mathbf{d_j}$ will be $\mathbf{K}\cdot(\mathbf{d_i}-\mathbf{d_j})$ and the amplitudes of the two rays will differ by a factor $e^{i\mathbf{K}\cdot(\mathbf{d_i}-\mathbf{d_j})}$. Thus the amplitudes of the rays scattered at $\mathbf{d_1},...,\mathbf{d_n}$ are in the ratios $e^{i\mathbf{K}\cdot\mathbf{d_1}},...,e^{i\mathbf{K}\cdot\mathbf{d_n}}$ respectively. The rays scattered will be the sum of these individual rays.
+\end{proof}
+\begin{eg}
+Since bcc is a Bravais lattice, we know that Bragg reflections will occur when the change in wavevector $\mathbf{K}$ is a vector of the reciprocal lattice, which is fcc. It is sometimes convenient to regard the bcc lattice as a simple cubic lattice generated by primitive vectors $a\mathbf{\hat{x}}$, $a\mathbf{\hat{y}}$ and $a\mathbf{\hat{z}}$, with a two-point basis consisting of $\mathbf{d_1}=0$ and $\mathbf{d_2}=\frac{a}{2}(\mathbf{\hat{x}}+\mathbf{\hat{y}}+\mathbf{\hat{z}})$. The reciprocal lattice is also simple cubic from this point of view.\\[5pt]
+The structure factor $S_k$ associated with each Bragg reflection, where $$S_\mathbf{K}=1+e^{i\mathbf{K}\cdot0.5a(\mathbf{\hat{x}}+\mathbf{\hat{y}}+\mathbf{\hat{z}})}$$
+Since a general vector in the simple cubic reciprocal lattice has the form $\mathbf{K}=\frac{2\pi}{a}(n_1\mathbf{\hat{x}}+n_2\mathbf{\hat{y}}+n_3\mathbf{\hat{z}})$, then we have the structure factor to vanish when $n_1+n_2+n_3$ is an odd number or $S=2$ otherwise. Thus those points in the simple cubic reciprocal lattice, the sum of whose coordinates with respect to the cubic primitive vectors are odd, will actually have no Bragg reflection associated with them. This converts the simple cubic reciprocal lattice into the fcc structure that we would have had if we had treated the bcc direct lattice as a Bravais lattice rather than as a lattice with a basis.\\[5pt]
+Similar systematic absence is seen in fcc, which is $n_1,n_2,n_3$ must be all odd or all even, i.e. same party.
+\end{eg}
+\begin{cor}[Diffraction by a polyatomic crystal]
+If the ions in the basis are not identical, the structure factor assumes the form $S_{\mathbf{K}}=\sum_{j=1}^nf_j(\mathbf{K})e^{i\mathbf{K}\cdot\mathbf{d_j}}$, where $f_j$ is known as the atomic form factor, which is entirely determined by the internal structure of the ion that occupies position $\mathbf{d_j}$ in the basis.
+\end{cor}
+\subsection{Phonons}
+\begin{defi}[Phonon]
+A phonon is a collective harmonic excitation of the atoms with a well-defined frequency, with a fixed relative phase and amplitude between all of the atoms.
+\end{defi}
+\begin{eg}[1D Monoatomic Chain]
+Let us consider a chain of identical atoms of mass $m$ where the equilibrium spacing between atoms is $a$. Let us define the position of the $n$th atom to be $x_n$ and the equilibrium position of the $n$th atom to be $x_{n,eq}=na$. Once we allow motion of the atoms, we will have $x_n$ deviating from its equilibrium position, so we define $\delta x_n:=x_n-x_{n,eq}$.\\[5pt]
+At low enough temperatures, we may assume the potential holding the atoms together to be quadratic, i.e. model the solid to be a chain of masses held together with springs each having equilibrium length $a$. The potential energy of the chain to be $V_{tot}=\sum_i\frac{1}{2}\kappa(\delta x_{i+1}-\delta x_i)^2$ and hence the equation of motion of the $n$th mass on the chain is 
+$$m\ddot{u}_n=\kappa(\delta x_{n+1}-\delta x_n)+\kappa(\delta x_{n-1}-\delta x_n)=\kappa(\delta x_{n+1}+\delta x_{n-1}-2\delta x_n)$$
+For any coupled system, a normal mode is defined to be a collective oscillation where all particles move at the same frequency. We try an ansatz $\delta x_n=Ae^{i(\omega t-kna)}$, and we obtain $\omega=2\sqrt{\kappa/m}|\sin(0.5ka)|$, i.e. a dispersion relation.\\[5pt]
+If the chain has a total number $N$ of equivalent atoms, the density of phonon states in $k$-space is $\frac{Na}{\pi}$ since by fixed BC $u_0=u_{N-1}=0$ and so $\lambda_{max}=\frac{1}{2}Na\implies g=\frac{1}{\pi/(Na)}=\frac{Na}{\pi}$. Using $\frac{d\omega}{dk}$, we can convert it to $g(\omega)=\frac{2N}{\pi}\frac{1}{(\omega_m^2-\omega^2)^{1/2}}$ where $\omega_m$ is the maximum frequency.\\[5pt]
+The first Brillouin zone is the range of $k$ vectors that describe the displacements of the masses such that the phase difference between adjacent masses is no bigger than $\pi$. Nyquist's criterion states that, because of aliasing, waves with $k$-vectors such that phase differences between adjacent masses with moduli greater than $\pi$ have displacement patterns equivalent to those $k$- vectors equal to $k-\frac{n\pi}{a}$. By convention, the first Brillouin zone is $-\frac{\pi}{a}\leq k\leq\frac{\pi}{a}$.
+\end{eg}
+\begin{defi}[Optical, acoustic]
+In acoustic modes and optical modes, neighbouring atoms are in phase and out of phase respectively. The latter has higher energy.
+\end{defi}
+\begin{eg}[1D Diatomic Chain]
+Consider a periodic arrangement of two different types of atoms with masses $m_1$ and $m_2$ which alternate along the one-dimensional chain. The springs connecting the atoms have spring constants $\kappa_1$ and $\kappa_2$ and also alternate. If we first consider that case and for simplicity, $m_1=m_2=m$, then we have 
+$$m\frac{d^2}{dt^2}\delta x_n=\kappa_2(\delta y_n-\delta x_n)+\kappa_1(\delta y_{n-1}-\delta x_n),\quad m\frac{d^2}{dt^2}\delta y_n=\kappa_1(\delta x_{n+1}-\delta y_n)+\kappa_2(\delta x_n-\delta y_n)$$
+Using a similar ansatz, we obtain
+$$\begin{vmatrix}(\kappa_1+\kappa_2)-m\omega^2&-\kappa_2-\kappa_1e^{ika}\\-\kappa_2-\kappa_1e^{-ika}&(\kappa_1+\kappa_2)-m\omega^2\\\end{vmatrix}=0\implies m\omega^2=(\kappa_1+\kappa_2)\pm|\kappa_1+\kappa_2e^{ika}|$$
+where the second term is $\sqrt{\kappa_1^2+\kappa_2^2+2\kappa_1\kappa_2\cos(ka)}$ and we finally obtain
+$$\omega_{\pm}=m^{-0.5}\sqrt{(\kappa_1+\kappa_2)\pm\sqrt{(\kappa_1+\kappa_2)^2-4\kappa_1\kappa_2\sin^2(0.5ka)}}$$
+Alternatively, we could set $\kappa_1=\kappa_2=\kappa$ and let the two masses be different. Consider a chain of alternating type of masses $m$ and $M$. The equations of motion are
+$$m\ddot{u}_{2n}=-\lambda(2u_{2n}-u_{2n-1}-u_{2n+1}),\quad M\ddot{u}_{2n+1}=-\lambda(2u_{2n+1}-u_{2n}-u_{2n+2})$$
+We try the ansatz $u_{2n}=Ae^{-i\omega t}e^{-ik2na}$ and $u_{2n+1}=Be^{-i\omega t}e^{-ik 2na}$. The Brillouin Zone is halved, with $k\in[-\frac{\pi}{2a},\frac{\pi}{2a})$. The equations of motion give
+$$\omega^2\begin{pmatrix}m&0\\0&M\\\end{pmatrix}\begin{pmatrix}A\\B\\\end{pmatrix}=\lambda\begin{pmatrix}2&-(1+e^{-2ika})\\-(1+e^{2ika})&2\\\end{pmatrix}\begin{pmatrix}A\\B\\\end{pmatrix}$$
+We can obtain the dispersion relation by requiring that the appropriate determinant vanishes.
+$$\omega_\pm^2=\frac{\lambda}{Mm}[m+M\pm\sqrt{(m-M)^2+4Mm\cos^2(ka)}]$$
+For each $k$, we find two normal modes - usually referred to as the two branches of the dispersion. Since there are $N$ different $k$ values, we obtain $2N$ modes total. There is a long wavelength, low energy branch of excitations with linear dispersion, i.e. $\omega_-$ acoustic mode. For small $k$, $\frac{d\omega_-}{dk}\approx\sqrt{a^2\kappa_1\kappa_2/(2m(\kappa_1+\kappa_2))}$. The higher energy branch of excitations is known as optical mode.\\[5pt]
+As $k\rightarrow 0$ (long wavelength limit), the acoustic mode (which has frequency 0 at $k=0$) corresponds to the eigenvalue (1,1), i.e. the two masses in the unit cell move together (0 to $\pi/2$ out of phase). On the other hand, the optical mode at $k=0$ have frequency $\omega^2=\frac{2}{m}(\kappa_1+\kappa_2)$ which has eigenvector (1,-1), i.e. the two masses in the unit cell moving in opposite directions so ($\frac{\pi}{2}$ to $\pi$) out of phase.\\[5pt]
+The frequencies $\omega_{\pm}$ at the zone boundary $k=\pm\frac{\pi}{a}$ are $\sqrt{2\kappa_1/m}$ and $\sqrt{2\kappa_2/m}$. The group velocity $\frac{d\omega}{dk}$ of both modes go to zero at the zone boundary, i.e. $k=\frac{n\pi}{2a}$, since it corresponds to standing wave.
+\end{eg}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth,height=3cm]{phonondispersion.PNG}
+    \caption{(Top left) 1D monoatomic chain; (Top right) Corresponding Dispersion Curve $\omega(q)$; (Bottom left) 1D diatomic chain; (Bottom right) Corresponding Dispersion curves where green is optical branch and red is acoustic branch.}
+\end{figure}
+For each atom in the unit cell, there are two transverse and one longitudinal phonon branch. There are always three acoustic branches. With $m$ atoms per unit cell, we will have $3(m-1)$ optical modes. Each optical modes will be separated into two transverse branches and one longitudinal branch.
+\begin{eg}[Phonons in 3D lattice]
+For 3D system, multiple modes are present: longitudinal modes (higher energy) and transverse modes (often degenerate along high symmetry directions). Neon is a simple fcc solid at low temperature. All modes are acoustic, as expected for monatomic system. In general, the dispersion is sinusoidal due to nearest  neighbour interactions, but will depend on the crystal structure and depend on direction. While the gradients will be zero at the zone boundary and at the edges, there may well be interior points other than the origin at which the gradient is zero. The curves corresponding to modes with the same frequency do not cross.\\[5pt]
+We also consider NaCl diatomic 3D lattice, which consists of two interpenetrating fcc lattice. Both acoustic and optical modes, and longitudinal and transverse modes are present. The highest optical frequencies are much higher in NaCl than in Na due to stiff polar bonds, rather than weak van der Waals bonding. Modes with the same symmetry cannot cross, hence the avoided crossing between acousting and optical modes in the (001) and (110) directions. 
+\end{eg}
+\begin{eg}[Measuring Phonons]
+We send a suitable probe particle (with comparable momentum and energy $\sim40meV$) that excites or annihilates a phonon, then use conservation of momentum and energy, such as thermal energy neutrons for bulk phonons. We illuminate the sample with a monochromatic beam of particles with wavevector $\mathbf{k_i}$. The particle interacts with the lattice and exchanges energy and momentum, creating or annihilating phonons in this process. Analyze the energy of the scattered beam with wavevector $\mathbf{k_f}$. The detected peaks correspond to single phonon creation/annihilation at that particular $\mathbf{k_f}$. We have energy conservation
+$$\hbar\omega=\frac{\hbar^2}{2m}(k_i^2-k_f^2)$$
+and momentum conservation for phonon creation $\mathbf{k_i}=\mathbf{k_f}+\mathbf{q}+\mathbf{G}$ and phonon annihilation $\mathbf{k_i}+\mathbf{q}+\mathbf{G}=\mathbf{k_f}$. The scattering angles can be varied to control $\mathbf{k_i}$ and $\mathbf{k_f}$. The time of flight is used to determine the energy transfer on scattering $\hbar\omega$. Inelastic processes are those that involve phonon annihilation or creation.
+\end{eg}
+\subsection{Lattice specific heat}
+In 1819, Dulong and Petit realized the heat capacity per atomic weight of a substance is approximately constant. More specifically, near room temperature, the heat capacity of most solids is roughly $3R$ per mole or equivalently $3k_B$ per atom. At low temperatures, experiments show the heat capacity of insulators usually varies proportionally to $T^3$.
+\begin{eg}[Einstein Model]
+The Einstein model assumes all vibrational modes of the solid have the same frequency $\omega_E$, i.e. $g_E(\omega)=3N\delta(\omega-\omega_E)$ (each atom has three vibrational degrees of freedom with each of these normal modes being independent and do not interact with each other). Hence, the partition function is $Z=\prod_{k=1}^{3N}Z_k\implies\ln(Z)=\sum_{k=1}^{3N}\ln(Z_k)$. Each mode can be modelled as a simple harmonic oscillator. Each single mode is $Z_k=\sum_{n=0}^\infty e^{-(n+0.5)\hbar\omega_E\beta}=\frac{e^{-0.5\hbar\omega_E\beta}}{1-e^{-\hbar\omega_E\beta}}$. The internal energy $U=-(\frac{\partial\ln Z}{\partial\beta})$ is
+$$U=\frac{3N}{2}\hbar\omega_E+\frac{3N}{1-e^{-\hbar\omega_E\beta}}\hbar\omega_Ee^{-\hbar\omega_E\beta}=\frac{3N}{2}\hbar\omega_E+\frac{3N\hbar\omega_E}{e^{\hbar\omega_E\beta}-1}=3R\Theta_E(0.5+(e^{\Theta_E/T}-1)^{-1})$$
+where $\hbar\omega_E=k\Theta_E$ defines a temperature $\Theta_E$ which scales with the vibrational frequency in the Einstein model. The molar heat capacity will be
+$$C=3R\Theta_E\bigg(-\frac{1}{(e^{\Theta_E/T}-1)^2}\bigg)e^{\Theta_E/T}\bigg(-\frac{\Theta_E}{T^2}\bigg)=3R\frac{(\Theta_E/T)^2e^{\Theta_E/T}}{(e^{\Theta_E/T}-1)^2}$$
+As $T\rightarrow\infty$, $C\rightarrow 3R$, the Dulong-Petit result.
+\end{eg}
+\begin{remarks}[Density of States of Phonons]
+The allowed states form a regular lattice of points in the positive octant of $k$-space. Each state occupies a volume of $\pi^3/V$. We consider the states within a shell of width $dk$, at radius $k$. The number of states in the shell is the volume of the shell divided by the volume of one state.
+$$dN=g(k)dk=\frac{3(4\pi k^2/8)dk}{\pi^3/V}\implies g(k)=\frac{3Vk^2}{2\pi^2}$$
+where we included a factor of 3 to allow for 2 transverse modes and 1 longitudinal mode.
+\end{remarks}
+Generally describe acoustic modes with Debye model and optical modes with Einstein model.
+\begin{eg}[Debye Model]
+This time we assume the lattice vibrations are waves with speed $v_s$, speed of sound in the solid, i.e.for all wavelengths, $\omega=v_sq$, where $q$ is the wavevector of the lattice vibration. The density of states of lattice vibrations in 3D as a function of $q$ is
+$$g(q)dq=\frac{4\pi q^2dq}{(2\pi/L)^3}3\implies g(\omega)d\omega=\frac{3V\omega^2d\omega}{2\pi^2v_s^3}$$
+such that $\int_0^{\omega_D}g(\omega)d\omega=3N$ where $\omega_D$ the cutoff frequency (Debye frequency) is imposed to have a finite number of modes. We then have $\omega_D^3V=6N\pi^2v_s^3$ and hence rewriting $g(\omega)d\omega=\frac{9N\omega^2d\omega}{\omega_D^3}$. We can thus define a Debye temperature $\Theta_D=\hbar\omega_D/k$. The internal energy is 
+$$U=\int_0^{\omega_D}g(\omega)\hbar\omega(0.5+(e^{\beta\hbar\omega}-1)^{-1})d\omega=\frac{9}{8}N\hbar\omega_D+\frac{9N\hbar}{\omega_D^3}\int_0^{\omega_D}\frac{\omega^3d\omega}{e^{\hbar\omega\beta}-1}$$
+The heat capacity per mole will be $\frac{9R}{x_D^3}\int_0^{x_D}\frac{x^4e^xdx}{(e^x-1)^2}$ where $x_D=\hbar\beta\omega_D$. At high temperature $C\rightarrow\frac{9R}{x_D^3}\int_0^{x_D}\frac{x^4}{x^2}dx=3R$ as expected. At low temperatures, $C\rightarrow\frac{9R}{x_D^3}\int_0^\infty\frac{x^4e^xdx}{(e^x-1)^2}=\frac{12R\pi^4}{5x_D^3}$, hence proportional to $T^3$. This is the phonon contribution to the heat capacity.
+\end{eg}
+\begin{remarks}[Comparison of Debye Model with real Phonon Density of States]
+Aluminium is a good representative example. Both the experimental and approximate Debye density of states are similar at low $\omega$ as expected. The largest deviations occur near the zone boundary. In fact, the transverse and longitudinal modes have different dispersion curves. In our theory, the Debye frequency was introduced in an ad-hoc fashioned to keep the total number of modes constant. Moreover, the linear dispersion relation was previously shown to only hold for long wavelength limit, but was assumed to hold for all wavelength here.
+\end{remarks}
+\subsection{Thermal conductivity of insulators}
+\begin{thm}
+The thermal conductivity due to phonons is $\kappa=\frac{1}{3}C\langle c\rangle l$ where $C$ is the heat capacity per unit volume, $\langle c\rangle$ is the average speed, and $l$ is the phonon mean free path.
+\end{thm}
+\begin{proof}
+Heat is carried by phonons (and free electrons in conductors). Using kinetic theory: we consider phonons crossing a plane at an angle $\theta$, the excess temperature of phonons crossing the plane $\Delta T=-\frac{dT}{dz}l\cos\theta$ and excess energy in each phonon mode $c_{ph}\Delta T=-c_{ph}\frac{dT}{dz}l\cos\theta$, where $c_{ph}$ is the heat capacity of a phonon mode. We integrate the excess heat per mode over the phonon distribution $nf(c)dc$, i.e. the number of phonons with speed $c$ to $c+dc$. The phonons are propagating in all directions, so weight by speed normal to the plane. The fraction with angles $\theta$ to $\theta+d\theta$ is $\frac{2\pi}{4\pi}\sin\theta d\theta$. The heat flux integral across the plane becomes
+$$\int_0^\pi\int_0^\infty nf(c)dc\frac{1}{2}\sin\theta d\theta c\cos\theta\bigg(-c_{ph}\frac{dT}{dz}l\cos\theta\bigg)=-\frac{1}{2}c_{ph}nl\frac{dT}{dz}\int_0^\pi\sin\theta\cos^2\theta d\theta\langle c\rangle$$
+Since this heat flux is $-\kappa\frac{dT}{dz}$, we obtain our desired result. 
+\end{proof}
+\newpage
+\begin{eg}[Phonon scattering]
+Scattering processes reduce the mean free path. The resultant mean free path is a linear sum of the inverse of the mean free path for each contributory process. There are two types of scattering:
+\begin{itemize}
+    \item Geometric scattering: phonons scatter from sample boundaries and from impurities or grain boundaries. The geometric mean free path $l$ is independent of temperature $T$.
+    \item Phonon-phonon scattering: phonons scatter one another in an anharmonic lattice (true crystals are not purely harmonic). 
+\end{itemize}
+\end{eg}
+\begin{eg}[Temperature Dependence of $\kappa$ for Insulators]
+In pure crystalline form, $\kappa$ for insulators can be very high. Diamond has $\kappa=1200$ W/m/K at 70K, Copper has $\kappa=380$ W/m/K at 300 K. Non-crystalline systems have much lower values of $\kappa$, where glass has $\kappa\approx1$ W/m/K at 300 K.\\[5pt]
+For low temperatures, there are few phonons, so phonon scattering is an insignificant process but geometric scattering dominates ($l$ independent of temperature), $C$ and hence $\kappa$ varies as $T^3$. For high temperatures, we have plenty of phonons such that the phonon scattering dominates. $C$ is constant (by Dulong-Petit Law), the number of phonons directly proportional to $T$. Since the mean free path is inversely proportional to $T$ and hence $\kappa$ is inversely proportional to $T$.
+\end{eg}
+\begin{eg}[Phonon Scattering]
+Phonons interact through lattice anharmonicity: one phonon $\mathbf{q_2}$ distorts the lattice while another incoming phonon $\mathbf{q_1}$ diffracts off that phonon $\mathbf{q_2}$. Their interactions satisfy $\mathbf{q_3}=\mathbf{q_1}+\mathbf{q_2}$. Phonons can coalesce, i.e. $\hbar\mathbf{q_3}=\hbar\mathbf{q_1}+\hbar\mathbf{q_2}$ (conservation of momentum) and energy is conserved. Similarly, phonons can decompose, i.e. i.e. $\hbar\mathbf{q_3}=\hbar\mathbf{q_1}+\hbar\mathbf{q_2}$ (conservation of momentum) and energy is also conserved. There are two types:
+\begin{itemize}
+\item Normal scattering: Most phonon coalescence processes don't dramatically change the resulting wavevector, hence weakly affects $\kappa$.
+\item Umklapp scattering: These coalescences (which require high temperatures) can result in a phonon wavevector outside the first Brillouin Zone. Folding these back into the first Brillouin Zone results in a negative group velocity. This gives strong randomisation of phonons, hence a dramatic reduction in $\kappa$.
+\end{itemize}
+\end{eg}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth,height=4cm]{phononscattering.PNG}
+    \caption{Phonon Scattering}
+\end{figure}
+\begin{remarks}
+Phonons have a blackbody distribution with energy $\hbar\omega\sim k_BT$ at temperature $T$. When an electron scatters from or absorbs a phonon, the phonon will have an energy $\sim k_BT$. Electrons are distributed within about $\pm k_BT$ of the Fermi energy. An electron can only emit a phonon up to energies of roughly $k_BT$, since there are no unoccupied states for it to fall into at lower energies.
+\begin{enumerate}
+    \item At room temperature, phonon scattering events affect both electrical and thermal conduction since $\tau_\sigma^{-1}\approx\tau_\kappa^{-1}$. The probability of emitting a phonon of energy $\sim k_BT$ will have a similar temperature dependence to the probability of absorbing a phonon (emission depends on density of available phonon states with energy $\sim k_BT$, absorption depends on the number of phonons around with an energy $\sim k_BT$). $k_B\theta_D$ is the energy of the most energetic phonons, so at r.t., phonons with energy $\hbar\omega\sim k_B\theta_D$ iwll have wavevectors $q\sim k_F$, i.e. one phonon can scatter an electron to the other side of the Fermi surface.
+    \item At low temperature, phonons will have energies $k_BT<<k_B\theta_D$ so $q<<k_F$. One inelastic scattering event will be able to change the electrons energy by $\sim k_BT$. The thermal scattering rate $1/\tau_\kappa\propto$ number of phonons with $\hbar\omega\sim k_BT$, which is $\propto T^3$ at low temperatures (Debye theory). One phonon scattering event (elastic or inelastic) will be unable to knock the electron to the other side of the Fermi surface (required for electrical scattering), hence $\tau_\sigma^{-1}<<\tau_\kappa^{-1}$, i.e. failure of Weidemann-Franz law at low temperatures. For electrical conductivity, need an additional factor of $T^2$, i.e. many scattering events through a small angle $\theta$ are required before the excess forward velocity of the electron is randomized so $\tau_\sigma^{-1}\propto T^5$. This is rarely obeyed due to Umklapp scattering (can scatter across adjacent Brillouin zones), which gives a scattering rate $\tau^{-1}\propto e^{-\theta_F/T}$ with characteristic temperature depending on the Fermi surface geometry.
+    \item For very low temperatures, the phonon scattering becomes negligible and scattering of electrons by impurities and defects becomes dominant, deflecting them through large angle. Each of such scattering event has $\tau_\kappa=\tau_\sigma$.
+\end{enumerate}
+\end{remarks}
+\begin{eg}\leavevmode
+\begin{enumerate}
+\item At low temperature, the resistivity $\rho$ is constant. At high temperature, $\sigma\propto T^{-1}\implies\rho\propto T$. 
+\item Thermal conductivity $\kappa$ rises linearly with $T$, before reaching a peak then decreasing to a value independent of $T$. Peak in $\kappa$ higher for samples with fewer impurities. At low $T$, few phonons so $\tau_{\text{imp}}<\tau_{\text{ph}}$, impurity scattering dominates and $\kappa\propto T$. As $T$ rises to $\theta_D/10$, the phonon scattering time becomes shorter with $\tau_{\text{ph}}<\tau_{\text{imp}}$ and the phonon scattering dominates with $\kappa\propto T^{-2}$.
+\end{enumerate}
+\end{eg}
+\subsection{Electron-electron scattering}
+Electron-electron scattering is important when
+\begin{itemize}
+    \item the Fermi surface is complicated such that conserving $E$ and $k$ is easier
+    \item density of states at $E_F$ is very large due to large effective mass, increasing number of initial and final states.
+\end{itemize}
+\begin{cor}
+The electron scattering lifetime at $E=E_F$ and $T=0$ is infinite.
+\end{cor}
+\begin{proof}
+Consider a filled Fermi sphere and a single excited electron with $E_1>E_F$. To be scattered, it must interact with an electron with $E_2<E_F$ since only states with energies less than the Fermi energy are occupied. Pauli exclusion principle requires that these electrons can only scatter into unoccupied levels where $E_3>E_F$, $E_4>E_F$. Energy conservation requires $E_1+E_2=E_3+E_4$. For $E_1=E_F$, we can only have $E_2=E_3=E_4=E_F$. The allowed wavevectors for electrons 2,3,4 must then occupy zero volume in $k$-space which makes the probability of this process very small at zero temperature.
+\end{proof}
+\begin{prop}
+At finite temperature, the resistivity exhibits $\rho\propto T^2$.
+\end{prop}
+\begin{proof}
+When $|E_1-E_F|\neq 0$, some phase space becomes available for the process since the other 3 energies can now vary within a shell of thickness $|E_1-E_F|$ about the Fermi surface, giving a scattering rate $\propto(E_1-E_F)^2$ since once $E_2,E_3$ have been chosen, energy conservation allows no choice for $E_4$. If the excited electron is superimposed on a thermal distribution of electrons at finite temperature, there is an additional range of choice in energies available for the scattering process with rate $\propto(k_BT)^2$. Overall, we have
+$$\tau^{-1}=\alpha(E_1-E_F)^2+\beta(k_BT)^2$$
+with $\alpha,\beta$ constant. At finite temperature, $E_1-E_F\sim k_BT$, so we can say $\tau^{-1}\propto T^2\implies\rho=1/\sigma\propto T^{2}$.
+\end{proof}
+\newpage
+\section{Electrons in a periodic potential}
+\subsection{Bloch's theorem}
+In crystalline lattices, the spatial dependence of the potential has the same symmetry as the lattice, i.e. discrete translational symmetry. We may Fourier expand $V(\mathbf{r})$ with Fourier components defined at reciprocal lattice vectors $\mathbf{G}$:
+$$V(\mathbf{r})=\sum_{\mathbf{G}}V_{\mathbf{G}}e^{i\mathbf{G}\cdot\mathbf{r}},\quad V_{\mathbf{G}}=\frac{1}{\mathcal{V}}\int e^{-i\mathbf{G}\cdot\mathbf{r}}V(\mathbf{r})$$
+Since $V(\mathbf{r})\in\mathbb{R}$ $\forall\mathbf{r}$, then $V_{\mathbf{G}}^*=V_{-\mathbf{G}}$. Set $V_{\mathbf{G}=0}=0$ without loss of generality (energy offset). Any eigenstate can be built from a complete set of basis vectors plane wave states $|\mathbf{k}\rangle$ (where $\langle\mathbf{r}|\mathbf{k}\rangle=e^{i\mathbf{k}\cdot\mathbf{r}}$, i.e. plane wave expansion.
+\begin{prop}
+\begin{equation}
+    \bigg(\frac{\hbar^2}{2m}(\mathbf{q}-\mathbf{G'})^2-E\bigg)c_{\mathbf{q}-\mathbf{G'}}+\sum_{\mathbf{G''}}V_{\mathbf{G''}-\mathbf{G'}}c_{\mathbf{q}-\mathbf{G''}}=0\label{Bloch1}
+\end{equation}
+\end{prop}
+\begin{proof}
+Apply $\hat{H}=\frac{\hat{p}^2}{2m}+V$ to $|\psi\rangle=\sum_{\mathbf{k}}c_{\mathbf{k}}|\mathbf{k}\rangle$, to get
+$$E\sum_{\mathbf{k}}c_{\mathbf{k}}e^{i\mathbf{k}\cdot\mathbf{r}}=\sum_{\mathbf{k}}E_{\mathbf{k}}^0c_{\mathbf{k}}e^{i\mathbf{k}\cdot\mathbf{r}}+\bigg[\sum_{\mathbf{G}}V_{\mathbf{G}}e^{i\mathbf{G}\cdot\mathbf{r}}\bigg]\bigg[\sum_{\mathbf{k}}c_{\mathbf{k}}e^{i\mathbf{k}\cdot\mathbf{r}}\bigg]=\sum_{\mathbf{k}}E_{\mathbf{k}}^0c_{\mathbf{k}}|\mathbf{k}\rangle+\sum_{\mathbf{G},\mathbf{k}}V_{\mathbf{G}}c_{\mathbf{k}-\mathbf{G}}|\mathbf{k}\rangle$$
+where $E_{\mathbf{k}}^0=\frac{\hbar^2k^2}{2m}$, and we relabel $\mathbf{G}+\mathbf{k}\rightarrow\mathbf{k}$, for any $\mathbf{k}\in\Lambda^*$. Relate $\mathbf{k}$ to $\mathbf{q}\in\Lambda_{\text{1st BZ}}$ via $\mathbf{q}=\mathbf{k}+\mathbf{G'}$. Now, replace the sum over all $\mathbf{G}$ to over all $\mathbf{G''}=\mathbf{G}+\mathbf{G'}$ to obtain the desired result.
+\end{proof}
+\begin{remarks}
+Eqn.~\ref{Bloch1} is an infinite set of simultaneous equations. For a given $\mathbf{q}$, we need to consider all $c_{\mathbf{q}-\mathbf{G'}}$ that are associated with plane wave states that can be connected with $|\mathbf{q}\rangle$ via a reciprocal lattice vector.
+\end{remarks}
+\begin{thm}[Bloch's theorem]
+Eigenstates of the one-electron Hamiltonian can be chosen to be a plane wave multiplied by a function with the periodicity of the Bravais lattice.
+\end{thm}
+\begin{proof}
+For a particular eigenfunction of $\hat{H}$:
+$$\psi_{\mathbf{q}}(\mathbf{r})=\sum_{\mathbf{G}}c_{\mathbf{q}-\mathbf{G}}e^{i(\mathbf{q}-\mathbf{G})\cdot\mathbf{r}}=e^{i\mathbf{q}\cdot\mathbf{r}}\sum_{\mathbf{G}}c_{\mathbf{q}-\mathbf{G}}e^{-i\mathbf{G}\cdot\mathbf{r}}=e^{i\mathbf{q}\cdot\mathbf{r}}u_{\mathbf{q}}(\mathbf{r})$$
+where $u_{\mathbf{q}}(\mathbf{r})$ is built from the periodic function $e^{-i\mathbf{G}\cdot\mathbf{r}}$ and has the same periodicity as the lattice, i.e. $u_{\mathbf{q}}(\mathbf{r}+\mathbf{R})=u_{\mathbf{q}}(\mathbf{r})$. In addition, we may add the label $n$, the band index, to distinguish the family of solutions.
+\end{proof}
+\begin{remarks}\leavevmode
+\begin{enumerate}
+\item The free electron wavevector $\mathbf{p}/\hbar$ is not proportional to the Bloch wavevector $\mathbf{k}$. This is because in the presence of a nonconstant potential, the Hamiltonian does not have complete translational invariance. Its eigenstates will not be the simultaneous eigenstates of the momentum operator, i.e. $u_{n,\mathbf{k}}(\mathbf{r})$ is not a momentum eigenstate. 
+\item $\hbar\mathbf{k}$ is the crystal momentum of the electron. The dynamical significance of $\mathbf{k}$ can only be acquired when one considers the response of Bloch electrons to externally applied electromagnetic fields. $\mathbf{k}$ is a quantum number characteristic of the translational symmetry of a periodic potential, while $\mathbf{p}$ is that of the fuller translational symmetry of free space.
+\item Suppose we perform a translation (such that it match with the lattice), the resulting state is also an eigenstate of the Hamiltonian. Suppose this resultant eigenstate is distinct, then we have a set of degenerate eigenstates. We can always choose from the subspace of degenerate eigenstates a set of eigenstates that are also eigenstates of the symmetry operation by diagonalizing. Hence, we can choose a set of states that are simultaneously eigenstates of $\hat{H}$ and the translation symmetry operation $\hat{T}$.
+\end{enumerate}
+\end{remarks}
+\begin{cor}
+\begin{equation}
+    \hat{T}_{\mathbf{a}}|\psi\rangle=e^{i\mathbf{k}\cdot\mathbf{a}}|\psi\rangle\label{Bloch2}
+\end{equation}
+\end{cor}
+\begin{proof}
+As $\hat{H}$ commutes with $\hat{T}_{\mathbf{a}}$ in the lattice, where $\mathbf{a}$ is the Bravais lattice vector. We may use the eigenvalue of $\hat{T}$ to give an eigenstate of $\hat{H}$ a meaningful label. 
+$$\hat{T}_{\mathbf{a}}|\mathbf{k}\rangle=e^{i\mathbf{k}\cdot\mathbf{a}}|\mathbf{k}\rangle$$
+If we now choose $\hat{H}$ eigenstates $|\psi\rangle$, which are also eigenstates of $\hat{T}$: 
+$$\hat{H}|\psi\rangle=E|\psi\rangle\implies\hat{T}_{\mathbf{a}}|\psi\rangle=c_{\mathbf{a}}|\psi\rangle$$
+As $e^{i\mathbf{k}\cdot\mathbf{a}}$ form a complete set of eigenvalues for $\hat{T}_{\mathbf{a}}$, $c_{\mathbf{a}}=e^{i\mathbf{k}\cdot\mathbf{a}}$.
+\end{proof}
+\begin{cor}
+For every state labelled with $\mathbf{k}$ not in the first Brillouin Zone, we can find an identical state which can be labelled with a vector $\mathbf{q}=\mathbf{k}-\mathbf{g}\in\Lambda^*_{\text{1st BZ}}$, where $\mathbf{g}$ is any reciprocal lattice vector.
+\end{cor}
+\begin{proof}
+$e^{i\mathbf{g}\cdot\mathbf{r}}$ is periodic with the same periodicity as the Bravais lattice. By introducing a different periodic function $u^{(n)}=e^{i\mathbf{g}\cdot\mathbf{r}}u^{(m)}$, 
+$$\psi_{\mathbf{k}}^{(m)}(\mathbf{r})=e^{i\mathbf{k}\cdot\mathbf{r}}u_{\mathbf{k}}^{(m)}(\mathbf{r})=e^{i\mathbf{k}\cdot\mathbf{r}}e^{-i\mathbf{g}\cdot\mathbf{r}}[e^{i\mathbf{g}\cdot\mathbf{r}}u_{\mathbf{k}}^{(m)}(\mathbf{r})]=e^{i(\mathbf{k}-\mathbf{g})\cdot\mathbf{r}}u_{\mathbf{k}-\mathbf{g}}^{(n)}(\mathbf{r})=\psi_{\mathbf{k}-\mathbf{g}}^{(n)}(\mathbf{r})$$
+\end{proof}
+\begin{remarks}
+In a volume commensurate with a primitive cell of the underlying Bravais lattice, the periodic boundary condition (also called Born–von Karman boundary condition) is $\psi(\mathbf{r}+N_i\mathbf{a_i})=\psi(\mathbf{r})$, where $i=1,2,3$. Apply Bloch's theorem to this boundary condition gives
+$$e^{iN_i\mathbf{k}\cdot\mathbf{a_i}}=1,\quad i=1,2,3\implies x_i=\frac{m_i}{N_i},~m_i\in\mathbb{Z}$$
+It thus follows that the general form for allowed Bloch wave vectors is $\mathbf{k}=\sum_{i=1}^3\frac{m_i}{N_i}\mathbf{b_i}$ for $m_i\in\mathbb{Z}$. The volume $\Delta\mathbf{k}$ of $k$-space per allowed value of $\mathbf{k}$ is the volume of the small parallelepiped with edges $\frac{\mathbf{b_i}}{N_i}$:
+$$\Delta\mathbf{k}=\frac{\mathbf{b_1}}{N_1}\cdot\bigg(\frac{\mathbf{b_2}}{N_2}\times\frac{\mathbf{b_3}}{N_3}\bigg)$$
+where $\mathbf{b_1}\cdot(\mathbf{b_2}\times\mathbf{b_3})$ is the volume of a reciprocal lattice primitive cell. This means the number of allowed wavevectors in a primitive cell of the reciprocal lattice is equal to the number of sites in the crystal. But the volume of a reciprocal lattice primitive cell is $(2\pi)^3N/V$, so $\Delta\mathbf{k}=\frac{(2\pi)^3}{V}$.
+\end{remarks}
+\begin{defi}[Band structure]
+Since energy levels for two values of $\mathbf{k}$ differing by a reciprocal lattice vector must be identical, then for a given $n$, the eigenstates and eigenvalues are periodic functions of $\mathbf{k}$ in the reciprocal lattice.
+$$\psi_{n,\mathbf{k}+\mathbf{G}}(\mathbf{r})=\psi_{n,\mathbf{k}}(\mathbf{r}),\quad E_{n,\mathbf{k}+\mathbf{G}}=E_{n,\mathbf{k}}$$
+$E_n(\mathbf{k})$ is an energy band. Each $E_n(\mathbf{k})$ is periodic in $\mathbf{k}$ and continuous, it has an upper and lower bound.
+\end{defi}
+\begin{remarks}
+An electron in a level specified by band index $n$ and wavevector $\mathbf{k}$ has a nonvansihing mean velocity $\mathbf{v_n}(\mathbf{k})=\hbar^{-1}\boldsymbol{\nabla_k}E_n(\mathbf{k})$. Even though the energy levels are stationary (time-independent), the electrons in a periodic potential moves forever, contradicting Drude's idea.
+\end{remarks}
+Essentially, Bloch's theory now has two quantum numbers - $\mathbf{k}$ and $n\in\mathbb{Z}$. $\mathbf{k}$ runs through all wavevectors in a single primitive cell of the reciprocal lattice consistent with the Born-von Karman periodic boundary condition. For a given band index $n$, $E_n(\mathbf{k})$ has no simple explicit form, but required to have periodicity of the reciprocal lattice: $E_n(\mathbf{k}+\mathbf{K})=E_n(\mathbf{k})$. The wavefunction of an electron with band index $n$ and wavevector $\mathbf{k}$ is $\psi_{n,\mathbf{k}}(\mathbf{r})=e^{i\mathbf{k}\cdot\mathbf{r}}u_{n,\mathbf{k}}(\mathbf{r})$, where the function $u_{n,\mathbf{k}}$ has no simple explicit form but must have periodicity same as direct lattice $u_{n,\mathbf{k}}(\mathbf{r}+\mathbf{R})=u_{n,\mathbf{k}}(\mathbf{r})$.
+\newpage
+\subsection{Nearly free electron theory}
+To make the problem tractable, we reduce the infinite set of basis functions for smooth potentials, by discarding high $\mathbf{G}$ Fourier components.
+\begin{prop}
+If the strength of the periodic potential is weak compared to the kinetic energy magnitude, then the eigenstates are constructed from a dominant plane wave state $|\mathbf{k}\rangle$, plus an admixture from a small number of `lattice harmonics' $|\mathbf{k}-\mathbf{G}\rangle$. This degree of admixture is small and given by 
+$$\Delta E_{\mathbf{k}}=\frac{|V_{\mathbf{G}}|^2}{E_{\mathbf{k}}^{(0)}-E_{\mathbf{k}-\mathbf{G}}^{(0)}}$$
+Here, their energy separation is less than $|V|$.
+\end{prop}
+\begin{proof}
+Follows from second order perturbation theory.
+\end{proof}
+\begin{remarks}\leavevmode
+\begin{enumerate}
+\item The strong interactions of the conduction electrons with each other and with the positive ions can have the net effect of a very weak potential. Latter is strongest at small separations, but the conduction electrons are forbidden from entering the immediate neighbourhood of the ions which are already occupied by the core electrons. The mobility of the conduction electrons diminishes the net potential any single electron experiences via screening.
+\item The energy shift is most pronounced for nearly degenerate states. One can further show for a weak periodic potential, the free electron levels, whose wavevectors are close to ones at which Bragg reflections can occur, are most strongly affected.
+\item The sets of nearly degenerate states form a reduced set of $\mathbf{k}$-states. We can then restrict the choice of $\mathbf{G}$ in Eqn.~\ref{Bloch1} to those that link together nearly degenerate states.
+\end{enumerate}
+\end{remarks}
+\begin{eg}[One-dimensional chain]
+Start with $|\mathbf{k}\rangle$, $V_{\mathbf{G}}$ admixes $|\mathbf{k}-\mathbf{G}\rangle$, which is closest in energy. Apply $\hat{H}$ to $|\psi\rangle=c_{\mathbf{k}}|\mathbf{k}\rangle+c_{\mathbf{k}-\mathbf{G}}|\mathbf{k}-\mathbf{G}\rangle$, i.e.
+$$E|\psi\rangle=c_{\mathbf{k}}\frac{p^2}{2m}|\mathbf{k}\rangle+c_{\mathbf{k}}V|\mathbf{k}\rangle+c_{\mathbf{k}-\mathbf{G}}\frac{p^2}{2m}|\mathbf{k}-\mathbf{G}\rangle+c_{\mathbf{k}-\mathbf{G}}V|\mathbf{k}-\mathbf{G}\rangle$$
+followed by left-multiplying the basis states $\langle\mathbf{k}|$ and $\langle\mathbf{k}-\mathbf{G}|$ respectively:
+$$c_{\mathbf{k}}E=c_{\mathbf{k}}E_{\mathbf{k}}^{(0)}+c_{\mathbf{k}}V_0+c_{\mathbf{k}-\mathbf{G}}V_{\mathbf{G}},\quad c_{\mathbf{k}-\mathbf{G}}E=c_{\mathbf{k}}V_{-\mathbf{G}}+c_{\mathbf{k}-\mathbf{G}}V_0+c_{\mathbf{k}-\mathbf{G}}E_{\mathbf{k}-\mathbf{G}}^{(0)}$$
+Here, we solve for two perturbed energies. At the Brillouin zone boundary, $k=\frac{\pi}{a}$, the energies of the two solutions are simply $E_{\pi/a}^{(0)}\pm|V_{\mathbf{G}}|$. Both $|\mathbf{k}\rangle=|\frac{\pi}{a}\rangle$ and $|\mathbf{k}-\frac{2\pi}{a}\rangle=|-\frac{\pi}{a}\rangle$ contribute equally to the Bloch states at $\frac{\pi}{a}$, which are formed either from the sum or from the difference of the two unperturbed states. Both combinations give rise to standing waves, but with different probability distribution: in one case, the nodes of the probability distribution will be centred on the atomic cores, in the other case the bellies of the probability distribution are centred on the atomic cores.
+\end{eg}
+\begin{remarks}
+Consider Eqn.~\ref{Bloch1} again, if $V=0$, then the sum vanishes. We will be left with a set of independent simultaneous equations for $E$, which have solutions $E=\frac{\hbar^2}{2m}q^2$ if $c_{\mathbf{q}}\neq 0$ and all the other $c_{\mathbf{q}-\mathbf{G'}}=0$, and generally $E=\frac{\hbar^2}{2m}(\mathbf{q}-\mathbf{G'})^2$ for a particular $c_{\mathbf{q}-\mathbf{G'}}\neq 0$, when all the other coefficients apart from that one are zero. We obtain a set of parabolic bands for the unperturbed solutions, which will then hybridize, where the bands cross, when the lattice potential is non-zero.
+\end{remarks}
+\begin{eg}
+Consider the simplest atomic potential with leading Fourier components $V(x)=2V_{2\pi/a}\cos\frac{2\pi x}{a}$. If $V_{2\pi/a}$ is small, we should be able to treat it perturbatively, remembering to take care of degeneracies. If $V_{2\pi/a}=0$, we have the free electron eigenvalues $E_0^{(n)}(k)=\frac{\hbar^2}{2m}(k-2\pi n/a)^2$, with $n\in\mathbb{Z}\cup\{0\}$, i.e. repeated, offset parabolas. Now, with $V_{2\pi/a}\neq 0$ but small, only for those momenta at which two free electron states are nearly degenerate are important, e.g. $m=0,1$ are degenerate when $k=\pi/a$. We solve for
+$$\begin{pmatrix}\frac{\hbar^2}{2m}k^2-E&V_{2\pi/a}\\V^*_{2\pi/a}&\frac{\hbar^2}{2m}(k-2\pi/a)^2-E\\\end{pmatrix}\begin{pmatrix}c_k\\c_{k-2\pi/a}\\\end{pmatrix}=\boldsymbol{0}$$
+giving the solution
+$$E^{\pm}(\mathbf{k})=\frac{\hbar^2}{2m}\frac{1}{2}(k^2+(k-(2\pi/a))^2)\pm\frac{1}{2}\sqrt{\bigg(\frac{\hbar^2k^2}{2m}-\frac{\hbar^2}{2m}(k-2\pi/a)^2\bigg)^2+4V^2_{2\pi/a}}$$
+Exactly at $k=\pi/a$ (points lying on the Bragg plane), $E^{\pm}(\pi/a)=E^0_{\pi/a}\pm|V_{2\pi/a}|$ and the coefficients are $c_{\pi/a}=\pm\sgn(U_k)c_{-\pi/a}$. If $V_{2\pi/a}<0$, the wavefunctions are $\psi^-(\pi/a)=\cos(\pi x/a)$ and $\psi^+(\pi/a)=\sin(\pi x/a)$. We have $|\psi^-|^2$ and $|\psi^+|^2$ to have s-like and p-like character, reminiscent of the s-orbitals and p-orbitals.
+\end{eg}
+\begin{remarks}[Extending to three-dimensional]
+Due to Bloch's theorem, for every $|\psi^n_{\mathbf{k}+\mathbf{G}}\rangle$, there is an identical state $|\psi_{\mathbf{k}}^m\rangle$. $E_{\mathbf{k}}$ has the same periodicity as the reciprocal lattice. At the Brillouin zone boundary, $|\mathbf{k}|=|\mathbf{k}-\mathbf{G}|\implies E_{\mathbf{k}}^{(0)}=E_{\mathbf{k}-\mathbf{G}}^{(0)}$. At the zone boundaries, unpeturbed bands cross and so hybridization and band distortion is strongest. Equal energy contours intersect the Brillouin zone boundary at right angles.
+\end{remarks}
+\subsection{Tight binding}
+Another method to model solids is to build up their wavefunctions from the wavefunctions of the individual atoms, i.e. linear combination of atomic orbitals (LCAO).
+\begin{defi}[Tight-binding approximation]
+This approximation deals with the case in which the overlap of atomic wavefunctions is enough to require corrections to the picture of isolated atoms, but not so much as to render the atomic description completely irrelevant.
+\end{defi}
+\begin{prop}[LCAO]
+Our ansatz is a linear combination of the atomic orbitals
+\begin{equation}
+    \psi(\mathbf{r})=\sum_{n,\mathbf{R}}e^{i\mathbf{k}\cdot\mathbf{R}}\phi(\mathbf{r}-\mathbf{R}),\quad\phi(\mathbf{r})=b_n\psi_n(\mathbf{r})\label{LCAO}
+\end{equation}
+The crystal Hamiltonian is $H=H_{\text{at}}+\Delta U(\mathbf{r})$, where $H_{\text{at}}$ is the Hamiltonian of a single atom, $\Delta U(\mathbf{r})$ contains all corrections required to reproduce the full periodic potential. Then,
+\begin{eqnarray}
+(E(\mathbf{k})-E_m)b_m&=&-(E(\mathbf{k})-E_m)\sum_n\bigg(\sum_{\mathbf{R}\neq \boldsymbol{0}}\int\psi_m^*(\mathbf{r})\psi_n(\mathbf{r}-\mathbf{R})e^{i\mathbf{k}\cdot\mathbf{R}}d\mathbf{r}\bigg)b_n\nonumber\\+\sum_n\bigg(\int\psi_m^*(\mathbf{r})\Delta U(\mathbf{r})\psi_n(\mathbf{r})d\mathbf{r}\bigg)b_n&+&\sum_n\bigg(\sum_{\mathbf{R}\neq \boldsymbol{0}}\int\psi_m^*(\mathbf{r})\Delta U(\mathbf{r})\psi_n(\mathbf{r}-\mathbf{R})e^{i\mathbf{k}\cdot\mathbf{R}}d\mathbf{r}\bigg)b_n\label{SE}
+\end{eqnarray}
+\end{prop}
+\begin{proof}
+In the vicinity of each lattice point, we assume the full periodic crystal Hamiltonian be described by $H_{\text{at}}$ located at the lattice point. We also assume the bound levels of $H_{\text{at}}$ are well localized such that the atomic wavefunction is a good approximation to the stationary state of the crystal. Each atomic level $\psi_n(\mathbf{r})$ would yield $N$ levels in the periodic potential, with $\psi_n(\mathbf{r}-\mathbf{R})$ for each of the $N$ sites $\mathbf{R}$ in the lattice. To preserve the Bloch description ($\psi(\mathbf{r}+\mathbf{R})=e^{i\mathbf{k}\cdot\mathbf{R}}\psi(\mathbf{r})$), we must find the $N$ linear combinations of these degenerate wavefunctions 
+$$\psi_{n,\mathbf{k}}(\mathbf{r})=\sum_{\mathbf{R}}e^{i\mathbf{k}\cdot\mathbf{R}}\psi_n(\mathbf{r}-\mathbf{R})$$
+where each of the $N$ sites are at $\mathbf{R}$ in the lattice. But, the resulting energy bands will be independent of $\mathbf{k}$. Realistlically, let $\psi_n(\mathbf{r})$ be small before $\Delta U(\mathbf{r})$ becomes appreciable, so we look for the more general form Eqn.~\ref{LCAO} where $\phi(\mathbf{r})$ is not necessarily an exact atomic stationary-state wavefunction, but a linear combination of a few localized atomic wavefunctions. Apply $H$ to $\psi(\mathbf{r})$, to obtain our result.
+\end{proof}
+\begin{remarks}
+For well-localized atomic levels, 
+$$\int\phi_m^*(\mathbf{r})\phi_n(\mathbf{r}-\mathbf{R})d\mathbf{r}<<1$$
+we have $E(\mathbf{k})\approx E_0$, then $E(\mathbf{k})\approx E_0$, and hence $b_m\approx 0$ unless $E_m\approx E_0$.
+\end{remarks}
+\begin{eg}[Diatomic molecule]
+For identical atoms, $H=T+V_a+V_b$, where $V_a$, $V_b$ are the identical potentials of the two atoms. The basis set $\{|a\rangle,|b\rangle\}$ satisfies
+$$(T+V_a)|a\rangle=E_0|a\rangle,\quad(T+V_b)|b\rangle=E_0|b\rangle$$
+where $E_0$ is the eigenenergy of the atomic state. Look for $|\psi\rangle=\alpha|a\rangle+\beta|b\rangle$. Project $H|\psi\rangle=E|\psi\rangle$ onto $\langle a|$ and $\langle b|$ to get
+$$\begin{pmatrix}\tilde{E}_0-E&t\\t^*&\tilde{E}_0-E\\\end{pmatrix}\begin{pmatrix}\alpha\\\beta\\\end{pmatrix}=\boldsymbol{0},\quad\tilde{E}_0=E_{aa}=\langle a|T+V_a+V_b|a\rangle=E_a+\langle a|V_b|a\rangle,\quad t=H_{ab}=\langle a|T+V_a+V_b|b\rangle$$
+where $\tilde{E}_0$ is the shift of the atomic energy by the crystal field of the other atom, and $t$ is the hopping matrix element. For $t<0$, the new eigenstates are
+$$|\psi\rangle=\frac{1}{\sqrt{2}}(|a\rangle\mp|b\rangle),\quad E=\tilde{E}_0\pm|t|$$
+For the lower energy (bonding) state, the electron density has a maximum between the atoms. For the higher energy (anti-bonding) state, the electron density has a node between the atoms.
+\end{eg}
+\begin{eg}[Linear chain]
+To generalize to a linear chain of atoms, we have to consider Bloch's theorem. If we have one-orbital per unit cell, then the wavefunction has the form $|\psi\rangle=\sum_ne^{i\mathbf{k}\cdot\mathbf{R_n}}|n\rangle$, where the sum is consistent with the periodic boundary conditions. $\mathbf{R_n}$ is the position of atom $n$, $|n\rangle$ is an atomic orbital centred on atom $n$ with $\langle\mathbf{r}|n\rangle=\phi(\mathbf{r}-\mathbf{R_n})$. This is consistent with Bloch's theorem, i.e. $\hat{T}_{\mathbf{a}}|\psi\rangle=e^{i\mathbf{k}\cdot\mathbf{a}}|\psi\rangle$. To find the dispersion $E(\mathbf{k})$, take
+$$\langle 0|\hat{H}|\psi\rangle=E(\mathbf{k})=\sum_ne^{i\mathbf{k}\cdot\mathbf{R_n}}\langle 0|\hat{H}|n\rangle$$
+By restricting to nearest neighbour interactions, $t^*=t=\langle n|\hat{H}|n+1\rangle$. Define $\tilde{E}_0=\langle n|\hat{H}|n\rangle$ to be the on-site energy, then
+$$E_k=\tilde{E}_0+2t\cos(ka)$$
+The first Brillouin zone is defined by the range $-\pi/a<k<\pi/a$.
+\end{eg}
+\begin{eg}
+Consider two orbitals (which is usually true due to the spin degree of freedom) per site, $|a_n\rangle$ and $|b_n\rangle$ to form a hybridized local orbital, then the Bloch state is
+$$|\psi\rangle=\sum_ne^{i\mathbf{k}\cdot\mathbf{R_n}}(\alpha_\mathbf{k}|a_n\rangle+\beta_\mathbf{k}|b_n\rangle)$$
+Multiply $\hat{H}|\psi\rangle=E|\psi\rangle$ by $\langle a_0|$ and $\langle b_0|$ respectively, we have
+$$\begin{pmatrix}E_a(\mathbf{k})-E&V_{\mathbf{k}}\\V_{\mathbf{k}}^*&E_b(\mathbf{k})-E\\\end{pmatrix}\begin{pmatrix}\alpha_{\mathbf{k}}\\\beta_{\mathbf{k}}\\\end{pmatrix}=\boldsymbol{0},\quad E_a=\sum_ne^{i\mathbf{k}\cdot\mathbf{R_n}}\langle a_0|\hat{H}|a_n\rangle,\quad V_{\mathbf{k}}=\sum_{\mathbf{R_n}}e^{i\mathbf{k}\cdot\mathbf{R_n}}\langle a_0|\hat{H}|b_n\rangle$$
+can define similarly for $E_b$.
+\end{eg}
+\begin{remarks}
+In NFE, the kinetic energy appears on the diagonal and the potential in off-diagonal terms. In TB, we have the potential energy on the diagonal and the hopping elements on the off-diagonal terms.
+\end{remarks}
+\begin{cor}
+Suppose there is only a single atomic s-level, then the band structure of the corresponding s-band is
+\begin{equation}
+    E(\mathbf{k})=E_s-\beta-\sum_{\text{nn}}\gamma(\mathbf{R})\cos\mathbf{k}\cdot\mathbf{R}\label{NN}
+\end{equation}
+where the sum is over nearest neighbours.
+\end{cor}
+\begin{proof}
+If we were to only consider a single atomic s-level, then Eqn.~\ref{SE} gives
+$$E(\mathbf{k})=E_s-\frac{\beta+\sum\gamma(\mathbf{R})e^{i\mathbf{k}\cdot\mathbf{R}}}{1+\sum\alpha(\mathbf{R})e^{i\mathbf{k}\cdot\mathbf{R}}}$$
+where $E_s$ is the energy of the atomic s-level, and
+$$\beta=-\int\Delta U(\mathbf{r})|\phi(\mathbf{r})|^2,\quad\alpha(\mathbf{R})=\int\phi^*(\mathbf{r})\phi(\mathbf{r}-\mathbf{R})d\mathbf{r},\quad\gamma(\mathbf{R})=-\int\phi^*(\mathbf{r})\Delta U(\mathbf{r})\phi(\mathbf{r}-\mathbf{R})d\mathbf{r}$$
+$\phi$ is an as-orbital, so $\phi(\mathbf{r})\in\mathbb{R}\implies\alpha(-\mathbf{R})=\alpha(\mathbf{R})$. Together with the inversion symmetry of the Bravais lattice, we have $\Delta U(\mathbf{r})=\Delta U(-\mathbf{r})\implies\gamma(-\mathbf{R})=\gamma(\mathbf{R})$. $\alpha$ gives only small corrections to the numerator, which we will neglect. Finally, the sum in the numerator only arises from nearest-neighbour separations which gives appareciable overlap integrals. 
+\end{proof}
+\begin{eg}
+For FCC crystal, the 12 nearest neighbours of the origin are at
+$$\mathbf{R}=\frac{a}{2}(\pm1,\pm1,0),\quad\frac{a}{2}(\pm1,0,\pm1),\quad\frac{a}{2}(0,\pm1,\pm1)$$
+which gives
+$$E(\mathbf{k})=E_s-\beta-4\gamma(\cos0.5k_xa\cos0.5k_ya+\cos0.5k_xa\cos0.5k_za+\cos0.5k_ya\cos0.5k_za)$$
+It can be shown if $E$ is plotted along any line perpendicular to one of the square faces of the first BZ (for fcc cubic crystals), it will cross with vanishing slope. This is not necessary for any of the hexagonal faces.
+\end{eg}
+\begin{eg}
+The character of the original atomic levels (which superpose to form the bands) is reflected in the width and shape of the bands. The more compact and anisotropic 3d orbitals give rise to five narrow bands of complex shape, whilst the single band derived from the larger, spherical 4s orbitals is wide and almost free-electron-like. Optical transition may occur between the occupied d-bands and the empty states at the top of the s-band.
+\end{eg}
+\subsection{Pseudopotentials}
+\begin{defi}
+The effective potential for the scattering of the valence electrons by the atomic cores is a weak pseudopotential. A pseudopotential reproduces the valence states as the lowest eigenstates of the problem and removed the core states from the problem. 
+\end{defi}
+\begin{remarks}
+The true potential $V(r)$ has a wavefunction $\psi(r)$ for the valence electrons that oscillates rapidly near the core. The pseudopotential $V_s(r)$ has a wavefunction $\psi_s(r)$ that is smooth near the core, but approximates  the true wavefunction far away from the core region.
+\end{remarks}
+\begin{defi}[Orthogonalised plane waves (OPW)]
+The higher states must be orthogonal to the core levels, i.e.
+$$|\chi_{\mathbf{k}}\rangle=|\mathbf{k}\rangle-\sum_n\beta_n|f_{n,\mathbf{k}}\rangle$$
+where $|\mathbf{k}\rangle$ is a plane wave, and the coefficients $\beta_n(\mathbf{k})$ are chosen to make the states $\chi$ orthogonal to the core states $|f_{n,\mathbf{k}}\rangle$.
+\end{defi}
+\begin{prop}
+\begin{equation}
+    V_s|\phi\rangle=U|\phi\rangle+\sum_n(E-E_n)\langle f_n|\phi\rangle|f_n\rangle\label{pseudopotential}
+\end{equation}
+\end{prop}
+\begin{proof}
+Consider plane wave expansion $|\phi_k\rangle=\sum_{\mathbf{G}}\alpha_{\mathbf{k}-\mathbf{G}}|\mathbf{k}-\mathbf{G}\rangle$, then it is easily shown that
+$$|\psi\rangle=|\phi\rangle-\sum_n\langle f_n|\phi\rangle|f_n\rangle\implies E|\phi\rangle=H|\phi\rangle+\sum_n(E-E_n)\langle f_n|\phi\rangle|f_n\rangle$$
+with the corresponding Schr\"{o}dinger's equation with potential $V_s$.
+\end{proof}
+\begin{remarks}
+We may write Eqn.~\ref{pseudopotential} as a non-local operator in space
+$$(V_s-U)\phi(r)=\int V_R(\mathbf{r},\mathbf{r'})\phi(\mathbf{r'})d\mathbf{r'},\quad V_R(\mathbf{r},\mathbf{r'})=\sum_n(E-E_n)f_n(\mathbf{r})f_n^*(\mathbf{r'})$$
+\end{remarks}
+\newpage
+\section{Band structure}
+\subsection{Brillouin zones in real materials}
+\begin{defi}[Fermi level]
+The energy of the highest occupied level is the Fermi energy $E_F$.
+\end{defi}
+The ground state of $N$ Bloch electrons is constructed similarly to that of $N$ free electrons (fill levels with energies less than $E_F$ such that the total number of one-electron levels with $E<E_F$ to be $N$). For Bloch electrons, however, $E_n(\mathbf{k})$ is not parabolic, and $\mathbf{k}$ must be confined to a single primitive cell of the reciprocal lattice if each level is to be counted only once.
+\begin{defi}[Bandgap]
+The difference in energy between the highest occupied level and the lowest occupied level is known as the bandgap.
+\end{defi}
+By filling the lowest levels, two distinct configurations can result:
+\begin{enumerate}
+    \item A certain number of bands may be completely filled, all others remaining empty. Since the number of levels in a band is equal to the number of primitive cells in the crystal and that each level can accommodate two electrons, a bandgap can arise only if the number of electrons per primitive cell is even.
+    \item $E_F$ lies within the energy range of one or more bands. For each partially filled band there will be a surface in $k$-space separating the occupied from the unoccupied levels. The set of all such surfaces is the Fermi surface. 
+\end{enumerate}
+\begin{defi}[Branch of Fermi surface]
+The parts of the Fermi surface arising from individual partially filled bands are known as branches of the Fermi surface, determined by $E_N(\mathbf{k})=E_F$.
+\end{defi}
+\begin{defi}[Repeated zone scheme]
+When a branch of the Fermi surface is represented by the full periodic structure, it is said to be described in a repeated zone scheme.
+\end{defi}
+\begin{defi}[Reduced zone scheme]
+It is preferable to represent every physically distinct level by just one point of the surface, by representing each branch by that portion of the full periodic surface contained within a single primitive cell of the reciprocal lattice. This representation is the reduced zone scheme. 
+\end{defi}
+\begin{remarks}\leavevmode
+\begin{enumerate}
+\item The primitive cell chosen is often, but not always the first Brillouin Zone.
+\item The reduced zone scheme indexes each level with a $k$ lying in the first zone, while the extended zone scheme uses a labelling emphasizing continuity with the free electron levels.
+\item In three-dimensions, the band structure is plotted in a reduced-zone schemes, since for general directions in $k$-space they are not periodic. These directions are all lines of fairly high symmetry. The presence of a weak potential will remove some of the degeneracy, and can be determined by group theory.
+\item When an external field changes an electron's wavevector, the energy gap requires that upon crossing the Bragg plane, the electron must emerge in a level whose energy remains in the original branch of $E(\mathbf{k})$.
+\item For generic solids, first draw the free electron Fermi sphere centred at $\mathbf{k}=\boldsymbol{0}$. The sphere will be deformed when it crosses a Bragg plane and in a correspondingly more complex way when it passes near several Bragg planes, giving it an overall fractured appearance in the extended-zone scheme. To construct the portions of the Fermi surface lying in the various bands in the repeated zone scheme, translate all the pieces of the single fractured sphere back into the first zone through the reciprocal lattice vectors.
+\end{enumerate}
+ \end{remarks}
+\begin{prop}[Density of levels]
+\begin{equation}
+    g_n(E)=\int_{S_n(E)}\frac{1}{|\boldsymbol{\nabla}E_n(\mathbf{k})|}\frac{dS}{4\pi^3}\label{DoL}
+\end{equation}
+where $S_n(E)$ is a surface of constant energy.
+\end{prop}
+\begin{proof}
+Often, we have to form quantities being weighted sums over the electronic levels
+$$Q=2\sum_{n,\mathbf{k}}Q_n(\mathbf{k})\implies q=\lim_{V\rightarrow\infty}\frac{Q}{V}=2\sum_n\int Q_n(\mathbf{k})\frac{d\mathbf{k}}{(2\pi)^3}$$
+where for each $n$, the sum is over all allowed $\mathbf{k}$ giving physically distinct levels, i.e. lying in a single primitive cell. In the limit of a large crystal, the sum over allowed $\mathbf{k}$ is replaced with an integral over a primitive cell. We can define a density of levels per unit volume $g(E)$ such that $q=\int g(E)Q(E)dE\implies g(E)=\sum_ng_n(E)$ where $g_n(E)=\int\delta(E-E_n(\mathbf{k}))\frac{d\mathbf{k}}{4\pi^3}$. Since $dE$ is infinitesimal, we can express it as a surface integral. Let $S_n(E)$ be the portion of the surface $E_n(\mathbf{k})=E$ lying within the primitive cell, and let $\delta k(\mathbf{k})$ be the perpendicular distance between the surfaces $S_n(E)$ and $S_n(E+dE)$ at the point $\mathbf{k}$. 
+$$g_n(E)dE=\int_{S_n(E)}\delta k(\mathbf{k})\frac{dS}{4\pi^3}$$
+where $\delta(f(x)-f(x_0))=\delta(x-x_0)/|f'(x_0)|$. The $k$-gradient of $E_n(\mathbf{k})$ is a vector normal to that surface whose magnitude is equal to the rate of change of $E_n(\mathbf{k})$ in the normal direction, i.e.
+$$E+dE=E+|\boldsymbol{\nabla_k}E_n(\mathbf{k})|\delta k(\mathbf{k})\implies\delta k(\mathbf{k})=\frac{dE}{|\boldsymbol{\nabla_k}E_n(\mathbf{k})|}$$
+where result follows.
+\end{proof}
+\begin{remarks}
+Maxima, minima and saddle points are all generically described by dispersion (measured relative to the stationary point)
+$$E(\mathbf{k})=E_0\pm\frac{\hbar^2}{2}\bigg(\frac{k_x^2}{m_x}+\frac{k_y^2}{m_y}+\frac{k_z^2}{m_z}\bigg)$$
+If all the signs are positive or negative, this is a band minimum or maximum respectively. If the signs are mixed, there is a saddle point. 
+\end{remarks}
+\begin{eg}[van Hove singularities]
+van Hove singularities occur at values of $E$ for which the constant energy surface $S_n(E)$ contains points at which $|\boldsymbol{\nabla_k}E_n|=0$.\\[5pt]
+When $|\boldsymbol{\nabla_k}E_n|=0$, the integrand in Eqn.~\ref{DoL} diverges. In 2D, a saddle point gives rise to a logarithmically singular density of states. But in 3D, such singularities are integrable, yielding finite values for $g_n$ and discontinuity of the slope $dg_n/dE$. 
+\end{eg}
+\begin{cor}
+The constant energy surfaces at the Bragg plane are perpendicular to the Bragg plane.
+\end{cor}
+\begin{proof}
+When $E_{\mathbf{k}}^0=E^0_{\mathbf{k}-\mathbf{G}}$, then the gradient
+$$\frac{dE}{d\mathbf{k}}=\frac{\hbar^2}{m}(\mathbf{k}-0.5\mathbf{G})$$
+when the point $\mathbf{k}$ is on the Bragg plane, the gradient of $E$ is parallel to the Bragg plane. Since the gradient is perpendicular to the surfaces on which a function is constant, the constant energy surfaces at the Bragg plane are perpendicular to the plane.
+\end{proof}
+\begin{remarks}
+When labelling special symmetry points of Brillouin zone, we have: $\Gamma$ (0,0,0); for FCC especially, X $\frac{2\pi}{a}(1,0,0)$, L $\frac{\pi}{a}(1,1,1)$, K is at zone edge $(110)$ direction. 
+\end{remarks}
+\begin{eg}[Metals]
+With an odd number of electrons per primitive unit cell, chemical potential must lie within a band, hence no energy gap. Because low-energy electronic excitations are possible, the system is a metal. 
+\end{eg}
+\begin{eg}[Monovalent metals]
+The monovalent metals have the simplest Fermi surfaces. It encloses a volume of $k$-space that accommodates just one electron per atom. All bands are completely filled or empty except for a single half-filled conduction band.\\[5pt]
+Alkali metals (Li, Na, K, Rb, Cs): core electrons form the tightly bound rare gas configuration and therefore give rise to very low-lying, very narrow, filled, tight-binding bands; nearly spherical Fermi surfaces lying entirely inside a first Brillouin Zone.\\[5pt]
+Noble metals (Cu, Ag, Au): Fermi surfaces have more complex topology and the influence on their properties of the filled d-band can be pronounced. The argon configuration give rise to very tightly bound bands. In the case of Cooper, 6 bands are required to accommodate 11 additional electrons 3d$^{10}$4s$^{1}$. The d-bands are narrow, while the remaining s-band is broad. Nomenclature is clear at some $\mathbf{k}$ where the levels do clearly group into sets of 5 and 1.
+\end{eg}
+\begin{eg}[Aluminium]
+In Aluminium, the first BZ is full and the valence electrons spread into the second, third and fourth BZ. The band structure close to free electron parabola, except when near the BZ boundaries, the bands fill up to Fermi level. No clear band gap in all directions, hence a metal. Transitions from filled states below $E_F$ to empty states above $E_F$ readily occurs. For parallel bands, there is a high density of states, so the transition rate is high by Fermi's Golden rule. This accounts for the unusual reflectivity dip at 1.5 eV.
+\end{eg}
+\begin{eg}[Semimetals]
+Even with the right number of electrons to fill bands, these bands may still overlap. Consequently, the Fermi surface will intersect more than one band, making a pocket of electrons in one band and removing a pocket of electrons from the band below (making holes). This accounts for the metallicity (can conduct electricity) of Ca and Mg, etc, i.e. semimetals.
+\end{eg}
+\begin{eg}[Semiconductors]
+If there is an even number of electrons per unit cell, it is possible (with no band overlap) for all of the occupied states to fill bands, with an energy gap to the empty states. The system will be a semiconductor or insulator.\\[5pt]
+Maximum in valence band for both Si and GaAs at $\Gamma$ point (zone centre) in BZ. The minimum in conduction band is also at $\Gamma$ for GaAs (direct bandgap) but is at X ($\frac{2\pi}{a}(1,0,0)$ for FCC) for Si (indirect bandgap).
+\end{eg}
+\subsection{Semiclassical dynamics}
+\begin{defi}[Semiclassical model]
+The electron wavefunction was defined to be a set of plane waves (a wavepacket), which may be constructed as
+$$\psi(\mathbf{r},t)=\sum_{\mathbf{k'}}g(\mathbf{k'})\exp\bigg[i\bigg(\mathbf{k'}\cdot\mathbf{r}-\frac{\hbar k'^2}{2m}t\bigg)\bigg]$$
+with $g(\mathbf{k'})\approx 0$ and $|\mathbf{k'}-\mathbf{k}|>\Delta k$, where $\mathbf{k}$ and $\mathbf{r}$ are the mean position and momentum about which the wavepacket is localized (within limitation of $\Delta x\Delta k>1$ by the uncertainty principal). In this case, the dynamics of the wavepacket is described by the classical equations of motion. 
+\begin{equation}
+\mathbf{\dot{r}_n}=\frac{1}{\hbar}\frac{\partial E_n(\mathbf{k})}{\partial\mathbf{k}},\quad\hbar\mathbf{\dot{k}}=-e(\mathbf{E}(\mathbf{r},t)+\mathbf{\dot{r}_n}(\mathbf{k})\times\mathbf{B}(\mathbf{r},t))\label{semiclassical}
+\end{equation}
+This prediction is based entirely upon knowledge of the bandstructure of th metal $E_n(\mathbf{k})$. Note that we neglect interband transitions, i.e. $\hbar\omega<<E_{\text{gap}}$, $eEa<<\frac{E_{\text{gap}}(\mathbf{k})^2}{E_F}$ and $\hbar\omega_c<<\frac{E_{\text{gap}}(\mathbf{k})^2}{E_F}$. Otherwise, if the field amplitudes are too high, breakdown will occur.
+\end{defi}
+\begin{remarks}
+Bloch levels are stationary solutions to the Schr\"{o}dinger equation in the presence of the full periodic potential of the ions. This means electrons have non-vanishing velocity, which contradict with Drude's idea of collisions with fixed heavy ions. In fact, the effect of the periodic array of the ions have been fully taken into account. In a periodic array of scatterers, a wave can propagate without attenuation because of the coherent constructive interference of the scattered waves. Scattering is due to the solid's deviation from periodicity.
+\end{remarks}
+\begin{defi}[Group velocity]
+For electron wavepackets, we can use the idea of a group velocity
+\begin{equation}
+    \mathbf{v}=\frac{1}{\hbar}\boldsymbol{\nabla_k}E\label{groupvel}
+\end{equation}
+where $\boldsymbol{\nabla_k}$ is the gradient operator in $k$-space. 
+\end{defi}
+\begin{remarks}
+We require the wavevector to be well-defined, i.e. the spread in wavevector $\Delta k$ to be small compared with the dimensions of the Brillouin zone. This means it is spread in real space over many primitive cells. The semiclassical model thus describes the response of the electrons to externally applied fields that vary slowly over the dimensions of such a wavepacket, i.e. exceedingly slowly over a few primitive cells.
+\end{remarks}
+\begin{cor}
+Filled bands, all energies lie below $E_F$ are filled and inert - stay filled and contribute no current.
+\end{cor}
+\begin{prop}[Semiclassical motion in an applied DC field]
+In a uniform static electric field, the semiclassical solution is
+\begin{equation}
+    \mathbf{k}(t)=\mathbf{k}(0)-\frac{e\mathbf{E}t}{\hbar}\label{Blochosc}
+\end{equation}
+\end{prop}
+\begin{remarks}[Bloch oscillations]
+The corresponding velocity of an electron at time $t$ will be $\mathbf{v}(\mathbf{k}(t))$. Since $\mathbf{v}(\mathbf{k})$ is periodic in the reciprocal lattice, it is a bounded function of time and, when the field $\mathbf{E}$ is parallel to a reciprocal lattice vector, oscillatory. A DC field results in an alternating current. This is in striking contrast to the free electron case, where $\mathbf{v}\propto\mathbf{k}$.\\[5pt]
+Near the band minimum, the velocity is linear in $k$. It reaches a maximum as the zone boundary is approached, and then drops back down, going to zero at the zone edge. In the region between the maximum of $v$ and the zone edge the velocity decreases with increasing $k$, i.e. acceleration opposite to externally applied electric force. As an electron approaches a Bragg plane, the external electric field moves it towards levels in which it is increasingly likely to be Bragg-reflected back in the opposite direction.
+\end{remarks}
+\begin{defi}[Effective mass]
+The effective mass tells us the curvature of a band at a certain energy.
+\begin{equation}
+    m^*=\hbar^2\bigg(\frac{\partial^2E}{\partial k^2}\bigg)^{-1}\label{effmass}
+\end{equation}
+\end{defi}
+\begin{prop}
+The effective mass has the usual classical interpretation, in the semiclassical model.
+\end{prop}
+\begin{proof}
+Let an external force $f$ be applied to a band electron. The force will do work in time $\delta t$:
+$$\delta E=fv\delta t$$
+but $\delta E=\frac{dE}{dk}\delta k=\hbar v\delta k$. Hence, $\hbar\frac{d\mathbf{k}}{dt}=\mathbf{f}$. The rate of change of velocity with time is
+$$\frac{dv}{dt}=\hbar^{-1}\frac{d^2E}{dkdt}=\frac{1}{\hbar}\frac{d^2E}{dk^2}\frac{dk}{dt}\implies\hbar^2\frac{dv}{dt}\bigg(\frac{\partial^2E}{\partial k^2}\bigg)^{-1}=m^*\frac{dv}{dt}=f$$
+The effective mass is infinity at the zone boundary. 
+\end{proof}
+\begin{remarks}\leavevmode
+\begin{enumerate}
+\item In general, the effective mass will be energy-dependent. However, one often has to deal with almost empty or almost full bands, i.e. the states close to the minima and maxima of the dispersion $E(\mathbf{k})$. These regions are approximately parabolic. Close to these points, the electrons can be treated as if they were free, but with an effective mass:
+$$E(\mathbf{k})\approx E_0+\frac{\hbar^2}{2m_*}(\mathbf{k}-\mathbf{k_0})^2$$
+\item The effective mass also gives the density of states in 3D:
+$$g(E)=\frac{dn}{dE}=\frac{dn}{dk}\frac{dk}{dE}=\frac{1}{2\pi^2}\bigg(\frac{2m^*}{\hbar^2}\bigg)^{3/2}\sqrt{E-E_0}$$
+Here, $m^*$ is the average curvature of the bands in 3D. A fixed region of $k$-space will always contain a fixed number of states. In a heavy-mass band, the $k$-space interval $\Delta k$ corresponds to a small interval of energy $\delta E_1$. As the same number of states is accommodated in each energy region, the density of states $g(E)$ is much higher.
+\item So far all attempts to observe Bloch oscillations in a crystal have failed, due to scattering off impurities and phonons in the solid as $k\rightarrow\pi/a$. We thus use artifical structures.
+\end{enumerate}
+\end{remarks}
+\begin{eg}[Artifical bandstructure]
+Consider a superlattice, consisting of alternating thin layers of GaAs and Al$_{0.3}$Ga$_{0.7}$As repeated 35 times, an artifical periodic potential is created with a periodicity 40 times longer than the atomic spacing. The momentum at the zone boundary will then be 40 times lower, and the wavepacket does not need such large velocities. In the presence of an electric field, the potentials will tilt, forming a Wannier-Stark ladder for electron wavepackets made by excitation from the valence band in one quantum well either vertically or to neighbouring or next neighbouring wells of the electron lattice. 
+\end{eg}
+\begin{eg}[Bloch oscillation measurements]
+Terahertz time domain spectroscopy, a technique only sensitive to coherent emission processes, is used to observe the dipole radiation from oscillating charge. Electron and hole pairs are excited optically by a 100fs pulsed laser with energy just above the bandgap of GaAs. The coherent terahertz radiation is measured as a function of time for different DC electrical biases. More oscillations are seen as the bias becomes more negative. The frequency of the Bloch oscillation peak increases as the bias becomes more negative than $-2.4V$.
+\end{eg}
+\begin{defi}[Holes]
+Holes are empty states in an almost full band. 
+\end{defi}
+\begin{prop}\leavevmode
+\begin{enumerate}
+    \item Current produced by occupying with electrons a specified set of levels is precisely the same as the current that would be produced if (a) the specified levels were unoccupied and (b) all other levels in the band were occupied but with particles of charge $+e$.
+    \item The unoccupied levels in a band evolve in time under the influence of applied fields precisely as they would if they were occupied by real electrons (of charge $-e$).
+    \item The dynamics of holes is the same as a positively charged particle with a positive effective mass $m^*$.
+\end{enumerate}
+\end{prop}
+\begin{proof}
+Consider a band with $E=0$ at the top, containing electrons with $\mathbf{k_j}$ and $\mathbf{v_j}$. For a full band, $\sum_j\mathbf{k_j}=0$. Suppose we remove one electron to create an excitation which we label a hole. The band acquires a net $\mathbf{k}$ which we attribute to the presence of the hole. $\mathbf{k_h}=\sum_{j\neq\ell}\mathbf{k_j}=-\mathbf{k_\ell}$. Since the lower down the band the empty state, the more excited the system, the hole's energy is $E_h=-E(\mathbf{k_\ell})$. The group velocity $\mathbf{v_h}$ associated with the hole is
+$$\mathbf{v_h}=\frac{1}{\hbar}\boldsymbol{\nabla_{k_h}}E_h=\frac{1}{\hbar}\boldsymbol{\nabla_{-k_\ell}}(-E(\mathbf{k_\ell}))=\mathbf{v_\ell}$$
+The full band will carry no current, i.e. $\sum_j-e\mathbf{v_j}=0$. The removal of the $\ell$th electron produces a current
+$$\sum_{j\neq\ell}-e\mathbf{v_j}=-(-e)\mathbf{v_\ell}=+e\mathbf{v_h}$$
+i.e. the hole appears to have an associated positive charge. Finally, $m_h^*=-m_\ell^*$.
+\end{proof}
+\begin{remarks}
+Many divalent and trivalent metals have positive Hall coefficients. The section of Fermi surface in the corner of the Brillouin zone corresponds ot a small number of empty states at the top of a band; the states are therefore hole-like. By contrast, the sections of Fermi surface straddling the zone boundaries represent a few filled states at the bottom of the upper band; these states are therefore electron-like. The observed Hall coefficient would depend on the relative contribution that the various Fermi-surface sections make to the electrical conductivity.
+\end{remarks}
+We now consider semiclassical motion in the presence of a magnetic field.
+\begin{prop}
+Electrons move along curves given by the intersection of surfaces of constant energy with planes perpendicular to the magnetic field.
+\end{prop}
+\begin{proof}
+When $\mathbf{E}=\boldsymbol{0}$, we see that the component of $\mathbf{k}$ along $\mathbf{B}$ and the electronic energy $E(\mathbf{k})$ are both constants of motion. These two conservation laws completely determine the electronic orbits in $k$-space.
+\end{proof}
+\begin{cor}
+Closed $k$-space orbits surrounding levels with energies higher than those on the orbit (hole orbits) are traversed in the opposite sense to closed orbits surrounding levels of lower energy (electron orbits).
+\end{cor}
+\begin{proof}
+$\mathbf{v}(\mathbf{k})\propto\boldsymbol{\nabla_k}E(\mathbf{k})$ and thus points in $k$-space from lower to higher energies. If one were to follow the k-space orbit in the direction of electronic motion with $\mathbf{B}=B\mathbf{\hat{z}}$, then the high-energy side of the orbit is on the right.
+\end{proof}
+\begin{cor}
+The projection of the real space orbit in a plane perpendicular to the field is the $k$-space orbit, rotated through 90 degrees about the field direction and scaled by a factor $\hbar/eB$.
+\end{cor}
+\begin{proof}
+The projection of the real space orbit in a plane perpendicular to the field is $\mathbf{r_\perp}=\mathbf{r}-\mathbf{\hat{B}}(\mathbf{\hat{B}}\cdot\mathbf{r})$. By taking a cross-product:
+$$\mathbf{\hat{B}}\times\hbar\mathbf{\dot{k}}=-eB(\mathbf{\dot{r}}-\mathbf{\hat{B}}(\mathbf{\hat{B}}\cdot\mathbf{\dot{r}}))=-eB\mathbf{\dot{r}_\perp}$$
+which integrates to $\mathbf{r_\perp}(t)-\mathbf{r_\perp}(0)=-\frac{\hbar}{eB}\mathbf{\hat{B}}\times(\mathbf{k}(t)-\mathbf{k}(0))$.
+\end{proof}
+\begin{remarks}
+In the free electron case, the constant energy surfaces are spheres, whose intersections with planes are circles. A circle rotated through 90 degree remains a circle. In the semiclassical generalization, the orbits need not be circular, or even closed curves.
+\end{remarks}
+\begin{prop}
+The period of the orbit $T$ is related to the $k$-space area $A$ enclosed by the orbit in its plane via
+\begin{equation}
+    T(E,k_z)=\frac{\hbar^2}{eB}\frac{\partial A(E,k_z)}{\partial E}\label{period}
+\end{equation}
+\end{prop}
+\begin{proof}
+Consider an orbit of energy $E$ in a particular plane perpendicular to the field. The time taken to traverse that portion of the orbit lying between $\mathbf{k_1}$ and $\mathbf{k_2}$ is
+$$t_2-t_1=\int_{k_1}^{k_2}\frac{dk}{|\mathbf{\dot{k}}|}=\frac{\hbar^2}{eB}\int_{k_1}^{k_2}\frac{dk}{|(\partial E/\partial\mathbf{k})_\perp|}$$
+where $(\partial E/\partial\mathbf{k})_\perp$ is the component perpendicular to the field, i.e. its projection in the plane of the orbit. This has the following geometrical interpretation: Let $\boldsymbol{\Delta}(\mathbf{k})$ be a vector in the plane of the orbit that is perpendicular to the orbit at point $\mathbf{k}$ and that joins the point $\mathbf{k}$ to a neighbouring orbit in the same plane of energy $E+\Delta E$, when $\Delta E$ is very small,
+$$\Delta E=\frac{\partial E}{\partial\mathbf{k}}\cdot\boldsymbol{\Delta}(\mathbf{k})=\bigg(\frac{\partial E}{\partial\mathbf{k}}\bigg)_\perp\cdot\boldsymbol{\Delta}(\mathbf{k})$$
+Since $\partial E/\partial\mathbf{k}$ is perpendicular to surfaces of constant energy, the vector $(\partial E/\partial\mathbf{k})_\perp$ is perpendicular to the orbit, and hence parallel to $\boldsymbol{\Delta}(\mathbf{k})$. Thus,
+$$\Delta E=\bigg|\bigg(\frac{\partial E}{\partial\mathbf{k}}\bigg)_\perp\bigg|\Delta(\mathbf{k})\implies t_2-t_1=\frac{\hbar^2c}{eB\Delta E}\int_{k_1}^{k_2}\Delta(\mathbf{k})dk\rightarrow\frac{\hbar^2}{eB}\frac{\partial A_{1,2}}{\partial E}$$
+where the integral gives the area of the plane between the two neighbouring orbits from $\mathbf{k_1}$ to $\mathbf{k_2}$. $\partial A_{1,2}/\partial E$ is the rate at which the portion of the orbit between $\mathbf{k_1}$ and $\mathbf{k_2}$ starts to sweep out area in the given plane as $E$ is increased. A period is defined when $\mathbf{k_1}=\mathbf{k_2}$, i.e. the orbit is a simple closed curve. 
+\end{proof}
+\begin{remarks}
+When both electric and magnetic fields are switched on, the motion in real space perpendicular to $\mathbf{B}$ is the superposition of (a) $k$-space orbit rotated and scaled just as it would be if only $\mathbf{B}$ were present, and (b) a uniform drift with velocity $\propto(\mathbf{E}\times\mathbf{B})$.\\[5pt]
+If no electric field is present, the currents carried by open orbits in opposite directions cancel. With $\mathbf{E}\neq\boldsymbol{0}$, we have an imbalance in oppositely directed populated open orbits in the steady state, and hence a net current.
+\end{remarks}
+\newpage
+\subsection{Experimental probes}
+\begin{enumerate}
+\item The shape of the Fermi surface is intimately involved in the transport coefficients of a metal, as well as, in the equilibrium and optical properties. 
+\item An experimentally measured Fermi surface provides a target at which a first-principles band structure calculation can aim. 
+\item It can also be used to provide data for fitting parameters in a phenomenological crystal potential, which can be used to calculate other phenomena.
+\end{enumerate}
+\subsubsection{Optical transitions}
+One way to investigate the bandstructure is the excitation of an electron by a photon from an occupied state to an empty state in the conduction band leaving behind a hole in the valence band and creating an electron-hole pair. 
+\begin{defi}[Interband transitions]
+For an electron's energy to change by $\hbar\omega$, the electron must move from one band to another without appreciable change in the wavevector, i.e. $\hbar\omega\geq E_{n'}(\mathbf{k})-E_{n}(\mathbf{k})$, where $E_n(\mathbf{k})$ is below the Fermi level (available for excitation). 
+\end{defi}
+\begin{defi}[Interband threshold]
+The interband threshold is the critical energy needed for interband transition. It may be due either to the excitation of electrons from the conduction band into higher unoccupied levels, or to the excitation of electrons from filled bands into unoccupied levels in the conduction band.
+\end{defi}
+\begin{remarks}
+Photon wavevector (optical) has order $\sim 10^5$ cm$^{-1}$, which is much smaller than typical Brillouin zone dimensions, $k_F\sim 10^8$ cm$^{-1}$. The wavevector of a Bloch electron is essentially unchanged when it absorbs a photon.
+\end{remarks}
+\begin{eg}[Alkali metals]
+In alkali metals, the filled bands lie far below the conduction band, and the excitation of conduction band electrons to higher levels gives the interband threshold. Since the Fermi surface in the alkali metals is so close to a free electron sphere, the bands above the conduction band are also quite close to free electron bands.\\[5pt]
+A free electron estimate of the threshold energy $\hbar\omega$ follows from observing that the occupied conduction band levels with energies closest to the next highest free electron levels at the same $\mathbf{k}$ occur at points on the Fermi sphere nearest to the Bragg plane, i.e. at points where Fermi sphere  meets the line $\Gamma N$.
+$$\hbar\omega=\frac{\hbar^2}{2m}(2k_0-k_F)^2-\frac{\hbar^2}{2m}k_F^2=0.64E_F$$
+where $k_0$ is the length of the line $\Gamma N$ from the centre of the zone to the midpoint of one of the zone faces.
+\end{eg}
+\begin{eg}[Noble metals]
+d-band electrons may be excited into unoccupied conduction band levels with considerable less energy. This accounts for the reddish colour in Cooper, with a peak at about 2 eV
+\end{eg}
+\begin{eg}[Indirect semiconductors]
+For indirect semiconductors (Si, Ge), the valence band maximum is at a different wavevector to the conduction band minimum. For excitation at the minimum energy a phonon must be excited as the photon is absorbed. This is a second order process and much less likely than a direct transition.
+\end{eg}
+\begin{prop}[Transition rate for photon absorption]
+The transition rate is $W_{i\rightarrow f}=\frac{2\pi}{\hbar}|\mathcal{M}|^2g(\hbar\omega)$ where $\mathcal{M}$ is the dipole matrix element. 
+\begin{equation}
+    |\mathcal{M}|\propto\int_{\text{unit cell}}u_i^*(\mathbf{r})xu_f(\mathbf{r})d^3\mathbf{r}\label{transition rate}
+\end{equation}
+where $u_i$ and $u_f$ are periodic functions of the initial and final state respectively. Here, we assume the incident light is $x$-polarized.
+\end{prop}
+\begin{proof}
+By Fermi's Golden rule, $W_{i\rightarrow f}=\frac{2\pi}{\hbar}|\mathcal{M}|^2g(\hbar\omega)$. Here, 
+$$\mathcal{M}=\langle\psi_f|\Delta|\psi_i\rangle,\quad|\psi_{i,f}\rangle=\frac{1}{\sqrt{V}}u_{i,f}e^{i\mathbf{k_{i,f}}\cdot\mathbf{r}},~\Delta=-\mathbf{p_e}\cdot\mathbf{E_0}e^{i\mathbf{k}\cdot\mathbf{r}}$$
+where $p_e$ is the electric dipole moment.
+$$\mathcal{M}=\frac{e}{V}\int u_f^*(\mathbf{r})e^{-i\mathbf{k_f}\cdot\mathbf{r}}\mathbf{E_0}\cdot\mathbf{r}e^{i\mathbf{k}\cdot\mathbf{r}}u_i(\mathbf{r})e^{i\mathbf{k_i}\cdot\mathbf{r}}d^3\mathbf{r}\propto\int_{\text{unit cell}}u_i^*(\mathbf{r})xu_f(\mathbf{r})d^3\mathbf{r}$$
+where we used the conservation of momentum $\hbar\mathbf{k_f}-\hbar\mathbf{k_i}=\hbar\mathbf{k}$. $u_i$ and $u_f$ have same periodicity as the lattice. We may separate the integral over the whole crystal into a sum over identical unit cells - which are in phase. The exact form of $u_i$ and $u_f$ vary from one material to another, and depends on the atomic orbitals of the constituent atoms.
+\end{proof}
+\begin{eg}
+In GeAs and Ge, the p (from 4p atomic orbitals) bonding orbitals and s (from 4s atomic orbitals) antibonding orbitals form the valence and conduction band respectively. Optical transitions are thus electric-dipole allowed.
+\end{eg}
+\begin{eg}[GaAs bandstructure]
+GaAs is a direct bandgap semiconductor. There are three valence bands (heavy holes, light holes and split-off holes, which is further lower in energy by $\Delta$) - occupied states corresponding to 3p bonding orbitals, and a single empty conduction band corresponding to s anti-bonding orbitals. Their dispersion relations are
+$$E_c(k)=E_g+\frac{\hbar^2k^2}{2m_e^*},\quad E_{hh}(k)=-\frac{\hbar^2k^2}{2m_{hh}^*},\quad E_{lh}(k)=-\frac{\hbar^2k^2}{2m_{lh}^*},\quad E_{so}(k)=-\Delta-\frac{\hbar^2k^2}{2m_{so}^*}$$
+Atomic character only well defined at high symmetry points. As the initial and final states lie in continuous bands, $g(\omega)$ is the joint density of states. For $\hbar\omega>E_g$,
+$$g(\hbar\omega)=\frac{1}{2\pi^2}\bigg(\frac{2\mu}{\hbar^2}\bigg)^{3/2}\sqrt{\hbar\omega-E_g}$$
+where $\frac{1}{\mu}=\frac{1}{m_e^*}+\frac{1}{m_h^*}$, $m_h^*$ is the heavy hole or light hole mass. Otherwise, zero. 
+\end{eg}
+We use Beer's law $I(z)=I_0\exp(-\alpha z)$ for quantifying absorption measurements from optical absorption spectroscopy. $\alpha$ is the fraction of intensity $I$ (power per unit area) absorbed per unit length.
+\begin{eg}[Photon absorption for direct semiconductors]
+For $\hbar\omega<E_g$, $\alpha=0$. For $\hbar\omega>E_g$, $\alpha\propto\sqrt{\hbar\omega-E_g}$. Since $g(\hbar\omega)\propto\mu^{3/2}$, we expect transitions with larger reduced masses $\mu$ give rise to stronger absorption.\\[5pt]
+This is an approximate relation since we neglect Coulomb attraction between the electrons and holes which can enhance absorption and lead to formation of a bound pair - an exciton. These effects get larger as bandgap increases and temperature is lowered. The semiconductor may have impurities and defects with energies within the bandgap, giving rise to additional absorption below the bandgap energy. The parabolic band approximation is only valid near $k=0$ - as the photon energy increases above the bandgap, we need to use the full band structure to evaluate $g(E)$.
+\end{eg}
+\begin{eg}[Photon absorption for indirect semiconductors]
+A similar derivation for the transition rate for indirect bandgap semiconductor gives $\alpha(\hbar\omega)\propto(\hbar\omega-E_g\mp\hbar\Omega)^2$, where $\Omega$ is the frequency of the phonon, needed to mediate this transition. Phonon absorption possible only at high temperatures, where phonons are excited. The different frequency dependence is crucial to distinguish direct and indirect bandgap. $\alpha$ is also much larger for direct semiconductors.\\[5pt]
+In Si, two strong absorption peaks at L and X point (indirect gap). In both regions, the conduction and valence bands are parallel, with $dE/dk$ very small, hence very high joint density of states, and thus high $\alpha$.
+\end{eg}
+\begin{eg}[Excitons]
+Peak in GaAs absorption spectrum at low temperature signifies presence of excitons. $1/\mu^*=1/m_e^*+1/m_{hh}^*$ and thus energy level of excitons is $E_n=-\frac{\mu^*}{m_e\epsilon_r^2}\frac{13.6eV}{n^2}$, with $\epsilon_r=12.8$. The energy of exciton is equal to energy required to create an electron-hole pair minus this binding energy. Quantum confined structures greatly enhance exciton effects.
+\end{eg}
+\newpage
+\subsubsection{Photoemission}
+Measure electron spectral function. Incident photons excite electrons from occupied bands in the band structure to states above vacuum energy. The excited electron leaves the crystal and is collected in a detector that analyzes both its energy and momentum. The momentum of the emitted electron almost parallel to the surface (since incident photon's momentum is small compared to crystal momentum). The parallel momentum is close to that of its original state in the bandstructure. The perpendicular component is not conserved.
+$$E_f=\frac{\hbar^2k_f^2}{2m}=E_i+\hbar\omega-\phi,\quad k_{f\parallel}=k_{i\parallel}$$
+where $\phi$ is the workfunction and $\hbar k_\parallel=\hbar k_f\sin\theta$, $\theta$ is the detector angle.
+\begin{remarks}\leavevmode
+\begin{enumerate}
+    \item Photoemission data is easiest to interpret when there is little dispersion of electron bands perpendicular to the surface.
+    \item Analyzing both the energy and momentum of the outgoing electron allows the determination of the band structure directly. Integrating over all angles gives a spectrum proportional to the total density of states.
+    \item Photoemission gives information only about the occupied states. Inverse photoemission involves injecting an electron into a sample and measuring the ejected photon, allowing the mapping of unoccupied bands.
+\end{enumerate}
+\end{remarks}
+\begin{eg}[Angle resolved photoemission spectroscopy]
+ARPES systems use cyrogenic temperatures and ultrahigh vacuum techniques $P\leq 10^{-12}$ bar, so electrons travel to detector without encountering a gas atom. Detectors available for electron spin direction measurements. The sample may also rotate in all 3-axes.
+\end{eg}
+\subsubsection{Quantum oscillations}
+\begin{defi}[de Haas-van Alphen effect]
+Oscillations in the magnetic susceptibility $\chi=dM/dB$ against $1/B$.
+\end{defi}
+\begin{defi}[Shubnikov-de Haas effect]
+Oscillations in the conductivity against $1/B$.
+\end{defi}
+These oscillations are a direct consequence of the quantization of closed electronic orbits in a magnetic field, i.e. purely quantum phenomenon.
+\begin{defi}[Extremal area]
+Take the $z$-axis to be along the magnetic field. The area of a Fermi surface cross-section at height $k_z$ is $A(k_z)$, and the extremal areas $A_e$ satisfy $dA/dk_z=0$.
+\end{defi}
+\begin{prop}[Onsager relation]
+\begin{equation}
+    \Delta B^{-1}=\frac{e}{h}\frac{1}{A_e}\label{Onsanger}
+\end{equation}
+where $A_e$ is any extremal cross-sectional area of the Fermi surface in a plane normal to the magnetic field $B$. This follows from the Bohr-Sommerfeld quantization.
+\end{prop}
+\begin{remarks}
+Consider free electrons (in a cubical box of side length $L$) in a uniform magnetic field. The orbital energy levels are
+$$E_\nu(k_z)=\frac{\hbar^2k_z^2}{2m}+\bigg(\nu+\frac{1}{2}\bigg)\hbar\omega_c,\quad\omega_c=\frac{eB}{m}$$
+where $\nu\in\mathbb{Z}^+$, and $k_z=\frac{2\pi n_z}{L},~n_z\in\mathbb{Z}$ are good quantum numbers. Each level is highly degenerate with degeneracy $2eBL^2/h$ (including spin degeneracy factor). The energy of motion perpendicular to the field is quantized in steps of $\hbar\omega_c$, i.e. orbit quantization. The set of all levels with a given $\nu$ and arbitrary $k_z$ is referred to collectively as the $\nu$th Landau level.\\[5pt]
+Onsager's generalization of Landau's free electron results is only valid for magnetic levels with fairly high $\nu\sim 10^4$ (generally achievable in practice). This may be described by the correspondence principle, which asserts that
+$$E_{\nu+1}(k_z)-E_\nu(k_z)=\frac{h}{T(E_v(k_z),k_z)}$$
+where $E_\nu(k_z)$ is the energy of the $\nu$th allowed level at the given $k_z$, and $T(E<k_z)$ is the period found in Eqn.~\ref{period}. The difference in enclosed areas is
+$$\Delta A=A(E_{\nu+1})-A(E_\nu)=(E_{\nu+1}-E_\nu)\frac{\partial A(E_\nu)}{\partial E}=\frac{2\pi eB}{\hbar}=\frac{2\pi eB}{\hbar}$$
+At large $\nu$, the area enclosed by the semiclassical orbit at an allowed energy and $k_z$ must depend on $\nu$:
+$$A(E_v(k_z),k_z)=(\nu+\lambda)\Delta A$$
+where $\lambda$ is independent of $\nu$.
+\end{remarks}
+\begin{eg}[Density of states oscillations]
+The energy of band electrons is completely quantized into ladder of Landau levels in the plane perpendicular to $\mathbf{B}$. The DoS is an infinite ladder of Landau levels each with a 1D density of states function superimposed. As each of the sharp peaks in the DoS moves through the chemical potential $\mu$ there is a modulation of the DoS.\\[5pt]
+Going back to de Haas-van Alphen effect, the electronic density of levels will have a sharp peak whenever $E$ is equal to the energy of an extremal orbit. The set of all orbits for a given $\nu$ form a tubular structure in $k$-space. The contribution to $g(E)dE$ from the Landau levels associated with orbits on the $\nu$th such tube will be the number of such levels with energies between $E$ and $E+dE$. This, in turn, is proportional to the area of the portion of the tube contained between the constant-energy surfaces of energies $E$ and $E+dE$. When $E$ is the energy of an extremal orbit, there is a great enhancement in the range of $k_z$ for which the tube is contained between the constant energy surfaces at $E$ and $E+dE$. For the rest of the Fermi surface, the oscillations attributed to each orbit have different periods and add incoherently, wiping out the effect.
+\end{eg}
+\begin{remarks}
+Since altering the magnetic field direction brings different extremal areas into play, all extremal areas of the Fermi surface can be mapped out. This provides enough information to reconstruct the actual shape of the Fermi surface. if more than one extremal orbit is present directions, or if more than one band is partially filled, several periods will be superimposed. By merely counting the number of high frequency periods in a single low frequency period, one can deduce the ratio of maximum extremal area to minimum. 
+\end{remarks}
+\begin{eg}[Noble monovalent metals, fcc]
+In the $\langle 111\rangle$ directions, the Fermi surface `neck' out to touch the eight hexagonal faces of the zone, which is strikingly evident in the de Haas-van Alphen oscillations - two periods determined by the belly (maximum orbit) and neck (minimum orbit).
+\end{eg}
+\begin{remarks}
+Typically require high purity samples - where electronic mean free path must be long enough to allow the electrons to complete one orbit before scattering. With high mangetic field, the cyclotron orbits can be tighter. Further, the DoS oscillations are smeared out when the Fermi surface is smeared by thermal broadening.
+\end{remarks}
+\begin{eg}[Sr$_2$RuO$_4$]
+Sr$_2$RuO$_4$ is a 2D layered perovskite with superconducting properties at low temperature. Beating in oscillations (susceptibility against magnetic field) visible. Fourier transform of data reveals three main peaks $\alpha$, $\beta$, $\gamma$, plus a harmonic at $2\alpha$. Splitting in $\beta$ causes beats in long field sweeps. Observed frequencies are proportional to $k$-space area, and consistent with a Fermi surface with two electron cylinders ($\beta$, $\gamma$) centred on $\Gamma Z$ line and one hole cylinder $\alpha$ running along the corners of the Brillouin Zone.
+\end{eg}
+\newpage
+\subsubsection{Tunnelling}
+\begin{defi}[Tunneling spectroscopy]
+Tunneling spectroscopy injects or removes electrons through a barrier. The potential barrier allows a probe to be maintained at an electrical bias different from the chemical potential of the material. The current passed through the barrier comes from non-equilibrium injection (tunneling).
+\end{defi}
+\begin{remarks}
+If the density of states for the probe (metal) is slowly varying, the differential conductance $\frac{dI}{dV}$ is proportional to the DoS of the sample at the bias $eV$ above the chemical potential $\mu_2$.
+\end{remarks}
+\begin{prop}
+With the metal/probe (1) and sample (2) maintained at different electrical potentials separated by a bias voltage, the current through the junction is
+$$I\propto\int_{\mu+eV}^\mu g_1(\omega)g_2(\omega)T(\omega)d\omega$$
+where $T(\omega)$ is the transmission through the barrier for an electron of $\hbar\omega$, and $g_{1,2}$ are the densities of states. 
+\end{prop}
+\begin{remarks}\leavevmode
+\begin{enumerate}
+    \item If the barrier is very high so $T(\omega)$ is not a strong function of energy and if the density of states in the contact $g_1\sim$const. the energy dependence comes from the density of states inside the sample $g_2$.
+    \item The differential conductivity is proportional to the density of states in the sample $\frac{dI}{dV}\propto g_2(\mu+eV)$.
+    \item Difficult to maintain large biases so most experiments are limited to probing electronic structure within a volt or so of the Fermi energy.
+\end{enumerate}
+\end{remarks}
+\begin{eg}[Scanning tunnelling microscopy]
+STM uses a sharp metal tip positioned by 3 piezoelectric transducers with vacuum as the tunnel barrier. The tunnelling probability is an exponential function of the barrier thickness. High spatial resolution is possible (0.1 nm lateral and 0.01 nm depth). Individual atoms can be imaged and manipulated. On applying bias to sample, a tunnel current is measured. The current is converted to a voltage and fed back to the $z$-piezo controller to keep the current constant. $z$-piezo voltage gives surface topography when scanned. STM may also be used to position single atoms.
+\end{eg}
+\subsubsection{Cyclotron resonance}
+Using millimetre waves or far infrared radiation, we may excite transitions between landau levels, allowing us to measure cyclotron resonance frequency and hence effective masses.
+\begin{eg}
+Measurements are usually made in transmission, either by fixing the magnetic field and varying the energy of the radiation or using a fixed frequency source such as a far infrared laser and sweeping the magnetic field detecting the radiation with a bolometre.\\[5pt]
+The linewidth of the resonance gives information about the scattering rate. In lightly doped samples, carriers must be excited into bands by raising the temperature or illuminating the samples with above bandgap radiation. For semiconductor samples which have much lower carrier density than metals, the radiation can easily penetrate samples.
+\end{eg}
+\begin{eg}
+Consider absorption by cyclotron resonance in a single crystal of Ge at 4K. Electrons and holes present because of above bandgap illumination. Resonance due to light and heavy holes visible as are three electron resonances, whihch occur because the anisotropic band minima lie along [111] axes and the static magnetic field makes three different angles with these 4 axes.
+\end{eg}
+\newpage
+\section{Semiconductors}
+\subsection{Intrinsic semiconductors}
+\begin{defi}[Semiconductors]
+In semiconductors, the energy gap is small enough so thermal excitation of the carriers across the gap is important. 
+\end{defi}
+\begin{prop}[Law of mass action]
+\begin{equation}
+    np=n_c(T)n_v(T)e^{-E_g/k_BT},\quad E_g=E_c-E_v\label{np}
+\end{equation}
+and independent of $\mu$.
+\end{prop}
+\begin{proof}
+The conduction and the valence band dispersions are given by
+$$E_c(k)+E_c+\frac{\hbar^2k^2}{2m_e^*},\quad E_v(k)=E_v-\frac{\hbar^2k^2}{2m_h^*},\quad n_c(T)=2\bigg(\frac{m_e^*k_BT}{2\pi\hbar^2}\bigg)^{3/2},~n_v(T)=2\bigg(\frac{m_h^*k_BT}{2\pi\hbar^2}\bigg)^{3/2}$$
+The density of states for the conduction and valence band respectively are
+$$g_c(E)=\frac{1}{2\pi^2}\bigg(\frac{2m_e^*}{\hbar^2}\bigg)^{3/2}\sqrt{E-E_c},\quad g_h(E)=\frac{1}{2\pi^2}\bigg(\frac{2m_h^*}{\hbar^2}\bigg)^{3/2}\sqrt{E_v-E}$$
+When the chemical potential $\mu$ is known, we can calculate the carrier density via $\int g(E)f(E)dE$, where $f(E)$ is the Fermi function $f(E)=\frac{1}{e^{(E-\mu)/k_BT}+1}\approx e^{-(E-\mu)/k_BT}$. The approximation is valid for $E-\mu>>k_BT$ - a non-degenerate gas. Hence,
+$$n\approx\frac{1}{2\pi^2}\bigg(\frac{2m_e^*}{\hbar^2}\bigg)^{3/2}\int_{E_c}^\infty\sqrt{E-E_c}e^{-(E-\mu)/k_BT}dE=2\bigg(\frac{m_e^*k_BT}{2\pi\hbar^2}\bigg)^{3/2}e^{-(E_c-\mu)/k_BT}$$
+Similarly, $p=2\bigg(\frac{m_h^*k_BT}{2\pi\hbar^2}\bigg)^{3/2}e^{-(\mu-E_v)/k_BT}$. Result follows.
+\end{proof}
+\begin{remarks}\leavevmode
+\begin{enumerate}
+\item We have nowhere assumed that the material is intrinsic and the result holds in the presence of impurities and dopants. The only assumption made is that the distance of the Fermi level from the edge of both bands is large in comparison to $k_BT$.
+\item $np$ is constant at a given temperature. Suppose the equilibrium population of electrons and holes is maintained by blackbody radiation. The photons generate electron-hole pairs at a rate $A(T)$ while $B(T)np$ is the rate of recombination $e+h=$ photon, then
+$$\frac{dn}{dt}=A(T)-B(T)np=\frac{dp}{dt}$$
+In equilibrium, $\frac{dn}{dt}=\frac{dp}{dt}=0$, hence $np=A(T)/B(T)$ which is a constant at a given temperature $T$.
+\item Since $np$ is constant at a given temperature, the introduction of a small amount of a suitable impurity to increase $n$ will decrease $p$. This is called compensation.
+\end{enumerate}
+\end{remarks}
+\begin{cor}
+\begin{equation}
+    \mu=\frac{1}{2}E_g+\frac{3}{4}k_BT\ln\frac{m_h^*}{m_e^*}\label{musemicon}
+\end{equation}
+\end{cor}
+\begin{proof}
+In an intrinsic semiconductor, the number of electrons equals the number of holes, i.e. $n_i=p_i=(n_c(T)p_v(T))^{1/2}e^{-E_g/2k_BT}$. Set $n=p$:
+$$e^{2\mu/k_BT}=(m_h^*/m_e^*)^{3/2}e^{E_g/k_BT}\implies\mu=\frac{1}{2}E_g+\frac{3}{4}k_BT\ln\frac{m_h^*}{m_e^*}$$
+which gives the position of the chemical potential.
+\end{proof}
+\begin{remarks}
+The intrinsic carrier concentration depends exponentially on $E_g/2k_BT$ and not $E_g/k_BT$ because the creation of an electron also creates a hole.
+\end{remarks}
+\begin{eg}
+In Si and Ge, two bands converge at the valence band maximum in the Brillouin zone centre - heavy- and light-hole bands. The flatter one has a larger $1/(d^2E/dk^2)$. The heavy holes tend to dominate the properties of the valence band extremum. Heavier effective mass means their density of states will be much larger. Just below the valence band maximu, there is a third band - the spin-orbit split-off band.
+\end{eg}
+\subsection{Doped semiconductors}
+\begin{defi}[Doping]
+Carries can be created in semiconductors by adding impurity atoms.
+\end{defi}
+\begin{prop}
+The electron contributed by a Group V impurity, readily donates to the conduction band.
+\end{prop}
+\begin{proof}
+Consider a Group V impurity to a Silicon lattice. The impurity has an additional positive charge in the nucleus and contributes an additional electron. Suppose the electron wanders away from the impurity site, it will experience an attractive force from the impurity. The donor energy levels can be calculated as for a Hydrogen atom. The Hydrogen-like bound states are referenced to the bottom of the conduction band, because the electron unbinds from the donor atom by occupying a conduction band state. Take into account the influence of the surrounding material by making two corrections:
+\begin{enumerate}
+    \item The Coulomb potential is screened by the dielectric constant, so it is much weaker than in free space.
+    \item Much smaller effective mass.
+\end{enumerate}
+The net effect is a binding energy much smaller than the bandgap.
+\end{proof}
+\begin{eg}
+For GaAs, we have $m_e^*=0.067m_e$ and $\varepsilon=13.1$. The binding energy for the 1s state is
+$$\Delta_d=\frac{e^4m_e^*}{2(4\pi\varepsilon\varepsilon_0\hbar)^2}=\frac{m_e^*/m_e}{\varepsilon^2}(13.6\text{eV})=5.3\text{meV}<1.4\text{eV}$$
+This energy scale $k_BT=\Delta$ corresponds to a temperature of 50 K. Hence, Si donors in GaAs will be ionised at room temperature.
+\end{eg}
+\begin{remarks}
+For a Group III dopant, the impurity is an acceptor dopant, i.e . positively charged hole encircling a negatively charged nucleus. Again, the hydrogenic binding energy is calculated in the same way as for donors - taking into account the hole effective mass. Ioning an acceptor atom absorbs an electron from the valence band creating a hole in the valence band.
+\end{remarks}
+\begin{defi}[n-, p-type]
+If donors dominate, the carriers are mostly electrons and the material is said to be n-type. If acceptors dominate, the carriers are mostly holes and the material is said to be p-type.
+\end{defi}
+\begin{remarks}\leavevmode
+\begin{enumerate}
+\item Experimentally, the different carrier regimes may be distinguished by measuring the Hall effect. The sign of the Hall coefficient depends on the carrier type.
+\item As long as the number of donors/acceptors is low enough so the chemical potential lies in the bandgap then the law of mass action holds. Given the densities of ionized donors and acceptors $N_D$, $N_A$, we can use
+$$np\approx 4\bigg(\frac{k_BT}{2\pi\hbar^2}\bigg)^3(m_e^*m_h^*)^{3/2}e^{-E_g/k_BT}$$
+and the conservation law $n-p=N_D-N_A$, to find the values for $n$, $p$ if we know the effective masses and the bandgap. The presence of donors can be compensated by acceptors - compensation.
+\end{enumerate}
+\end{remarks}
+\newpage
+\begin{eg}[Impurity ionization]\leavevmode
+\begin{enumerate}
+    \item At $T<100$ K, the extrinsic electrons freeze out onto the donors, the gradient depends on the donor ionization energy.
+    \item For 150 K< $T$< 300 K, all of the donors are ionized - the saturation range (flat), $n$ is constant.
+    \item For $T>500$ K, the intrinsic contribution to $n$ becomes larger than the extrinsic contribution. The gradient depends on the main bandgap.
+\end{enumerate}
+\end{eg}
+\begin{eg}
+For Silicon, the net donor density is $N_D-N_A=10^{15}$ cm$^{-3}$. The intrinsic contribution $n_i$ is around $3\times10^9$ cm$^{-3}$ at room temperature, i.e. much smaller.
+\end{eg}
+\begin{defi}[Electrical conductivity and mobility]
+The electrical conductivity of a semiconductor is a sum of contributions from all carrier types, usually electrons and heavy holes, $\sigma=ne\mu_e+pe\mu_{hh}$. The mobilities, in terms of scattering times, are $\mu_e=e\tau_e/m_e^*$ and $\mu_{hh}=e\tau_{hh}/m_{hh}^*$.
+\end{defi}
+\begin{eg}
+The temperature dependency of the electrical conductivity is determined by convolutions of the temperature dependeces of the carrier concentrations and scattering times. There are two important types of scattering:
+\begin{enumerate}
+    \item Impurity scattering is similar to Rutherford scattering. The scattering cross-section varies as $E^{-2}$ and since in the non-degenerate case $E\sim k_BT$ the cross-section varies as $T^{-2}$ and the mean free path as $\lambda\propto T^2$. The carrier speed $v\propto E^{1/2}\propto T^{1/2}$, hence scattering time $\tau_{\text{imp}}=\lambda/v\propto T^{3/2}$.
+    \item Phonon scattering with $T\sim\theta_D$ - the number of phonons is $\propto T$ so $\lambda\propto T^{-1}$, and with $v\propto E^{1/2}\propto T^{1/2}$, we get $\tau_{\text{pho}}=\lambda/v\propto T^{-3/2}$.
+\end{enumerate}
+As a consequence, impurity scattering dominates the mobility at low $T$ and phonon scattering at high $T$ with a peak in mobility for intermediate $T$. Experimentally, high $T$ close to predicted variation for phonon scattering. At low $T$, faster drop off than expected, possibly due to metal-insulator transition.
+\end{eg}
+\begin{prop}[Hall effect with two carrier types]
+\begin{equation}
+    R_H=-\frac{n\mu_e^2-p\mu_h^2}{e(n\mu_e+p\mu_h)^2}\label{RH}
+\end{equation}
+\end{prop}
+\begin{proof}
+From the Drude model, we have
+$$\frac{d\mathbf{j}}{dt}=-\frac{\mathbf{j}}{\tau}+\frac{ne^2}{m}(\mathbf{E}+\mathbf{v}\times\mathbf{B})$$
+In the steady state, when both holes and electrons are present, we have
+$$\mathbf{j}=ne\mu_e(\mathbf{E}+\mathbf{v_e}\times\mathbf{B})+pe\mu_h(\mathbf{E}+\mathbf{v_h}\times\mathbf{B})$$
+Assuming current is flowing in the $x$-direction, and current in the $y$-direction is zero. $B$ is in the $z$-direction. $v_{xe}, v_{xh}$ are opposite signs and $\mu=v/E$.
+$$j_x=eE_x(n\mu_e+p\mu_h),~0=eE_y(n\mu_e+p\mu_h)-eB(n\mu_ev_{ex}+p\mu_hv_{hx})\implies 0=eE_y(n\mu_e+p\mu_h)+eBE_x(n\mu_e^2-p\mu_h^2)$$
+Eliminating $E_x$, we get
+$$E_y=-\frac{j_xB(n\mu_e^2-p\mu_h^2)}{e(n\mu_e+p\mu_h)^2}\implies R_H=\frac{E_y}{j_xB}=-\frac{(n\mu_e^2-p\mu_h^2)}{e(n\mu_e+p\mu_h)^2}$$
+\end{proof}
+\begin{eg}
+A minority carrier can determine the Hall coefficient sign if the mobility is high enough. GaAs has $\mu_e=8800$ cm$^2$V$^{-1}$s$^{-1}$ and $\mu_h=400$ cm$^2$V$^{-1}$s$^{-1}$ at room temperature so electrons are likely to dominate.
+\end{eg}
+\begin{eg}
+The ratio of mobilities in InSb is $\mu_e/\mu_h\sim 100$. At high $T$, InSb is in the intrinsic regime, electrons dominate $R_H$ and the slope of the Hall coefficient can be used to determine the bandgap. 
+\end{eg}
+\newpage
+\subsection{Semiconductor devices}
+We consider the general properties of surfaces and interfaces between materials with applications to semiconductor devices. We use the semiclassical approximation, treating electrons as classical particles with Hamiltonian $H=E_n(\mathbf{k})-e\phi(\mathbf{r})$, momentum $\mathbf{p}=\hbar\mathbf{k}$ and a spatially varying potential $\phi(\mathbf{r})$. This potential arises from external applied fields, charges induced by doping and changes in the material composition. 
+\begin{defi}[Work function]
+For an isolated solid in equilibrium, the energy difference between the chemical potential, $\mu$ and the vacuum level is the work function $\Phi$ - the energy required to remove an electron from the Fermi level and place it in a state of zero kinetic energy in free space. 
+\end{defi}
+Two different isolated materials with different $\Phi$ will have different $\mu$. When placed in contact their chemical potentials must equalize. Electrons flow to the more electronegative material, its potential changes and an overall balance will be established. In general, there will be internal inhomogeneous electric fields.
+\subsubsection{Metal-semiconductor contact}
+Consider the following process for ideal metal in contact with a (w.l.o.g. n-type) semiconductor:
+\begin{enumerate}
+    \item metal and semiconductor not in contact, i.e. in equilibrium with vacuum level.
+    \item they are placed in contact: electrons transferred from semiconductor to metal, producing electric potential $\phi(x)$ which eventually equilibrates so $\mu$ is a constant over whole system. 
+    \item draw energy level diagram relative to constant chemical potential. The semiconductor band bends upwards, the donor levels emptied of electrons, leaving positively charged depletion region and Schottky barrier $\Phi_b$.
+\end{enumerate}
+\begin{defi}[Electrochemical potential]
+$\mu+e\phi(x)$ is the electrochemical potential.
+\end{defi}
+\begin{defi}[Schottky barrier]
+The Schottky barrier refers to the potential between the metal and semiconductor, at the contact, which inhibits current flow. An electron must either tunnel through barrier or be thermally excited over it (thermionic emission).
+\end{defi}
+\begin{eg}[Rectifier]
+When a large enough bias is applied, the junction may act as a rectifier. 
+\begin{itemize}
+\item Applying a positive bias voltage to the metal relative to the semiconductor lowers the barrier for electrons to enter the metal. The bands can continue to bend and eventually tip the electron bands so much that the barrier disappears. The current grows rapidly as the positive bias increases.
+\item If the metal bias is at a negative voltage relative to the semiconductor, the depleted region grows in width and the current remains small.
+\end{itemize}
+\end{eg}
+\subsubsection{PN junction}
+\begin{defi}[pn junction]
+A p-n junction is formed by inhomogeneous doping when a layer of $n$-type material is placed next to a $p$-type material. Inside $n$-type and $p$-type respectively, $\mu$ is just below the bottom of the conduction band and above the top of the valence band respectively.
+\end{defi}
+By joining the two semiconductors, there is a step in $\mu$. The current flows because of the chemical potential gradient. Electrons from n-side fill holes in the p-side. No mobile charges left in depletion region around the junction.
+\begin{defi}[Depletion region]
+Depletion region occurs at the interface of the pn junction where electrons (majority carriers of n type) of the n-type recombines with the holes (majority carriers of p type), leaving behind an electrically neutral, non-conducting region. The portion of the depletion region in the n-type and p-type respectively is positively $eN_d$and negatively charged $-eN_a$ (due to the dopants carrying one more and one less positive charge respectively, which they are now ionized). By charge neutrality, $N_aw_p=N_dw_n$.
+\end{defi}
+The mismatch in $\mu$ causes charge transfer across junction building contact potential, resulting in band bending $E\rightarrow E-e\phi(z)$ until $\mu$ is equal on both sides (similar to metal-semiconductor contact). Charge transfer results in space charge, maximum charge density given by the dopant concentration. The space charge causes in-built junction field $E_j$ and contact potential $\phi_j=(\mu_n-\mu_p)/e\approx E_g/e$ which builds until the charge transfer stops.
+\begin{remarks}\leavevmode
+\begin{enumerate}
+    \item When the donor or acceptor levels pass through $\mu$ levels, they are ionized and annihilate. The impurity levels are now charged.
+    \item The potential self consistently determines charge flow and depletion region width.
+\end{enumerate}
+\end{remarks}
+\begin{defi}[Recombination/diffusion current]
+The majority carriers can diffuse from either end to recombine at the other end. They do so by climbing a potential barrier. The recombination current is $J_{\text{rec}}=J_0e^{-e\phi_j/k_BT}$.
+\end{defi}
+\begin{defi}[Drift/generation current]
+The minority carriers that are being thermally generated ($np=n_i^2$), drift across the junction under the influence of the in-built field. This current $J_{\text{gen}}$ depends on the temperature, details of bandstructure and doping.
+\end{defi}
+\begin{remarks}
+The hole recombination and electron recombination currents are in the opposite direction, but the currents add. At equilibrium, $J_{\text{tot}}=J_{\text{rec}}-J_{\text{gen}}=0$. The bias voltage $V$ (defined positive on the p-side) modifies the effective junction potential $\phi_j^{\text{eff}}=\phi_j-V$. This changes the recombination current (since the barrier height is changed) but leaves the generation current unchanged.
+\end{remarks}
+\begin{prop}
+In forward bias, the total current by either type of charge carrier is
+\begin{equation}
+    J_{\text{tot}}=J_{\text{gen}}(e^{eV/k_BT}-1)\label{voltagebiased}
+\end{equation}
+\end{prop}
+\begin{proof}
+  At zero bias and at equilibrium.  $J_{\text{rec}}=J_{\text{gen}}$. In the presence of forward bias, $J_{\text{rec}}=J_{\text{gen}}e^{eV/k_BT}$, the recombination current outstrips the generation current exponentially giving diode action. In total,
+  $$J_{\text{tot}}=J_{\text{rec}}-J_{\text{gen}}=J_{\text{gen}}e^{eV/k_BT}-J_{\text{gen}}=J_{\text{gen}}(e^{eV/k_BT}-1)$$
+\end{proof}
+\begin{remarks}\leavevmode
+\begin{enumerate}
+\item In reverse bias, $J_{\text{rec}}\rightarrow 0\implies J_{\text{tot}}\rightarrow-J_{\text{gen}}$, i.e. current saturates at low level. 
+\item The diode equation is a sum of hole and electron currents $I=I_{\text{sat}}(e^{eV/k_BT}-1)$. The saturation current is 
+$$I_{\text{sat}}=J_{\text{gen}}^{(h)}+J_{\text{gen}}^{(e)}\propto n_i^2\propto e^{-E_g/k_BT}$$
+\item When reverse bias gets too large, reverse breakdown occurs. Majority carriers tunnell across the depletion zone.
+\end{enumerate}
+\end{remarks}
+\begin{eg}[Light-emitting diodes]
+A current is injected into a p-n diode in a non-equilibrium situation where electron and hole chemical potentials differ by a large bias potential. Electrons are injected from n-side to p-side of junction and holes in the reverse direction. The recombination of $e^-$-$h^+$ pair occurs with emission of a photon with energy close to the bandgap. T
+\end{eg}
+\begin{remarks}\leavevmode
+\begin{enumerate}
+    \item Direct bandgap materials is used for LED, otherwise inefficient.
+    \item LED in the visible spectrum can be 6 times more efficient than incandescent bulbs.
+    \item Nobel prize in 2014 awarded for the development of efficient blue GaN LEDs.
+    \item In organic LEDs, the electroluminescent layer is a film of organic semiconductor. It works without back light and can be thinner and lighter than an LCD and achieve a greater contrast ratio and wider viewing angle, can be deposited on flexible substrates.
+\end{enumerate}
+\end{remarks}
+\begin{eg}[Photovolatic solar cell]
+When the pn junction is illuminated, each photon generates an electron-hole pair. The pairs generated away from junction will recombine rapidly while pairs generated near the junction is separated by in-built electric field. The junction field separates the electrons and holes, flowing into the n-side and p-side respectively. This is equivalent to increasing the generation current which flows in the reverse direction (from n to p). Separation of charges across the depletion region adds an extra dipole to the system, generating an overall electrical bias. Induced voltage is in the forward direction, opposite in sign to the built in potential.
+\end{eg}
+\begin{eg}
+We model the operation of a photovolatic solar cell as a current source in parallel with a diode. The current delivered $I_{\text{ph}}$ depends on the amount of light falling on the junction area. Consider the IV characteristics. For zero load resistance (short circuit, $I_{\text{load}}=I_{\text{ph}}$ but $V=0$) and infinite load resistance ($I_{\text{load}}=0$) so no power is extracted. The upper limit is given by the bandgap $E_g$. If the open circuit voltage $V_d$ exceeds $\phi_j\sim E_g/e$, then the in-built junction field vanishes and photogenerated carriers no longer swept out of the junction area. The maximum power extracted for an ideally chosen load resistance is determined by $I_{\text{ph}}E_g/e$, i.e. amount of power that can be extracted is limited by the bandgap and photocurrent.
+\end{eg}
+\begin{remarks}[Shockley-Queisser limit]
+Photons can only be captured if the bandgap is lower than the photon energy. The power extracted depends on the bandgap. Excited carriers in excited states well away from band edges will lose energy by decaying to lower lying states before leaving the device. The ratio of the energy extracted from sunlight to the total energy incident on the device, i.e.
+$$\frac{\int_{E_g}^\infty I(\omega)E_gd\omega}{\int_0^\infty I(\omega)\hbar\omega d\omega}$$
+can be optimized as a function of $E_g$, where $I(\omega)$ is the spectral intensity. When combined with other limitations, the optimum efficiency of a single junction solar cell is 33 percent for a bandgap of 1.2 eV.
+\end{remarks}
+\subsubsection{Field effect transistor (FET)}
+The principle of operation  of FETs is based on the ability to manipulate the carrier density in a channel between two electrodes (source and drain) via a controlling voltage applied to a third electrode (the gate). There are two types of FETs:
+\begin{enumerate}
+    \item junction-based FETs (JFET) which uses p-n junctions to control the width of the conducting channel
+    \item FETs in which the gate is separated from the rest of the device by an insulating layer, the metal-oxide semiconductor FET (MOSFET).
+\end{enumerate}
+\begin{eg}[JFET]
+Consider a n-type JFET where the major region between the source and drain is n-type. p-type regions are added between the source and drain contacts. They are connected to gate electrodes to control the current flow between source and drain. At the junction between p-type and n-type regions of the device, depletion zones form and conducting widht of channel between source and drain is reduced.\\[5pt]
+By applying a voltage to the gate electrodes, depletion zone width can be controlled, altering the width of the conducting channel. Positive gate voltage reduces the size of the depletion zone, and increases the current in the conducting channel. Negative gate voltage widens the depletion zone and reduces the current.\\[5pt]
+With increasing drain-source voltage $V_{\text{DS}}$, the drain-source current $I_D$ rises roughly linearly, controlled by the gate-source voltage $V_{\text{GS}}$. Increasing $V_{\text{DS}}$ causes the depletion regions to grow until they meet.\\[5pt]
+In this saturation region, any further increase in $V_{\text{DS}}$ is counterbalanced by an increase in the depletion region towards the drain. The effective increase in channel resistance prevents any increase in $I_D$ as $V_{\text{DS}}$ increases. The value of $V_{\text{DS}}$ that limits the current is called the pinch-off voltage $V_P$. If $V_{\text{DS}}$ is too high, we enter a breakdown region and $I_D$ increases rapidly. 
+\end{eg}
+\newpage
+\begin{eg}[MOSFET]
+No current flow from the gate electrode due to the extremely high input impedance. Consider a n-channel MOSFET where substrate is p-type while the source and drain is n-type. Applying a positive voltage to the gate pulls electrons into the depleted zone and establishes a conducting channel between source and drain. The two principles of operation:
+\begin{enumerate}
+    \item By changing gate voltage, depleted regions between source and drain electrodes can be filled with carriers or depleted of carriers. Allow variation of the resistance of the source-drain channel. 
+    \item Pinch-off occurs near the drain electrode, causing the source-drain current to saturate making the device useful as an amplifier.
+\end{enumerate}
+\begin{itemize}
+    \item In enhancement mode MOSFET, positive gate voltage pulls minority carriers towards the surface, forming high conductivity inversion layer channel.
+    \item In depletion mode MOSFET, negative gate voltage depletes channel, increasing resistance. Positive voltage enhances channel and reduces resistance.
+\end{itemize}
+Pinch-off occurs at high source-drain voltage $V_{\text{DS}}$. 
+\end{eg}
+\begin{eg}[Inversion layer in MOSFET]
+Applying a positive voltage to the gate electrode creates an electric field across the insulating oxide layer. This field penetrates some distance into the semiconductor. This field sets up a varying potential $\phi(z)$ close to the surface of the semiconductor. If the resulting band-bending at the semiconductor/oxide interface becomes larger than the bandgap $E_g$, the conduction band edge falls below the chemical potential at the surface, causing an inversion layer to form.\\[5pt]
+Width of inversion layer can be controlled by gate voltage but is narrow enough so quantization effects are observed.
+\end{eg}
+\subsubsection{Compound semiconductor heterostructures}
+\begin{defi}[Bandstructure engineering]
+The spatial control of band structure using different materials, can result in the confinement of electrons and/or holes to 2D,1D or 0D. Relies on the development of advanced crystal growth techniques such as molecular beam epitaxy (MBE) and metal organic chemical vapour deposition (MOCVD) to grow near perfect crystals on single crystal substrates at growth rates around 1 monolayer/s. Electron beam lithography is used to produce laterally patterned structures on 100nm scale. 
+\end{defi}
+\begin{defi}[Reflection high energy electron diffraction (RHEED) technique]
+RHEED technique used to measure surface structure of growing crystal. RHEED oscillations: observation of semiconductor growth monolayer by monolayer using measurement of intensity of specularly reflected electrons.
+\end{defi}
+\subsection{Quantum Hall effect in 2D electron gas}
+\begin{defi}[2DEG]
+In the 2D electron gas, the number of occupied states between $k$ and $k+\delta k$ is
+$$\delta n=\frac{2\pi k\delta k}{(2\pi/L)^2}=\frac{kL^2\delta k}{2\pi}$$
+giving a density of states to be
+$$g(E)=\frac{2}{L^2}\frac{\partial n}{\partial E}=\frac{m}{\pi\hbar^2}$$
+independent of $E$.
+\end{defi}
+\begin{defi}[Landau levels]
+Apply a $B$ field in the $z$-direction to the 2DEG. The constant DoS splits into pairs of Landau levels, with difference in average energy of adjacent pairs to be $\Delta E=2\hbar\omega_L$. As field increases highest Landau levels become depopulated one by-one and the electrons distributed to other levels. If occupation of a Landau level per unit area is $n_L$. Taking into account spin degeneracy, the average DoS in presence of a field is $2n_L/2\hbar\omega_L$. Equate this to the DoS at $B=0$, gives $n_L=\frac{eB}{2\pi\hbar}$. If there are filled Landau levels at a field the total density of electrons per unit area is given by $n_e=\frac{\nu eB_1}{2\pi\hbar}$.
+\end{defi}
+\begin{prop}[Shubnikov-de-Haas effect]
+Resistance oscillates with $1/B$.
+\end{prop}
+\begin{proof}
+Suppose there are $\nu$ occupied Landau levels at $B_1$. If the field is increased to $B_2$, the highest Landau level is depopulated, the electrons are re-distributed among $\nu-1$ levels, then
+$$n_e=\frac{e}{2\pi\hbar}\bigg(\frac{1}{B_1}-\frac{1}{B_2}\bigg)^{-1}$$
+At low temperatures where the depopulation of the Landau levels is seen in the resistance of a high mobility 2D electron gas. When the Fermi level is between Landau levels, it behaves like an insulator; if in a Landau level, behaves like a conductor.
+\end{proof}
+\begin{defi}[Quantum Hall effect]
+In high mobility 2D electron gas, Hall voltage deviates from straight line forming plateaux when there are full Landau levels - where:
+$$\frac{V}{I}=\frac{2\pi\hbar}{e^2}\frac{1}{\nu}$$
+with $\nu$ being the number of filled Landau levels at the plateaux. This effect is very insensitive to sample
+disorder.
+\end{defi}
+\begin{remarks}
+ In a high magnetic field, electrons will move classically in circles and ‘skip’ along the edge of the sample. In the Landau level picture, the levels rise at edges of sample, forming edge states. With $\nu$ full Landau levels, only $\nu$ edge states contribute to conduction. Regard edge states as 1D conductors, with conductance
+ $$g=\frac{\partial I}{\partial V}=\nu\frac{e^2}{2\pi\hbar}\implies\frac{V_1-V_2}{I_1-I_2}=\frac{2\pi\hbar}{\nu e^2}$$
+\end{remarks}
+\begin{defi}[Fractional quantum Hall effect]
+Observed in very high mobility 2D electron and hole gases, this is due to the collective behaviour of the electrons. Vortices (flux quanta) captured by each electrons forms quasi-particle. 
+\end{defi}
+\subsection{Quantized conductance in 1D}
+By surface 'gating' fingers with negative (-1V) voltage with respect to electron gas, we can create a 1D potential well. By making the gate voltage more negative, the well width is decreased and level spaciing increased, depopulating energy levels one by one. Assuming $T\sim 0$ K, the current is
+$$I=\int_{\mu_b}^{\mu_f}ev_g\frac{dn}{dE}dE=\frac{2e}{2\pi\hbar}(\mu_f-\mu_b)=\frac{2e^2}{h}\Delta V$$
+For $\nu$ filled levels, the conductance is $\nu 2e^2/h$.
+\newpage
+\subsection{Device Concepts}
+\subsubsection*{Single electron pumping}
+\begin{defi}[Single electron pump]
+A single electron pump is a device that transfers one electron per cycle at a well known frequency, and can be used to generate a quantized current. Uses a quantum dot defined by gates in a GaAs/AlGaAs 2DEG. The electron pumping mechanism:
+\begin{enumerate}
+    \item electron capture from Fermi sea
+    \item back-tunnelling
+    \item single electron in dot
+    \item ejection to drain
+\end{enumerate}
+Quantized energy levels in dot implies large separation of tunnelling rates back to source reservoir. 
+\end{defi}
+\subsubsection*{Single photon source}
+Recent developments in semiconductor growth technology have enabled the production of single photon sources based on self-assembled InAs quantum dots. InAs has a lattice constant 7\% greater than GaAs. InAs grown on GaAs wets surface and forms 3D islands. Burying islands in GaAs changes properties due to interdiffusion. Dot diameter 10-25nm, height 4-8nm, density 10$^9$-10$^{11}$cm$^{-2}$. Dots coherently strained – display good photoluminescence and electrical properties. Dots tend to store electrons and holes due to narrow InAs bandgap.
+\begin{remarks}\leavevmode
+\begin{enumerate}
+    \item Near ideal diode IV characteristics with turn on at 1.5V.
+    \item Luminescence emitted due to one electron and one hole recombining in single dot giving out photon with well defined energy.
+    \item Emission from both ‘exciton’ (1 electron and 1 hole) or ‘biexciton’ (2 electrons and 2 holes) states.
+\end{enumerate}
+\end{remarks}
+\subsubsection*{Quantum Cascade Laser}
+\begin{defi}[Quantum Cascade Laser]
+The quantum cascade laser makes use of intersubband transitions in quantum wells. By electrically biasing the structure, electron can tunnel from one well to the next. This is a 4-level laser, with the lowest level of one well, forming the upper level of the next. With 80 or more of these quantum wells in a laser each electron causes the emission of 80 photons – highly efficient - in conventional semiconductor (diode) lasers each electron causes emission of 1 photon.
+\end{defi}
+\newpage
+\section{Electronic instabilities and Fermi liquids}
+See Official Supplementary Notes for clear explanation of the topic.
+\end{document}
